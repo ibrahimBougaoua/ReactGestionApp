@@ -6,7 +6,7 @@ export default class User extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant'};
+        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',vd: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -20,22 +20,27 @@ export default class User extends Component {
     
       handleChangeName(event) {
         this.setState({name: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeEmail(event) {
         this.setState({email: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangePassword(event) {
         this.setState({password: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeTelephone(event) {
         this.setState({telephone: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeSexe(event) {
         this.setState({sexe: event.target.options[event.target.selectedIndex].text});
+        this.setState({vd: true});
       }
 
       //handleChangeConfirmePassword(event) {
@@ -44,6 +49,7 @@ export default class User extends Component {
     
       handleChangeRole(event) {
         this.setState({role: event.target.options[event.target.selectedIndex].text});
+        this.setState({vd: true});
       }
 
       handleSubmit(event) {
@@ -94,22 +100,38 @@ return (
                     <div class="form-row">
                         <div className="form-group col-md-6">
                             <label for="name">Name</label>
-                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className="form-control" name="name" required/>
+                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="name" required/>
+                            { this.state.name == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
                         </div>
 
                         <div className="form-group col-md-6">
                             <label for="email">E-Mail Address</label>
-                            <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className="form-control" name="email" required/>
+                            <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" placeholder="exmple@mail.dz" required/>
+                            { this.state.email == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
                         </div>
 
                         <div className="form-group col-md-6">
                             <label for="password">Password</label>
-                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" name="password" required/>
+                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="password" placeholder="password" required/>
+                            { this.state.password == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
                         </div>
 
                         <div className="form-group col-md-6">
                             <label for="telephone">Telephone</label>
-                            <input id="telephone" type="text" onChange={this.handleChangeTelephone} className="form-control" name="telephone" value={this.state.telephone} />
+                            <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone} placeholder="0123456789" required/>
+                            { this.state.telephone == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
                         </div>
 
                         <div className="form-group col-md-6">
