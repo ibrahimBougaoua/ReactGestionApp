@@ -164,14 +164,22 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" onChange={this.handleChangeName} className="form-control" name="name" value={this.state.name} required/>
+                                <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
+                                { this.state.name == ''
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }
                             </div>
                         </div>
 
 <div className="form-group row">
     <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
     <div className="col-md-8">
-        <input id="email" type="email" onChange={this.handleChangeEmail} className="form-control" name="email" value={this.state.email} required/>
+        <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.email == '' ? 'form-control is-invalid' : "form-control is-valid" }  name="email" value={this.state.email} required/>
+        { this.state.email == ''
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
@@ -185,7 +193,11 @@ return (<div className="container mt-5">
 <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className="form-control" name="telephone" value={this.state.telephone}/>
+        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' ? 'form-control is-invalid' : "form-control is-valid" }  name="telephone" value={this.state.telephone}/>
+        { this.state.c == ''
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
