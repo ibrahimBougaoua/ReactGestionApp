@@ -6,7 +6,7 @@ export default class User extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',vd: false};
+        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',vd: false,loading: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -59,6 +59,7 @@ export default class User extends Component {
         console.log('Sexe : ' + this.state.sexe);
         console.log('Telephone : ' + this.state.telephone);
         console.log('Role : ' + this.state.role);
+        this.setState({loading: true});
         event.preventDefault();
       }
 
@@ -154,9 +155,10 @@ return (
 </div>
 
                         <div className="form-group col-md-6 mb-0">
-                            <button type="submit" className="btn btn-outline-info" onClick={handleCreate}>
-                              Create a new account
-                            </button>
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>created... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Create</button>
+                              }
                         </div>
                       </div>
                     </form>
