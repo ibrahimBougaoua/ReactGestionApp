@@ -35,13 +35,13 @@ const all_data = this.state.allUsers.map((element) =>
 <td key={element['name']}>{element['name']}</td>
 <td key={element['email']}>{element['email']}</td>
 <td key={element['telephone']}>{element['telephone']}</td>
-<td key={element['id']}><Link to={'employee/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'user/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
 
 return (
 <div className="container mt-5">
-<Nav name="all employees" />
+<Nav name="all users" />
     <div className="row">
 <div className="col-md-12">
 <table className="table shadow">

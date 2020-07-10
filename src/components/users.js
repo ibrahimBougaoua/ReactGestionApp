@@ -83,11 +83,11 @@ const handleCreate = () => {
 
 return (
 <div className="container mt-5">
-<Nav name="employees" />
+<Nav name="add new user" />
     <div className="row">
     <div className="col-md-12">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Add a new employee</div>
+                <div className="card-header border-0">Add a new user</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>

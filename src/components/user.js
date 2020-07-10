@@ -152,12 +152,12 @@ const delete_user = () => {
 }
 
 return (<div className="container mt-5">
-    <Nav name="Update employee information" />
+    <Nav name="Update user information" />
     <div className="row">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Update employee information </div>
+                <div className="card-header border-0">Update user information </div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>

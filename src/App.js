@@ -128,7 +128,7 @@ const Logout = () => {
       {
        getRole() == 'adminstrator'
        ? <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New employee</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New User</Link>
          </li>
        : null
       }
@@ -136,7 +136,7 @@ const Logout = () => {
       {
        getRole() == 'adminstrator'
        ? <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/employees"}>All employees</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/users"}>All users</Link>
          </li>
        : null
       }
@@ -210,9 +210,9 @@ const Logout = () => {
         <Route path="/view/single/:id" exact component={View} />
         <Route path="/interventions" exact component={Interventions} />
         <Route path="/intervention/single/:id" exact component={Intervention} />
-        <Route path="/employees" exact component={AllUsers} />
+        <Route path="/users" exact component={AllUsers} />
         <Route path="/new" exact component={NewUser} />
-        <Route path="/employee/single/:id" exact component={User} />
+        <Route path="/user/single/:id" exact component={User} />
         <Route path="/signaler" exact component={Signaler} />
         <Route path="/all" exact component={All} />
         <Route path="/history" exact component={History} />
