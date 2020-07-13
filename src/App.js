@@ -16,6 +16,8 @@ import Signale from "./components/signale";
 import View from "./components/view";
 import Interventions from "./components/interventions";
 import Intervention from "./components/intervention";
+import InterChef from "./components/interchef";
+import InterSingle from "./components/intersingle";
 import NewUser from "./components/users";
 import AllUsers from "./components/allUsers";
 import User from "./components/user";
@@ -96,7 +98,7 @@ const Logout = () => {
       {
        getRole() == 'equipeintervention'
        ? <li className="nav-item">
-           <Link className="btn btn-sm btn-outline-info mr-2" to={"/interventions"}>Interventions</Link>
+           <Link className="btn btn-sm btn-outline-info mr-2" to={"/chef-intervention"}>Interventions</Link>
          </li>
        : null
       }
@@ -118,7 +120,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'
+       getRole() == 'gestionnaire'  || getRole() == 'equipeintervention'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/contact"}>Contact</Link>
         </li>
@@ -218,6 +220,8 @@ const Logout = () => {
         <Route path="/view/single/:id" exact component={View} />
         <Route path="/interventions" exact component={Interventions} />
         <Route path="/intervention/single/:id" exact component={Intervention} />
+        <Route path="/chef-intervention" exact component={InterChef} />
+        <Route path="/chef-intervention/single/:id" exact component={InterSingle} />
         <Route path="/users" exact component={AllUsers} />
         <Route path="/new" exact component={NewUser} />
         <Route path="/user/single/:id" exact component={User} />
