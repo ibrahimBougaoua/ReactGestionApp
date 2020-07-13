@@ -24,8 +24,18 @@ async function all_signalisations() {
 }
 
 async function all_chef() {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+    //console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getChefByID(id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/user/' + id)
       //console.log(response);
       return response;
     } catch (error) {
@@ -47,7 +57,7 @@ export default class Intervention extends Component {
 
 constructor(props) {
     super(props);    
-    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',chef_id: '',dataIntervention: [],select_signalisation: [],all: [],evaluers: [],chefs_ids: [],allChef: []};
+    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',name: '',chef_id: '',dataIntervention: [],select_signalisation: [],all: [],evaluers: [],chefs_ids: [],allChef: [],hasEvaluer: false};
     
     this.handleChangeSignalisation_id = this.handleChangeSignalisation_id.bind(this);
     this.handleChangePrice = this.handleChangePrice.bind(this);
@@ -59,7 +69,7 @@ constructor(props) {
   }
 
   handleChangeSignalisation_id(event) {
-    this.setState({signalisation_id: event.target.value});
+    this.setState({signalisation_id: event.target.options[event.target.selectedIndex].value});
   }
 
   handleChangePrice(event) {
@@ -79,7 +89,7 @@ constructor(props) {
   }
 
   handleChangeChefId(event) {
-    this.setState({chef_id: event.target.options[event.target.selectedIndex].text});
+    this.setState({chef_id: event.target.options[event.target.selectedIndex].value});
   }
 
   handleSubmit(event) {
@@ -119,10 +129,17 @@ constructor(props) {
             });
         });
 
-        evaluer(3).then(response => {
-            this.setState({
-                evaluers: response.data
-            });
+        evaluer(this.props.match.params.id).then(response => {
+            if(response.data != ""){
+              this.setState({
+                hasEvaluer: true
+              });
+              getChefByID(response.data.user_id).then(response => {
+                this.setState({
+                  name: response.data['name']
+                });
+              });
+            }
         });
 
         const ids = [];
@@ -165,7 +182,7 @@ const handleUpdate = () => {
 const handleEvaluer  = () => {
     axios.post('http://127.0.0.1:8000/api/auth/evaluer', {
         user_id	: this.state.chef_id,
-        intervention_id : 3
+        intervention_id : this.props.match.params.id
     }).then(function (response) {
       // setter
       //localStorage.setItem('token', response.data.access_token)
@@ -195,11 +212,11 @@ const delete_intervention = () => {
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
-<option value={element['id']}>{element['id']}</option>
+<option value={element['id']}>{element['desc']}</option>
 );
 
 const fetchChef = this.state.allChef.map((element) =>
-<option value={element['id']}>{element['id']}</option>
+<option value={element['id']}>{element['name']}</option>
 );
 
 return (<div className="container mt-5">
@@ -280,17 +297,21 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="name" className="col-md-2 col-form-label text-md-right">Chefs</label>
                             <div className="col-md-10">
-                            <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>
-                            {fetchChef}
-                            </select>
+                           
+                            { this.state.hasEvaluer
+                              ? <fieldset disabled><select id="disabledSelect" class="form-control"><option>{this.state.name}</option></select></fieldset>
+                              : <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>{fetchChef}</select>
+                            }
+                           
                             </div>
                         </div>
 
                         <div className="form-group row mb-0">
                             <div className="col-md-12 ml-3">
-                                <button type="submit" className="btn btn-outline-info" onClick={handleEvaluer}>
-                                Évaluer
-                                </button>
+                              { this.state.hasEvaluer
+                                ? <button type="submit" className="btn btn-secondary" disabled>Évaluer</button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleEvaluer}>Évaluer</button>
+                              }
                             </div>
                         </div>
                     </form>

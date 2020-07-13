@@ -104,6 +104,14 @@ const Logout = () => {
       {
        getRole() == 'gestionnaire'
        ? <li className="nav-item">
+           <Link className="btn btn-sm btn-outline-info mr-2" to={"/interventions"}>Interventions</Link>
+         </li>
+       : null
+      }
+
+      {
+       getRole() == 'gestionnaire'
+       ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/equipes"}>Equipe</Link>
         </li>
        : null

@@ -108,7 +108,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element['signalisation_id']}>{element['signalisation_id']}</td>
 <td key={element['price']}>{element['price']}</td>
 <td key={element['etat_avancement']}>{element['etat_avancement']}</td>
-<td key={element['id']}><Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'intervention/single/' + element['signalisation_id']} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
 
