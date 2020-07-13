@@ -6,7 +6,7 @@ export default class User extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',vd: false,loading: false};
+        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: '',vd: false,loading: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -39,7 +39,7 @@ export default class User extends Component {
       }
     
       handleChangeSexe(event) {
-        this.setState({sexe: event.target.options[event.target.selectedIndex].text});
+        this.setState({sexe: event.target.options[event.target.selectedIndex].value});
         this.setState({vd: true});
       }
 
@@ -48,7 +48,7 @@ export default class User extends Component {
       //}
     
       handleChangeRole(event) {
-        this.setState({role: event.target.options[event.target.selectedIndex].text});
+        this.setState({role: event.target.options[event.target.selectedIndex].value});
         this.setState({vd: true});
       }
 
@@ -149,8 +149,9 @@ return (
   <option value="adminstrator">Adminstrator</option>
   <option value="gestionnaire">Gestionnaire</option>
   <option value="equipeintervention">équipes d'intervention</option>
-  <option value="etudiant">etudiant</option>
-  <option value="prof">prof</option>
+  <option value="etudiant">Etudiant</option>
+  <option value="prof">Prof</option>
+  <option value="employee">Employee</option>
 </select>
 </div>
 

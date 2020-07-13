@@ -18,14 +18,14 @@ export default class User extends Component {
 
 constructor(props) {
     super(props);
-    this.state = {name: '',email: '',password: '',sex: '',telephone: '',role: 'etudiant',dataUser: [],loading: false};
+    this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',dataUser: [],loading: false};
     
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     //this.handleChangeConfirmePassword = this.handleChangeConfirmePassword.bind(this);
     this.handleChangeTelephone = this.handleChangeTelephone.bind(this);
-    this.handleChangeSex = this.handleChangeSex.bind(this);
+    this.handleChangeSexe = this.handleChangeSexe.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -46,8 +46,8 @@ constructor(props) {
     this.setState({telephone: event.target.value});
   }
 
-  handleChangeSex(event) {
-    this.setState({sex: event.target.value});
+  handleChangeSexe(event) {
+    this.setState({sexe: event.target.options[event.target.selectedIndex].value});
   }
 
   //handleChangeConfirmePassword(event) {
@@ -55,14 +55,14 @@ constructor(props) {
   //}
 
   handleChangeRole(event) {
-    this.setState({role: event.target.options[event.target.selectedIndex].text});
+    this.setState({role: event.target.options[event.target.selectedIndex].value});
   }
 
   handleSubmit(event) {
     console.log('Name : ' + this.state.name);
     console.log('Mail : ' + this.state.email);
     console.log('Role : ' + this.state.role);
-    console.log('Sexe : ' + this.state.sex);
+    console.log('Sexe : ' + this.state.sexe);
     console.log('Telephone : ' + this.state.telephone);
     this.setState({loading: true});
     event.preventDefault();
@@ -83,7 +83,7 @@ constructor(props) {
               role: this.state.dataUser['role']
             });
             this.setState({
-              sex: this.state.dataUser['sexe']
+              sexe: this.state.dataUser['sexe']
             });
             this.setState({
               telephone: this.state.dataUser['telephone']
@@ -101,7 +101,7 @@ if(this.state.password === '') {
         name    : this.state.name,
         email    : this.state.email,
         role    : this.state.role,
-        sexe    : this.state.sex,
+        sexe    : this.state.sexe,
         telephone    : this.state.telephone,
     }).then(function (response) {
       // setter
@@ -121,7 +121,7 @@ if(this.state.password === '') {
         email    : this.state.email,
         password    : this.state.password,
         role    : this.state.role,
-        sexe    : this.state.sex,
+        sexe    : this.state.sexe,
         telephone    : this.state.telephone,
     }).then(function (response) {
       // setter
@@ -206,22 +206,25 @@ return (<div className="container mt-5">
 <div className="form-group row">
         <label for="name" className="col-md-4 col-form-label text-md-right">Sexe</label>
         <div className="col-md-8">
-        {
-        this.state.sex === 'male'
-        ? <select class="custom-select custom-select-sm" name="sexe" value={this.state.sex} onChange={this.handleChangeSex}><option value="male">male</option><option value="female">female</option></select>
-        : <select class="custom-select custom-select-sm" name="sexe" value={this.state.sex} onChange={this.handleChangeSex}><option value="female">female</option><option value="male">male</option></select>
-        }
+
+        <select name="sexe" class="form-control" value={this.state.sexe} onChange={this.handleChangeSexe}>
+                              <option value="male">male</option>
+                              <option value="female">female</option>
+                            </select>
         </div>
 </div>
 
 <div className="form-group row">
         <label for="name" className="col-md-4 col-form-label text-md-right">Role</label>
         <div className="col-md-8">
-        {
-        this.state.role === 'adminstrator'
-        ? <select class="custom-select custom-select-sm" value={this.state.role} onChange={this.handleChangeRole}><option value="adminstrator">adminstrator</option><option value="gestoinnair">gestoinnair</option></select>
-        : <select class="custom-select custom-select-sm" value={this.state.role} onChange={this.handleChangeRole}><option value="gestoinnair">gestoinnair</option><option value="adminstrator">adminstrator</option></select>
-        }
+        <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
+  <option value="adminstrator">Adminstrator</option>
+  <option value="gestionnaire">Gestionnaire</option>
+  <option value="equipeintervention">équipes d'intervention</option>
+  <option value="etudiant">Etudiant</option>
+  <option value="prof">Prof</option>
+  <option value="employee">Employee</option>
+</select>
         </div>
 </div>
 

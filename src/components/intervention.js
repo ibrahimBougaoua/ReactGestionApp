@@ -45,7 +45,7 @@ async function getChefByID(id) {
 
 async function evaluer(intervention_id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/evaluer/' + intervention_id)
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/ifevaluer/' + intervention_id)
       console.log(response);
       return response;
     } catch (error) {
@@ -142,16 +142,6 @@ constructor(props) {
             }
         });
 
-        const ids = [];
-        this.state.evaluers.map((id) =>
-        ids.push(id['user_id'])
-        );
-
-        console.log(this.state.evaluers['user_id']);
-        this.setState({
-            chefs_ids: ids
-        });
-          
       }
 
 render() {

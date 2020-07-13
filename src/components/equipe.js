@@ -4,6 +4,17 @@ import Nav from './nav';
 import { Link } from "react-router-dom";
 
 // handle button click of login form
+async function aaaaaaaaaaaaaaaaaaaa(id) {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/equipemembrebyid/' + id);
+    //console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// handle button click of login form
 async function equipe(id) {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/auth/equipe/' + id);
@@ -35,9 +46,9 @@ async function all_equipes() {
     }
 }
 
-async function all_users() {
+async function all_employee() {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/employee')
     //console.log(response);
     return response;
   } catch (error) {
@@ -70,7 +81,7 @@ export default class Single extends Component {
 constructor(props) {
 
     super(props);
-    this.state = {d_f_equipe: '',mail: '',telephone: '',dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],allMembers: [],getUserMembreByIds: [],dataUser: [],chef: ''};
+    this.state = {d_f_equipe: '',mail: '',telephone: '',dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],allMembers: [],getUserMembreByIds: [],dataUser: [],chef: '',allMembersaaa: []};
 
     this.handleChanged_f_equipe = this.handleChanged_f_equipe.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -102,6 +113,12 @@ constructor(props) {
   }
 
       componentDidMount =()=>{
+        
+        aaaaaaaaaaaaaaaaaaaa(this.props.match.params.id).then(response => {
+          this.setState({
+            allMembersaaa: response.data
+          });
+        });
         equipe(this.props.match.params.id).then(response => {
           this.setState({
             dataEquipe: response.data
@@ -117,7 +134,7 @@ constructor(props) {
                 all: response.data
             });
         });
-        all_users().then(response => {
+        all_employee().then(response => {
           this.setState({
               allUsers: response.data
           });
@@ -126,20 +143,6 @@ constructor(props) {
           this.setState({
               allMembers: response.data
           });
-        });
-        
-        membres().then(response => {
-          let user_data = [];
-          response.data.map((element) =>
-          user(element['user_id']).then(response => {
-            user_data = this.state.dataUser;
-            user_data.push(response.data);
-            // console.log(response.data.name);
-            this.setState({
-              dataUser: user_data
-            })
-          })
-          );
         });
 
       }
@@ -212,13 +215,14 @@ const delete_membre = (id) => {
   });
 }
 
-const all_data = this.state.dataUser.map((element,key) =>
+const all_datas = this.state.allMembersaaa.map((element,key) =>
 <tr>
 <td key={key}>{element.name}</td>
 <td key={key}>{element.email}</td>
-<td key={key}>{element.role}</td>
+<td key={key}>{element.telephone}</td>
+<td key={key}>{element.sexe}</td>
 <td key={key}>{element.created_at}</td>
-<td key={key}><button type="submit" className="btn btn-sm btn-outline-danger" onClick={delete_membre(element.id)}>Delete</button></td>
+<td key={key}><button type="submit" className="btn btn-sm btn-outline-danger" onClick={delete_membre(0)}>Delete</button></td>
 <td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
@@ -232,7 +236,7 @@ return (<div className="container mt-5">
     <div className="row">
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Create Equipe</div>
+                <div className="card-header border-0">Update Equipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -240,7 +244,7 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">d f equipe</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" onChange={this.handleChanged_f_equipe} className="form-control" name="name" value={this.state.dataEquipe['d_f_equipe']} required/>
+                                <input id="name" type="text" onChange={this.handleChanged_f_equipe} className="form-control" name="d_f_equipe" value={this.state.dataEquipe['d_f_equipe']} required/>
                             </div>
                         </div>
 
@@ -313,21 +317,23 @@ return (<div className="container mt-5">
 <div className="row">    
         <div className="col-md-12 mt-4">
     
-        <table className="table shadow">
+<table className="table shadow">
   <thead>
     <tr className="border-top-0">
       <th scope="col">Name</th>
       <th scope="col">E-mail</th>
-      <th scope="col">Role</th>
+      <th scope="col">Telephone</th>
+      <th scope="col">Sexe</th>
       <th scope="col">Created at</th>
-      <th scope="col">Remove</th>
+      <th scope="col">Delete</th>
       <th scope="col">View</th>
     </tr>
   </thead>
   <tbody>
-  {all_data}
+  {all_datas}
   </tbody>
 </table>
+
         </div>
     
     </div>
