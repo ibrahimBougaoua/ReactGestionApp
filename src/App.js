@@ -11,6 +11,7 @@ import Profile from "./components/profile";
 import Equipes from "./components/equipes";
 import Equipe from "./components/equipe";
 import Contact from "./components/contact";
+import Membre from "./components/membre";
 import Signalisations from "./components/signalisations";
 import Signale from "./components/signale";
 import View from "./components/view";
@@ -99,6 +100,14 @@ const Logout = () => {
        getRole() == 'equipeintervention'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/chef-intervention"}>Interventions</Link>
+         </li>
+       : null
+      }
+
+      {
+       getRole() == 'equipeintervention'
+       ? <li className="nav-item">
+           <Link className="btn btn-sm btn-outline-info mr-2" to={"/membre"}>Membres</Link>
          </li>
        : null
       }
@@ -214,6 +223,7 @@ const Logout = () => {
         <Route path="/profile" exact component={Profile} />
         <Route path="/equipes" exact component={Equipes} />
         <Route path="/contact" exact component={Contact} />
+        <Route path="/membre" exact component={Membre} />
         <Route path="/equipe/single/:id" exact component={Equipe} />
         <Route path="/signalisations" exact component={Signalisations} />
         <Route path="/signale/single/:id" exact component={Signale} />
