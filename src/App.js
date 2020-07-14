@@ -25,6 +25,7 @@ import User from "./components/user";
 import Signaler from "./components/signaler";
 import History from "./components/history";
 import All from "./components/all";
+import Comments from "./components/comments";
 import Dashboard from "./components/dashboard";
 
 function getRole() {
@@ -145,6 +146,14 @@ const Logout = () => {
       }
 
       {
+       getRole() == 'gestionnaire'
+       ? <li className="nav-item">
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
+         </li>
+       : null
+      }
+
+      {
        getRole() == 'adminstrator'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New User</Link>
@@ -238,6 +247,7 @@ const Logout = () => {
         <Route path="/signaler" exact component={Signaler} />
         <Route path="/all" exact component={All} />
         <Route path="/history" exact component={History} />
+        <Route path="/comments" exact component={Comments} />
         <Route path="/dashboard" exact component={Dashboard} />
       </Switch>
       </div>
