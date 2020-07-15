@@ -223,8 +223,6 @@ const Logout = () => {
         </div>
       </nav>
       
-      {aboutUs()}
-      
       <div className="container-fluid m-0 p-5">
       <Switch>
         <Route path="/" exact component={Home} />

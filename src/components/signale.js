@@ -295,7 +295,30 @@ return (<div className="container mt-5">
                                 : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
                             }
                             </div>
-                            <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Delete</button>
+                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+                            
+                        
+                            <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalCenterTitle">Delete you'r signalisation</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+      Are you sure ? you'r signalisation will deleted and you can't see any details ! 
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Delete</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+                        
+                        
                         </div>
                     </form>
                 </div>
