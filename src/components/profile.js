@@ -17,24 +17,26 @@ export default class User extends Component {
 
 constructor(props) {
     super(props);
-    this.state = {name: '',email: '',password: '',sex: '',telephone: '',role: 'etudiant',dataUser: [],loading: false};
+    this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: 'etudiant',dataUser: [],loading: false,vd: false};
     
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     //this.handleChangeConfirmePassword = this.handleChangeConfirmePassword.bind(this);
     this.handleChangeTelephone = this.handleChangeTelephone.bind(this);
-    this.handleChangeSex = this.handleChangeSex.bind(this);
+    this.handleChangeSexe = this.handleChangeSexe.bind(this);
     this.handleChangeRole = this.handleChangeRole.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeName(event) {
     this.setState({name: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeEmail(event) {
     this.setState({email: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangePassword(event) {
@@ -43,10 +45,12 @@ constructor(props) {
 
   handleChangeTelephone(event) {
     this.setState({telephone: event.target.value});
+    this.setState({vd: true});
   }
 
-  handleChangeSex(event) {
-    this.setState({sex: event.target.value});
+  handleChangeSexe(event) {
+    this.setState({sexe: event.target.value});
+    this.setState({vd: true});
   }
 
   //handleChangeConfirmePassword(event) {
@@ -82,7 +86,7 @@ constructor(props) {
               role: this.state.dataUser['role']
             });
             this.setState({
-              sex: this.state.dataUser['sexe']
+              sexe: this.state.dataUser['sexe']
             });
             this.setState({
               telephone: this.state.dataUser['telephone']
@@ -100,7 +104,7 @@ if(this.state.password === '') {
         name    : this.state.name,
         email    : this.state.email,
         role    : this.state.role,
-        sexe    : this.state.sex,
+        sexe    : this.state.sexe,
         telephone    : this.state.telephone,
     }).then(function (response) {
       // setter
@@ -120,7 +124,7 @@ if(this.state.password === '') {
         email    : this.state.email,
         password    : this.state.password,
         role    : this.state.role,
-        sexe    : this.state.sex,
+        sexe    : this.state.sexe,
         telephone    : this.state.telephone,
     }).then(function (response) {
       // setter
@@ -166,8 +170,8 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
-                                { this.state.name == ''
+                                <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
+                                { this.state.name == '' && this.state.vd
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
                                 }
@@ -177,8 +181,8 @@ return (<div className="container mt-5">
 <div className="form-group row">
     <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
     <div className="col-md-8">
-        <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.email == '' ? 'form-control is-invalid' : "form-control is-valid" }  name="email" value={this.state.email} required/>
-        { this.state.email == ''
+        <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" }  name="email" value={this.state.email} required/>
+        { this.state.email == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
           : null
         }
@@ -195,8 +199,8 @@ return (<div className="container mt-5">
 <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' ? 'form-control is-invalid' : "form-control is-valid" }  name="telephone" value={this.state.telephone}/>
-        { this.state.c == ''
+        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" }  name="telephone" value={this.state.telephone}/>
+        { this.state.telephone == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
           : null
         }
@@ -208,8 +212,8 @@ return (<div className="container mt-5">
         <div className="col-md-8">
         {
         this.state.sex === 'male'
-        ? <select class="custom-select custom-select-sm" name="sexe" value={this.state.sex} onChange={this.handleChangeSex}><option value="male">male</option><option value="female">female</option></select>
-        : <select class="custom-select custom-select-sm" name="sexe" value={this.state.sex} onChange={this.handleChangeSex}><option value="female">female</option><option value="male">male</option></select>
+        ? <select class="custom-select custom-select-sm" name="sexe" value={this.state.sexe} onChange={this.handleChangeSexe}><option value="male">male</option><option value="female">female</option></select>
+        : <select class="custom-select custom-select-sm" name="sexe" value={this.state.sexe} onChange={this.handleChangeSexe}><option value="female">female</option><option value="male">male</option></select>
         }
         </div>
 </div>
