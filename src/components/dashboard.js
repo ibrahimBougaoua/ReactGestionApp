@@ -113,6 +113,26 @@ async function userEtudiantCountByRole() {
     }
 }
 
+async function userEmployeeCountByRole() {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/employee')
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
+async function userGestionnaireCountByRole() {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/gestionnaire')
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
 async function signalisationCommentsDashboard() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisationcommentsdashboard')
@@ -143,7 +163,7 @@ export default class Dashboard extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0}
+        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0}
       }
 
       componentDidMount = () => {
@@ -212,6 +232,16 @@ export default class Dashboard extends Component {
                 signalisationEtatAvancementDashboardRec: response.data
             });
         });
+        userEmployeeCountByRole().then(response => {
+            this.setState({
+                userEmployeeCountByRole: response.data
+            });
+        });
+        userGestionnaireCountByRole().then(response => {
+            this.setState({
+                gestionnaireCountRec: response.data
+            });
+        });
       }
       
 render() {
@@ -261,20 +291,32 @@ const bar = {
           }
         ]
       }
-    
+      
+      const barRole = {
+        labels: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
+        datasets: [
+          {
+            label: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
+            data: Object.values(this.state.userRoleDashboardRec).map(function(value) {return value;}),
+            fill: false,          // Don't fill area under the line
+            borderColor: 'black'  // Line color
+          }
+        ]
+      }
+
 return (
 <div className="container mt-5">
     <Nav name="Dashboard" />
 
     <div className="row">
         
-        { getRole() == 'aaa' || getRole() == 'aaa'
-          ? <div className="col-xl-4 col-md-6 mb-4">
-          <div className="card border-left-primary shadow h-100 py-2 bg-light border-0">
+        { getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Number of users</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Users</div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.usersCountRec}</div>
                 </div>
                 <div className="col-auto">
@@ -287,13 +329,13 @@ return (
         : null
         }
 
-        { getRole() == 'aaa' || getRole() == 'aaa'
-          ? <div className="col-xl-4 col-md-6 mb-4">
+        { getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Number of equipes</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Equipes</div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.equipeCountRec}</div>
                 </div>
                 <div className="col-auto">
@@ -327,31 +369,12 @@ return (
 
         { getRole() == 'prof' || getRole() == 'etudiant'
           ? <div className="col-md-3 mb-4">
-  <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
-    <div className="card-body">
-      <div className="row no-gutters align-items-center">
-        <div className="col mr-2">
-          <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Etudiants</div>
-          <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.etudiantCountRec}</div>
-        </div>
-        <div className="col-auto">
-          <i className="fas fa-user fa-2x text-muted"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-        : null
-        }
-
-        { getRole() == 'prof' || getRole() == 'etudiant'
-          ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Profs</div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.profCountRec}</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Comments</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.commentsCountRec}</div>
                 </div>
                 <div className="col-auto">
                   <i className="fas fa-user fa-2x text-muted"></i>
@@ -362,9 +385,8 @@ return (
         </div>
         : null
         }
-
         
-        { getRole() == 'prof' || getRole() == 'etudiant'
+        { getRole() == 'adminstrator' || getRole() == 'gestionnaire'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -383,13 +405,13 @@ return (
         : null
         }
 
-        { getRole() == 'aaa' || getRole() == 'aaaa'
-          ? <div className="col-xl-4 col-md-6 mb-4">
+        { getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Number of signalisation</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Signalisation</div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.signalisationCountRec}</div>
                 </div>
                 <div className="col-auto">
@@ -402,23 +424,118 @@ return (
         : null
         }
 
-      <div className="col-md-6">
-        <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
-            <Bar data={bar} />
+        { getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+            <div className="card-body">
+              <div className="row no-gutters align-items-center">
+                <div className="col mr-2">
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Employee</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.employeeCountRec}</div>
+                </div>
+                <div className="col-auto">
+                  <i className="fas fa-user fa-2x text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        : null
+        }
+
+        { getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+            <div className="card-body">
+              <div className="row no-gutters align-items-center">
+                <div className="col mr-2">
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Gestionnaire</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.gestionnaireCountRec}</div>
+                </div>
+                <div className="col-auto">
+                  <i className="fas fa-user fa-2x text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        : null
+        }
+
+
+{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+  <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+    <div className="card-body">
+      <div className="row no-gutters align-items-center">
+        <div className="col mr-2">
+          <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Etudiants</div>
+          <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.etudiantCountRec}</div>
+        </div>
+        <div className="col-auto">
+          <i className="fas fa-user fa-2x text-muted"></i>
         </div>
       </div>
-      
-      <div className="col-md-6">
+    </div>
+  </div>
+</div>
+        : null
+        }
+
+        { getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+            <div className="card-body">
+              <div className="row no-gutters align-items-center">
+                <div className="col mr-2">
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Profs</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.profCountRec}</div>
+                </div>
+                <div className="col-auto">
+                  <i className="fas fa-user fa-2x text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        : null
+        }
+
+
+{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+? <div className="col-md-12">
+     <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+         <Bar data={barRole} />
+     </div>
+   </div>
+   : null
+   }
+
+   { getRole() == 'prof' || getRole() == 'etudiant'
+      ? <div className="col-md-6">
+           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+               <Bar data={bar} />
+           </div>
+         </div>
+         : null
+         }
+        { getRole() == 'prof' || getRole() == 'etudiant'
+        ? <div className="col-md-6">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Pie data={pie} />
         </div>
       </div>
+      : null
+      }
 
-      <div className="col-md-12 mt-3">
+      { getRole() == 'prof' || getRole() == 'etudiant'
+       ? <div className="col-md-12 mt-3">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Line data={line} />
         </div>
       </div>
+      : null
+      }
 
     </div>
 
