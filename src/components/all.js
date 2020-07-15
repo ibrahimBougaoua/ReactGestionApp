@@ -5,7 +5,7 @@ import Nav from './nav';
 
 async function all_signalisations() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allsignalisationbyuserid/' + localStorage.getItem('id'))
       console.log(response);
       return response;
     } catch (error) {
