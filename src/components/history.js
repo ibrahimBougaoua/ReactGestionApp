@@ -21,7 +21,6 @@ export default class History extends Component {
         this.state = {all: []};
       }
 
-
       componentDidMount = () => {
         all_signalisations().then(response => {
             this.setState({
@@ -30,9 +29,7 @@ export default class History extends Component {
         });
       }
 
-
     render() {
-
 
       const all_data = this.state.all.map((element) =>
       <tr>
