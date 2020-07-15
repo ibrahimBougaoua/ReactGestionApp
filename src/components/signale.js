@@ -57,7 +57,7 @@ export default class Signale extends Component {
 
 constructor(props) {
     super(props);
-    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',gest_id: '',chef_id: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformerVf: []};
+    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',gest_id: '',chef_id: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformerVf: [],loading: false,vd: false};
 
     this.handleChangeDesc = this.handleChangeDesc.bind(this);
     this.handleChangeLocalisation = this.handleChangeLocalisation.bind(this);
@@ -71,22 +71,27 @@ constructor(props) {
 
   handleChangeDesc(event) {
     this.setState({desc: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeLocalisation(event) {
     this.setState({localisation: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeLieu(event) {
     this.setState({lieu: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeNature(event) {
     this.setState({nature: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeCause(event) {
     this.setState({cause: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeGestId(event) {
@@ -98,13 +103,34 @@ constructor(props) {
   }
 
   handleSubmit(event) {
+    console.log('desc : ' + this.state.desc)
+    console.log('lieu : ' + this.state.lieu)
+    console.log('localisation : ' + this.state.localisation)
+    console.log('cause : ' + this.state.cause)
+    console.log('nature : ' + this.state.nature)
+    this.setState({loading: true});
     event.preventDefault();
   }
 
       componentDidMount =()=>{
         signalisation(this.props.match.params.id).then(response => {
           this.setState({
-            dataEquipe: response.data
+            dataSignale: response.data
+          });
+          this.setState({
+            desc: this.state.dataSignale['desc']
+          });
+          this.setState({
+            localisation: this.state.dataSignale['localisation']
+          });
+          this.setState({
+            lieu: this.state.dataSignale['lieu']
+          });
+          this.setState({
+            nature: this.state.dataSignale['nature']
+          });
+          this.setState({
+            cause: this.state.dataSignale['cause']
           });
         });
         all_Signalisation().then(response => {
@@ -131,15 +157,14 @@ constructor(props) {
 
 render() {
 
-
 // handle button click of signin form
 const handleUpdate = () => {
-    axios.post('http://127.0.0.1:8000/api/auth/signalisation', {
-        desc    : this.state.desc,
-        localisation    : this.state.localisation,
-        lieu    : this.state.lieu,
-        nature    : this.state.nature,
-        cause    : this.state.cause,
+    axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + this.props.match.params.id, {
+      desc    : this.state.desc,
+      localisation    : this.state.localisation,
+      lieu    : this.state.lieu,
+      nature    : this.state.nature,
+      cause    : this.state.cause
     }).then(function (response) {
       // setter
       //localStorage.setItem('token', response.data.access_token)
@@ -211,43 +236,64 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="desc" className="col-md-4 col-form-label text-md-right">desc</label>
                             <div className="col-md-8">
-                                <input id="desc" type="text" value={this.state.dataEquipe['desc']} onChange={this.handleChangeDesc} className="form-control" name="desc" required/>
+                                <input id="desc" type="text" value={this.state.desc} onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required/>
+                                { this.state.desc == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }
                             </div>
                         </div>
 
 <div className="form-group row">
     <label for="localisation" className="col-md-4 col-form-label text-md-right">Localisation</label>
     <div className="col-md-8">
-        <input id="localisation" type="text" value={this.state.dataEquipe['localisation']} onChange={this.handleChangeLocalisation} className="form-control" name="localisation" required/>
+        <input id="localisation" type="text" value={this.state.localisation} onChange={this.handleChangeLocalisation} className={ this.state.localisation == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="localisation" required/>
+        { this.state.localisation == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
 <div className="form-group row">
     <label for="lieu" className="col-md-4 col-form-label text-md-right">Lieu</label>
     <div className="col-md-8">
-        <input id="lieu" type="text" value={this.state.dataEquipe['lieu']} onChange={this.handleChangeLieu} className="form-control" name="lieu" required/>
+        <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className={ this.state.lieu == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="lieu" required/>
+        { this.state.lieu == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
 <div className="form-group row">
     <label for="nature" className="col-md-4 col-form-label text-md-right">Nature</label>
     <div className="col-md-8">
-        <input id="nature" type="text" value={this.state.dataEquipe['nature']} onChange={this.handleChangeNature} className="form-control" name="nature" required/>
+        <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className={ this.state.nature == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="nature" required/>
+        { this.state.nature == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
 <div className="form-group row">
     <label for="cause" className="col-md-4 col-form-label text-md-right">Cause</label>
     <div className="col-md-8">
-        <input id="cause" type="text" value={this.state.dataEquipe['cause']} onChange={this.handleChangeCause} className="form-control" name="cause" required/>
+        <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className={ this.state.cause == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="cause" required/>
+        { this.state.cause == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
-                                <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
-                                    Update Signalisation
-                                </button>
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                            }
                             </div>
                             <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Delete</button>
                         </div>
