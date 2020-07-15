@@ -6,7 +6,7 @@ export default class Signaler extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: ''};
+        this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',loading: false,vd: false};
     
         this.handleChangeDesc = this.handleChangeDesc.bind(this);
         this.handleChangeLocalisation = this.handleChangeLocalisation.bind(this);
@@ -18,32 +18,38 @@ export default class Signaler extends Component {
 
       handleChangeDesc(event) {
         this.setState({desc: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeLocalisation(event) {
         this.setState({localisation: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeLieu(event) {
         this.setState({lieu: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeNature(event) {
         this.setState({nature: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeCause(event) {
         this.setState({cause: event.target.value});
+        this.setState({vd: true});
       }
 
       handleSubmit(event) {
+        this.setState({loading: true});
         event.preventDefault();
       }
 
     render() {
 
 // handle button click of signin form
-const handleSignin = () => {
+const handleCreate = () => {
     axios.post('http://127.0.0.1:8000/api/auth/signalisation', {
         desc    : this.state.desc,
         localisation    : this.state.localisation,
@@ -96,27 +102,47 @@ return (
                     <div class="form-row">
                         <div className="form-group col-md-6">
                             <label for="desc">Description</label>
-                            <input id="desc" type="text" value={this.state.desc} onChange={this.handleChangeDesc} className="form-control" name="desc" required/>
+                            <input id="desc" type="text" value={this.state.desc} onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required/>
+                            { this.state.desc == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
                         </div>
 
 <div className="form-group col-md-6">
     <label for="localisation">Localisation</label>
-    <input id="localisation" type="text" value={this.state.localisation} onChange={this.handleChangeLocalisation} className="form-control" name="localisation" required/>
+    <input id="localisation" type="text" value={this.state.localisation} onChange={this.handleChangeLocalisation} className={ this.state.localisation == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="localisation" required/>
+     { this.state.localisation == '' && this.state.vd
+       ? <div className="invalid-feedback"> This field is empty.</div>
+       : null
+     }
 </div>
 
 <div className="form-group col-md-6">
     <label for="lieu">Lieu</label>
-    <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className="form-control" name="lieu" required/>
+    <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className={ this.state.lieu == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="lieu" required/>
+    { this.state.lieu == '' && this.state.vd
+      ? <div className="invalid-feedback"> This field is empty.</div>
+      : null
+    }
 </div>
 
 <div className="form-group col-md-6">
     <label for="nature">Nature</label>
-    <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className="form-control" name="nature" required/>
+    <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className={ this.state.nature == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="nature" required/>
+    { this.state.nature == '' && this.state.vd
+      ? <div className="invalid-feedback"> This field is empty.</div>
+      : null
+    }
 </div>
 
 <div className="form-group col-md-6">
     <label for="cause">Cause</label>
-    <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className="form-control" name="cause" required/>
+    <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className={ this.state.cause == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="cause" required/>
+    { this.state.cause == '' && this.state.vd
+      ? <div className="invalid-feedback"> This field is empty.</div>
+      : null
+    }
 </div>
 
 <div className="form-group col-md-6">
@@ -128,9 +154,10 @@ return (
 </div>
 
                         <div className="form-group col-md-12 mb-0">
-                            <button type="submit" className="btn btn-outline-info" onClick={handleSignin}>
-                                Create Signalisation
-                            </button>
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>created... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Create</button>
+                            }
                         </div>
 
                         </div>

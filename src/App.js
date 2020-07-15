@@ -258,8 +258,8 @@ const Logout = () => {
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
                     <h1 className="display-5 text-center text-white font-weight-bold">You can easly contact us using Mail or Fix telephone</h1>
-                    <p className="lead text-center text-white font-weight-bold">Mail : services@usthb.dz</p>
-                    <p className="lead text-center text-white font-weight-bold">Fix : 0612454545455</p>
+                    <p className="lead text-sm text-center text-white font-weight-bold">Mail : services@usthb.dz</p>
+                    <p className="lead text-sm text-center text-white font-weight-bold">Fix : 0612454545455</p>
                 </div>
             </div>
       </div>
