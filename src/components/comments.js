@@ -35,7 +35,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element.name}>{element.name}</td>
 <td key={element.mail}>{element.mail}</td>
 <td key={element.comment}>{element.comment}</td>
-<td key={element.id}><Link to={'comment/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element.id}><Link to={'comment/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
 

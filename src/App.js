@@ -26,6 +26,7 @@ import Signaler from "./components/signaler";
 import History from "./components/history";
 import All from "./components/all";
 import Comments from "./components/comments";
+import Comment from "./components/comment";
 import Dashboard from "./components/dashboard";
 
 function getRole() {
@@ -248,6 +249,7 @@ const Logout = () => {
         <Route path="/all" exact component={All} />
         <Route path="/history" exact component={History} />
         <Route path="/comments" exact component={Comments} />
+        <Route path="/comment/:id" exact component={Comment} />
         <Route path="/dashboard" exact component={Dashboard} />
       </Switch>
       </div>
