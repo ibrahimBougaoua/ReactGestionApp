@@ -147,7 +147,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'
+       getRole() == 'etudiant' || getRole() == 'prof'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
          </li>

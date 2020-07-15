@@ -5,7 +5,7 @@ import Nav from './nav';
 
 async function all_comments() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/comment')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/getallcomments/' + localStorage.getItem('id'))
       console.log(response);
       return response;
     } catch (error) {
