@@ -134,10 +134,8 @@ constructor(props) {
               this.setState({
                 hasEvaluer: true
               });
-              getChefByID(response.data.user_id).then(response => {
-                this.setState({
-                  name: response.data['name']
-                });
+              this.setState({
+                name: response.data['name']
               });
             }
         });
