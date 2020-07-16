@@ -164,8 +164,28 @@ async function signalisationCommentsDashboard() {
 }
 
 async function signalisationEtatAvancementDashboard() {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisationetatavancementdashboard')
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function interventionCountDashbordById() {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/interventioncountdashbordbyid/' + localStorage.getItem('id'))
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function membreCountDashboard() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisationetatavancementdashboard')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/membrecountdashboard/' + localStorage.getItem('id'))
       console.log(response);
       return response;
     } catch (error) {
@@ -183,8 +203,8 @@ export default class Dashboard extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0,allSignalerCountRec: 0,allCommentsCountRec: 0}
-      }
+        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0,allSignalerCountRec: 0,allCommentsCountRec: 0,interventionCountDashbordByChefRec: 0,membreCountDashboardRec: 0}
+    }
 
       componentDidMount = () => {
         usersCount().then(response => {
@@ -272,6 +292,18 @@ export default class Dashboard extends Component {
                 allCommentsCountRec: response.data
             });
         });
+        interventionCountDashbordById().then(response => {
+            this.setState({
+              interventionCountDashbordByChefRec: response.data
+            });
+        });
+        
+        membreCountDashboard().then(response => {
+          this.setState({
+            membreCountDashboardRec: response.data
+          });
+      });
+      
       }
       
 render() {
@@ -340,6 +372,44 @@ return (
 
     <div className="row">
         
+    { getRole() == 'equipeintervention'
+          ? <div className="col-md-3 mb-4">
+          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+            <div className="card-body">
+              <div className="row no-gutters align-items-center">
+                <div className="col mr-2">
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Interventions</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.interventionCountDashbordByChefRec}</div>
+                </div>
+                <div className="col-auto">
+                  <i className="fas fa-user fa-2x text-muted"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        : null
+        }
+
+        { getRole() == 'equipeintervention'
+              ? <div className="col-md-3 mb-4">
+              <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Membre</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.membreCountDashboardRec}</div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-user fa-2x text-muted"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            : null
+            }
+
         { getRole() == 'gestionnaire' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
@@ -512,7 +582,7 @@ return (
         }
 
 
-{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator' || getRole() == 'equipeintervention'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -531,7 +601,7 @@ return (
         : null
         }
 
-        { getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+        { getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator' || getRole() == 'equipeintervention'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
