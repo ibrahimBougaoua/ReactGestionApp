@@ -169,11 +169,16 @@ return (<div className="container mt-5">
 
                         <div className="form-group col-md-12">
                             <label for="telephone">Message</label>
-                            <textarea id="exampleFormControlTextarea1" rows="3" name="message" onChange={this.handleChangeMessage} className={ this.state.message == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } >{this.state.message}</textarea>
+                            <textarea id="exampleFormControlTextarea1" rows="4" name="message" onChange={this.handleChangeMessage} className={ this.state.message == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } value={this.state.message}></textarea>
                         </div>
 
                         <div className="form-group col-md-12 mb-0">
-                            <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                              }
+
                             <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Delete this account</button>
 
 

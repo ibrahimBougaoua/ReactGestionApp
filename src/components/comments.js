@@ -35,13 +35,15 @@ const all_data = this.state.all.map((element) =>
 <td key={element.name}>{element.name}</td>
 <td key={element.mail}>{element.mail}</td>
 <td key={element.comment}>{element.comment}</td>
+<td key={element.comment}>{element.reply_id != 0 ? 'Yes' : 'No'}</td>
+<td key={element.comment}>{element.created_at}</td>
 <td key={element.id}><Link to={'comment/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
 
 return (
 <div className="container mt-5">
-    <Nav name="Signalisation" />
+    <Nav name="Comments" />
 
     <div className="row">
         <div className="col-md-12">
@@ -51,6 +53,8 @@ return (
       <th scope="col">Name</th>
       <th scope="col">Mail</th>
       <th scope="col">Message</th>
+      <th scope="col">Reply</th>
+      <th scope="col">Date</th>
       <th scope="col">View</th>
     </tr>
   </thead>
