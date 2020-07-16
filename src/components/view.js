@@ -17,7 +17,7 @@ async function hasSignaler(user_id) {
 // handle button click of login form
 async function allComments(id) {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/comment/' + id);
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/getallsignalisationcomments/' + id);
     console.log(response);
     return response;
   } catch (error) {

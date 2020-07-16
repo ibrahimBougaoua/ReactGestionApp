@@ -203,20 +203,21 @@ const Logout = () => {
       {
        ! HasLogin()
        ? <li className="nav-item">
-         <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Login</Link>
-         </li>
-       : <li className="nav-item">
-         <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
-         </li>
-      }
-      {
-       ! HasLogin()
-       ? <li className="nav-item">
          <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>Sign up</Link>
          </li>
        : <li className="nav-item">
-         <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
+       <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
+       </li>
+      }
+      
+      {
+       ! HasLogin()
+       ? <li className="nav-item">
+         <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Login</Link>
          </li>
+       : <li className="nav-item">
+       <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
+       </li>
       }
     </ul>
           </div>
