@@ -45,7 +45,7 @@ async function all_chef() {
 
 async function HasInformer(id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/informer/' + id)
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/ifinformer/' + id)
       console.log(response);
       return response;
     } catch (error) {
@@ -57,14 +57,13 @@ export default class Signale extends Component {
 
 constructor(props) {
     super(props);
-    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',gest_id: '',chef_id: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformerVf: [],loading: false,vd: false};
+    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',chef_id: '',name: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformerVf: [],loading: false,vd: false};
 
     this.handleChangeDesc = this.handleChangeDesc.bind(this);
     this.handleChangeLocalisation = this.handleChangeLocalisation.bind(this);
     this.handleChangeLieu = this.handleChangeLieu.bind(this);
     this.handleChangeNature = this.handleChangeNature.bind(this);
     this.handleChangeCause = this.handleChangeCause.bind(this);
-    this.handleChangeGestId = this.handleChangeGestId.bind(this);
     this.handleChangeChefId = this.handleChangeChefId.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -94,12 +93,8 @@ constructor(props) {
     this.setState({vd: true});
   }
 
-  handleChangeGestId(event) {
-    this.setState({gest_id: event.target.options[event.target.selectedIndex].text});
-  }
-
   handleChangeChefId(event) {
-    this.setState({chef_id: event.target.options[event.target.selectedIndex].text});
+    this.setState({chef_id: event.target.options[event.target.selectedIndex].value});
   }
 
   handleSubmit(event) {
@@ -139,9 +134,15 @@ constructor(props) {
             });
         });
         HasInformer(this.props.match.params.id).then(response => {
+          if(response.data != ""){
             this.setState({
-              HasInformerVf: response.data
+              HasInformerVf: true
             });
+            console.log(response.data.name)
+            this.setState({
+              name: response.data.name
+            });
+          }
         });
         all_gest().then(response => {
             this.setState({
@@ -196,9 +197,9 @@ const delete_signalisation = () => {
 // handle button click of signin form
 const handleInformer = () => {
     axios.post('http://127.0.0.1:8000/api/auth/informer', {
-        gest_id	: this.state.gest_id,
+        gest_id	: localStorage.getItem('id'),
         chef_id	: this.state.chef_id,
-        signalisation_id : this.state.signalisation_id
+        signalisation_id : this.props.match.params.id
     }).then(function (response) {
       // setter
       //localStorage.setItem('token', response.data.access_token)
@@ -212,10 +213,6 @@ const handleInformer = () => {
         console.log(error);
     });
 }
-
-const fetchGest = this.state.allGest.map((element) =>
-<option value={element['id']}>{element['name']}</option>
-);
 
 const fetchChef = this.state.allChef.map((element) =>
 <option value={element['id']}>{element['name']}</option>
@@ -333,41 +330,29 @@ return (<div className="container mt-5">
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
-                    <div className="form-group row">
-                    <div className="col-md-8">
-                    <p class="text-left">Left aligned text on all viewport sizes.</p>
-                    <p class="text-left">Left aligned text on all viewport sizes.</p>
-                    <p class="text-left">Left aligned text on all viewport sizes.</p>
-                    </div>
-                    </div>
+
 
                     <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Gestionnaire</label>
-                            <div className="col-md-8">
-                            <select class="custom-select custom-select-sm" name="gest_id" value={this.state.gest_id} onChange={this.handleChangeGestId}>
-                            {fetchGest}
-                            </select>
-                            </div>
-                        </div>
-
-                        <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Chefs</label>
-                            <div className="col-md-8">
-                            <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>
-                            {fetchChef}
-                            </select>
+                            <label for="name" className="col-md-2 col-form-label text-md-right">Chefs</label>
+                            <div className="col-md-10">
+                           
+                            { this.state.HasInformerVf
+                              ? <fieldset disabled><select id="disabledSelect" class="form-control"><option>{this.state.name}</option></select></fieldset>
+                              : <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>{fetchChef}</select>
+                            }
+                           
                             </div>
                         </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-6 offset-md-4">
-                            {
-                            this.state.HasInformerVf == []
-                            ? <button type="submit" className="btn btn-outline-info" onClick={handleInformer}>Informer</button>
-                            : <button type="submit" className="btn btn-outline-success">Informer</button>
-                            }
+                            <div className="col-md-12 ml-3">
+                              { this.state.HasInformerVf
+                                ? <button type="submit" className="btn btn-secondary" disabled>Informer</button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleInformer}>Informer</button>
+                              }
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

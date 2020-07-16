@@ -14,8 +14,18 @@ async function usersCount() {
 }
 
 async function equipeCount() {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/equipecount')
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function allSignalerCount() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/equipecount')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allsignalercount')
       console.log(response);
       return response;
     } catch (error) {
@@ -34,13 +44,13 @@ async function signalerCount(user_id) {
 }
 
 async function commentsCountDashboard(user_id) {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/commentscountdashboard/' + user_id)
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/commentscountdashboard/' + user_id)
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function signalisationCount() {
@@ -133,6 +143,16 @@ async function userGestionnaireCountByRole() {
     }
 }
 
+async function allComments() {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allcomments')
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
 async function signalisationCommentsDashboard() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisationcommentsdashboard')
@@ -163,7 +183,7 @@ export default class Dashboard extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0}
+        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0,allSignalerCountRec: 0,allCommentsCountRec: 0}
       }
 
       componentDidMount = () => {
@@ -200,6 +220,11 @@ export default class Dashboard extends Component {
         signalisationCount().then(response => {
             this.setState({
                 signalisationCountRec: response.data
+            });
+        });
+        allSignalerCount().then(response => {
+            this.setState({
+                allSignalerCountRec: response.data
             });
         });
         signalisationDashboard().then(response => {
@@ -240,6 +265,11 @@ export default class Dashboard extends Component {
         userGestionnaireCountByRole().then(response => {
             this.setState({
                 gestionnaireCountRec: response.data
+            });
+        });
+        allComments().then(response => {
+            this.setState({
+                allCommentsCountRec: response.data
             });
         });
       }
@@ -310,7 +340,7 @@ return (
 
     <div className="row">
         
-        { getRole() == 'adminstrator'
+        { getRole() == 'gestionnaire' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -329,7 +359,7 @@ return (
         : null
         }
 
-        { getRole() == 'adminstrator'
+        { getRole() == 'gestionnaire' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -345,6 +375,44 @@ return (
             </div>
           </div>
         </div>
+        : null
+        }
+
+{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+  <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+    <div className="card-body">
+      <div className="row no-gutters align-items-center">
+        <div className="col mr-2">
+          <div className="text-sm font-weight-bold text-info text-uppercase mb-1">Signalisation</div>
+          <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.allSignalerCountRec}</div>
+        </div>
+        <div className="col-auto">
+          <i className="fas fa-user fa-2x text-muted"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        : null
+        }
+
+{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+          ? <div className="col-md-3 mb-4">
+  <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
+    <div className="card-body">
+      <div className="row no-gutters align-items-center">
+        <div className="col mr-2">
+          <div className="text-sm font-weight-bold text-info text-uppercase mb-1">Comments</div>
+          <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.allCommentsCountRec}</div>
+        </div>
+        <div className="col-auto">
+          <i className="fas fa-user fa-2x text-muted"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         : null
         }
 
@@ -366,27 +434,8 @@ return (
 </div>
         : null
         }
-
-        { getRole() == 'prof' || getRole() == 'etudiant'
-          ? <div className="col-md-3 mb-4">
-          <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
-            <div className="card-body">
-              <div className="row no-gutters align-items-center">
-                <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Comments</div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.commentsCountRec}</div>
-                </div>
-                <div className="col-auto">
-                  <i className="fas fa-user fa-2x text-muted"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        : null
-        }
         
-        { getRole() == 'adminstrator' || getRole() == 'gestionnaire'
+        { getRole() == 'prof' || getRole() == 'etudiant'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -502,7 +551,7 @@ return (
         }
 
 
-{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator'
+{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
 ? <div className="col-md-12">
      <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
          <Bar data={barRole} />
