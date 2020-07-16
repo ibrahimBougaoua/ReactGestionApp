@@ -27,7 +27,7 @@ export default class Equipe extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {d_f_equipe: '',mail: '',telephone: '',chef: 0,all: [],allUsers: []};
+        this.state = {d_f_equipe: '',mail: '',telephone: '',chef: 0,all: [],allUsers: [],loading: false,vd: false};
     
         this.handleChanged_f_equipe = this.handleChanged_f_equipe.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -38,14 +38,17 @@ export default class Equipe extends Component {
     
       handleChanged_f_equipe(event) {
         this.setState({d_f_equipe: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeEmail(event) {
         this.setState({mail: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeTelephone(event) {
         this.setState({telephone: event.target.value});
+        this.setState({vd: true});
       }
       
       handleChangeChef(event) {
@@ -54,6 +57,7 @@ export default class Equipe extends Component {
       }
 
       handleSubmit(event) {
+        this.setState({loading: true});
         event.preventDefault();
       }
 
@@ -73,7 +77,7 @@ export default class Equipe extends Component {
     render() {
 
 // handle button click of signin form
-const handleSignin = () => {
+const handleCreate = () => {
     axios.post('http://127.0.0.1:8000/api/auth/equipe', {
         d_f_equipe    : this.state.d_f_equipe,
         mail    : this.state.mail,
@@ -119,21 +123,33 @@ return (
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">d f equipe</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" value={this.state.d_f_equipe} onChange={this.handleChanged_f_equipe} className="form-control" name="name" required/>
+                                <input id="name" type="text" value={this.state.d_f_equipe} onChange={this.handleChanged_f_equipe} className={ this.state.d_f_equipe == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
+                                { this.state.d_f_equipe == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }                            
                             </div>
                         </div>
 
 <div className="form-group row">
     <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
     <div className="col-md-8">
-        <input id="email" type="email" value={this.state.mail} onChange={this.handleChangeEmail} className="form-control" name="email" required/>
+        <input id="email" type="email" value={this.state.mail} onChange={this.handleChangeEmail} className={ this.state.mail == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" required/>
+        { this.state.mail == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
 <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" value={this.state.telephone} onChange={this.handleChangeTelephone} className="form-control" name="telephone" required/>
+        <input id="telephone" type="text" value={this.state.telephone} onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" required/>
+        { this.state.telephone == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
@@ -149,9 +165,10 @@ return (
 
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
-                                <button type="submit" className="btn btn-info" onClick={handleSignin}>
-                                    Create Equipe
-                                </button>
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Created... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Create</button>
+                            }
                             </div>
                         </div>
                     </form>

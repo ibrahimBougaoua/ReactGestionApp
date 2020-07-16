@@ -92,14 +92,17 @@ constructor(props) {
 
   handleChanged_f_equipe(event) {
     this.setState({d_f_equipe: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeEmail(event) {
     this.setState({mail: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeTelephone(event) {
     this.setState({telephone: event.target.value});
+    this.setState({vd: true});
   }
 
   handleChangeMemeber(event) {
@@ -108,6 +111,7 @@ constructor(props) {
   }
 
   handleSubmit(event) {
+    this.setState({loadingUpdate: true});
     event.preventDefault();
   }
 
@@ -195,20 +199,6 @@ const delete_equipe = () => {
   });
 }
 
-const delete_membre = (id) => {
-  axios.delete('http://127.0.0.1:8000/api/auth/membre/' + id)
-  .then(function (response) {
-    // setter
-    //const token = localStorage.setItem('token', response.data.access_token)
-    //const user = localStorage.setItem('user', response.data.user)
-    // route for profile
-    console.log(response)
-
-  }).catch(function (error) {
-    console.log('ibrahim => ' + error);
-  });
-}
-
 const all_datas = this.state.allEquipeMembreById.map((element,key) =>
 <tr>
 <td key={key}>{element.name}</td>
@@ -216,7 +206,6 @@ const all_datas = this.state.allEquipeMembreById.map((element,key) =>
 <td key={key}>{element.telephone}</td>
 <td key={key}>{element.sexe}</td>
 <td key={key}>{element.created_at}</td>
-<td key={key}><button type="submit" className="btn btn-sm btn-outline-danger" onClick={delete_membre(0)}>Delete</button></td>
 <td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
@@ -238,21 +227,33 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">d f equipe</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" onChange={this.handleChanged_f_equipe} className="form-control" name="d_f_equipe" value={this.state.dataEquipe.d_f_equipe} required/>
+                                <input id="name" type="text" onChange={this.handleChanged_f_equipe} className={ this.state.dataEquipe.d_f_equipe == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="d_f_equipe" value={this.state.dataEquipe.d_f_equipe} required/>
+                                { this.state.dataEquipe.d_f_equipe == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }
                             </div>
                         </div>
 
 <div className="form-group row">
     <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
     <div className="col-md-8">
-        <input id="email" type="email" onChange={this.handleChangeEmail} className="form-control" name="email" value={this.state.dataEquipe.mail} required/>
+        <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.dataEquipe.mail == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" value={this.state.dataEquipe.mail} required/>
+        { this.state.dataEquipe.mail == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
 <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className="form-control" name="telephone" value={this.state.dataEquipe.telephone}/>
+        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.dataEquipe.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.dataEquipe.telephone}/>
+        { this.state.dataEquipe.telephone == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        }
     </div>
 </div>
 
@@ -268,11 +269,39 @@ return (<div className="container mt-5">
 
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
-                                <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
-                                    Update Equipe
-                                </button>
+                            { this.state.loadingUpdate
+                                ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                              }
                             </div>
-                            <button type="button" className="btn btn-outline-danger" onClick={delete_equipe}>Delete</button>
+
+                            <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+
+                            <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalCenterTitle">Delete this Equipe</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+      Are you sure ? This Equipe will deleted and you can't see it anymore ! 
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-outline-danger" onClick={delete_equipe}>Delete</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
                         </div>
                     </form>
                 </div>
@@ -299,7 +328,7 @@ return (<div className="container mt-5">
                             <div className="col-md-6">
                                 { this.state.member_id != 0
                                 ? <button type="submit" className="btn btn-outline-info" onClick={handleAddMembre}>Add a membre</button>
-                                : <button type="submit" className="btn btn-outline-secondary">Select a membre</button>
+                                : <p className="btn btn-outline-secondary">Select a membre</p>
                                 }
                             </div>
                         </div>
@@ -320,7 +349,6 @@ return (<div className="container mt-5">
       <th scope="col">Telephone</th>
       <th scope="col">Sexe</th>
       <th scope="col">Created at</th>
-      <th scope="col">Delete</th>
       <th scope="col">View</th>
     </tr>
   </thead>

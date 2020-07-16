@@ -152,6 +152,20 @@ const delete_user = () => {
   });
 }
 
+const delete_membre = () => {
+  axios.delete('http://127.0.0.1:8000/api/auth/membre/' + this.props.match.params.id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+}
+
 return (<div className="container mt-5">
     <Nav name="Update user information" />
     <div className="row">
@@ -234,38 +248,12 @@ return (<div className="container mt-5">
                                 ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
                                 : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
                               }
-
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    <div className="col-md-6">
-            <div className="card border-0 shadow">
-                <div className="card-header border-0">Info</div>
-
-                <div className="card-body">
-                    <form method="POST" onSubmit={this.handleSubmit}>
-
-                        <div className="form-group row">
-                            <div className="col-md-8">
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                            </div>
-                        </div>
-                        <div className="form-group row mb-0">
-                            <div className="col-md-6">
-                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete this account</button>
                             </div>
 
-<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter1">Delete</button>
+
+
+<div className="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
       <div className="modal-header">
@@ -286,6 +274,56 @@ return (<div className="container mt-5">
 </div>
 
 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div className="col-md-6">
+            <div className="card border-0 shadow">
+                <div className="card-header border-0">Info</div>
+
+                <div className="card-body">
+                    <form method="POST" onSubmit={this.handleSubmit}>
+
+                        <div className="form-group row">
+                            <div className="col-md-8">
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                                <p class="text-left">Left aligned text on all viewport sizes.</p>
+                            </div>
+                        </div>
+                        <div className="form-group row mb-0">
+                            <div className="col-md-6">
+                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete this Membre</button>
+                            </div>
+
+<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalCenterTitle">Delete this Membre</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+      Are you sure ? you'r membre will deleted ! 
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-outline-danger" onClick={delete_membre}>Delete</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -295,8 +333,7 @@ return (<div className="container mt-5">
             </div>
         </div>
 
-    <div className="col-md-6">
-        </div>
+
 
     
     </div>
