@@ -5,7 +5,7 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {email: '',password: ''};
+        this.state = {email: '',password: '',loading: false,vd: false};
     
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -14,13 +14,16 @@ export default class Login extends Component {
     
       handleChangeEmail(event) {
         this.setState({email: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangePassword(event) {
         this.setState({password: event.target.value});
+        this.setState({vd: true});
       }
     
       handleSubmit(event) {
+        this.setState({loading: true});
         event.preventDefault();
       }
 
@@ -60,7 +63,11 @@ return (
                             <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div className="col-md-8">
-                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className="form-control" required/>
+                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } required/>
+                                { this.state.email == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }                            
                             </div>
                         </div>
 
@@ -68,7 +75,11 @@ return (
                             <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div className="col-md-8">
-                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" required/>
+                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } required/>
+                                { this.state.password == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                }                             
                             </div>
                         </div>
 
@@ -86,10 +97,10 @@ return (
 
                         <div className="form-group row mb-0">
                             <div className="col-md-8 offset-md-4">
-                                <button type="submit" className="btn btn-outline-info" onClick={handleLogin}>
-                                    Login
-                                </button>
-
+                                { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Login... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleLogin} >Login</button>
+                                }
                                     <a className="btn btn-link" href="a">
                                         Forgot Your Password?
                                     </a>

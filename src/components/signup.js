@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
 export default class Signup extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',telephone: '',sexe: '',role: 'etudiant'};
+        this.state = {name: '',email: '',password: '',telephone: '',sexe: 'male',role: 'etudiant',loading: false,vd: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -19,18 +20,22 @@ export default class Signup extends Component {
     
       handleChangeName(event) {
         this.setState({name: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeEmail(event) {
         this.setState({email: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangePassword(event) {
         this.setState({password: event.target.value});
+        this.setState({vd: true});
       }
 
       handleChangeTelephone(event) {
         this.setState({telephone: event.target.value});
+        this.setState({vd: true});
       }
     
       handleChangeSexe(event) {
@@ -52,6 +57,7 @@ export default class Signup extends Component {
         console.log('telephone : ' + this.state.telephone);
         console.log('sexe : ' + this.state.sexe);
         console.log('role : ' + this.state.role);
+        this.setState({loading: true});
         event.preventDefault();
       }
 
@@ -82,6 +88,9 @@ const handleSignin = () => {
 
 return (
 <div className="container mt-5">
+
+{ this.state.loading ? <Redirect to='/dashboard' /> : null }
+
     <div className="row">
     <div className="col-md-6">
             <div className="card border-0 shadow">
@@ -93,28 +102,44 @@ return (
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className="form-control" name="name" required/>
+                                <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
+                                { this.state.name == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                } 
                             </div>
                         </div>
 
                         <div className="form-group row">
                             <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                             <div className="col-md-8">
-                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className="form-control" name="email" required/>
+                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" required/>
+                                { this.state.email == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                } 
                             </div>
                         </div>
 
                         <div className="form-group row">
                             <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
                             <div className="col-md-8">
-                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" name="password" required/>
+                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="password" required/>
+                                { this.state.password == '' && this.state.vd
+                                  ? <div className="invalid-feedback"> This field is empty.</div>
+                                  : null
+                                } 
                             </div>
                         </div>
 
                         <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className="form-control" name="telephone" value={this.state.telephone}/>
+        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone}/>
+        { this.state.telephone == '' && this.state.vd
+          ? <div className="invalid-feedback"> This field is empty.</div>
+          : null
+        } 
     </div>
 </div>
 
@@ -140,10 +165,11 @@ return (
 </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-8 offset-md-4">
-                                <button type="submit" className="btn btn-outline-info" onClick={handleSignin}>
-                                    Register
-                                </button>
+                            <div className="col-md-8 offset-md-4">                                
+                            { this.state.loading
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Registering... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleSignin} >Register</button>
+                            }
                             </div>
                         </div>
                     </form>
