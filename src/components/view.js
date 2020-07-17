@@ -45,6 +45,15 @@ async function all_signalisations() {
       console.error(error);
     }
 }
+
+function hideShowSubComment(id) {
+  window.$(function() {
+    window.$('.click_' + id).click(function() {
+      window.$('.reply_' + id).toggle();
+    })
+  })
+}
+
 export default class View extends Component {
 
 constructor(props) {
@@ -113,10 +122,10 @@ render() {
 console.log(this.state.hasSn);
 
 // handle button click of signin form
-const handleCreate = () => {
+const handleCreate = (replyId) => {
   axios.post('http://127.0.0.1:8000/api/auth/comment', {
       user_id : localStorage.getItem('id'),
-      reply_id : this.state.reply_id,
+      reply_id : replyId,
       signalisation_id : this.props.match.params.id,
       name : this.state.name,
       mail : this.state.email,
@@ -168,7 +177,51 @@ const all_comments = this.state.allComment.map((element) =>
 <p className="text-muted">{element.comment}</p>
 <small className="text-sm mr-2">{element.name}()</small>
 <small className="text-sm">{element.created_at}</small>
-<button className="btn btn-sm btn-outline-info float-right">Replay</button>
+<input type="hidden" name={'reply_' + element.id} value={element.id}/>
+<button className={"btn btn-sm btn-outline-info float-right click_" + element.id} onClick={hideShowSubComment(element.id)}>Replay</button>
+<div className={'mt-4 reply_' + element.id} style={{display:'none'}}>
+  
+<div className="card border-0 shadow">
+                <div className="card-body">
+                    <form method="POST" onSubmit={this.handleSubmit}>
+                    <div class="form-row">
+                        <div className="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="name" required/>
+                            { this.state.name == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
+                        </div>
+
+                        <div className="form-group col-md-6">
+                            <label for="email">E-Mail Address</label>
+                            <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" placeholder="exmple@mail.dz" required/>
+                            { this.state.email == '' && this.state.vd
+                              ? <div className="invalid-feedback"> This field is empty.</div>
+                              : null
+                            }
+                        </div>
+
+                        <div className="form-group col-md-12">
+                            <label for="telephone">Message</label>
+                            <textarea id="exampleFormControlTextarea1" rows="3" name="message" onChange={this.handleChangeMessage} className={ this.state.message == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } >{this.state.message}</textarea>
+                        </div>
+
+                        <div className="form-group col-md-12 mb-0">
+                            <button type="submit" className="btn btn-outline-info" onClick={handleCreate(element.id)} >Comment</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div> 
+
+
+
+
+
+
+</div>
 </div>
 </div>
 );
@@ -207,7 +260,6 @@ return (<div className="container-fluid mt-5">
 <div className="col-md-12">    
 {all_comments}
 <div className="card border-0 shadow">
-
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
                     <div class="form-row">
@@ -235,7 +287,7 @@ return (<div className="container-fluid mt-5">
                         </div>
 
                         <div className="form-group col-md-12 mb-0">
-                            <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Comment</button>
+                            <button type="submit" className="btn btn-outline-info" onClick={handleCreate(0)} >Comment</button>
                         </div>
                       </div>
                     </form>
