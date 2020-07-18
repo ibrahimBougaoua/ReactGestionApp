@@ -147,10 +147,10 @@ return (
     <label for="role-confirm">Role</label>
     <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="adminstrator">Adminstrator</option>
-  <option value="gestionnaire">Gestionnaire</option>
-  <option value="equipeintervention">équipes d'intervention</option>
-  <option value="etudiant">Etudiant</option>
-  <option value="prof">Prof</option>
+  <option value="manager">Gestionnaire</option>
+  <option value="interventionteam">équipes d'intervention</option>
+  <option value="student">Etudiant</option>
+  <option value="teacher">Prof</option>
   <option value="employee">Employee</option>
 </select>
 </div>

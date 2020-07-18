@@ -372,7 +372,7 @@ return (
 
     <div className="row">
         
-    { getRole() == 'equipeintervention'
+    { getRole() == 'interventionteam'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -391,7 +391,7 @@ return (
         : null
         }
 
-        { getRole() == 'equipeintervention'
+        { getRole() == 'interventionteam'
               ? <div className="col-md-3 mb-4">
               <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
                 <div className="card-body">
@@ -410,7 +410,7 @@ return (
             : null
             }
 
-        { getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+        { getRole() == 'manager' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -429,7 +429,7 @@ return (
         : null
         }
 
-        { getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+        { getRole() == 'manager' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -448,7 +448,7 @@ return (
         : null
         }
 
-{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+{ getRole() == 'manager' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -467,7 +467,7 @@ return (
         : null
         }
 
-{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+{ getRole() == 'manager' || getRole() == 'adminstrator'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -486,7 +486,7 @@ return (
         : null
         }
 
-        { getRole() == 'prof' || getRole() == 'etudiant'
+        { getRole() == 'teacher' || getRole() == 'student'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -505,7 +505,7 @@ return (
         : null
         }
         
-        { getRole() == 'prof' || getRole() == 'etudiant'
+        { getRole() == 'teacher' || getRole() == 'student'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -582,7 +582,7 @@ return (
         }
 
 
-{ getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator' || getRole() == 'equipeintervention'
+{ getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -601,7 +601,7 @@ return (
         : null
         }
 
-        { getRole() == 'prof' || getRole() == 'etudiant' || getRole() == 'adminstrator' || getRole() == 'equipeintervention'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -621,7 +621,7 @@ return (
         }
 
 
-{ getRole() == 'gestionnaire' || getRole() == 'adminstrator'
+{ getRole() == 'manager' || getRole() == 'adminstrator'
 ? <div className="col-md-12">
      <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
          <Bar data={barRole} />
@@ -630,7 +630,7 @@ return (
    : null
    }
 
-   { getRole() == 'prof' || getRole() == 'etudiant'
+   { getRole() == 'teacher' || getRole() == 'student'
       ? <div className="col-md-6">
            <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
                <Bar data={bar} />
@@ -638,7 +638,7 @@ return (
          </div>
          : null
          }
-        { getRole() == 'prof' || getRole() == 'etudiant'
+        { getRole() == 'teacher' || getRole() == 'student'
         ? <div className="col-md-6">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Pie data={pie} />
@@ -647,7 +647,7 @@ return (
       : null
       }
 
-      { getRole() == 'prof' || getRole() == 'etudiant'
+      { getRole() == 'teacher' || getRole() == 'student'
        ? <div className="col-md-12 mt-3">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Line data={line} />

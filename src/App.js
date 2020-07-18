@@ -99,7 +99,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'equipeintervention'
+       getRole() == 'interventionteam'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/chef-intervention"}>Interventions</Link>
          </li>
@@ -107,7 +107,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'equipeintervention'
+       getRole() == 'interventionteam'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/membre"}>Membres</Link>
          </li>
@@ -115,7 +115,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'
+       getRole() == 'manager'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/interventions"}>Interventions</Link>
          </li>
@@ -123,7 +123,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'
+       getRole() == 'manager'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/equipes"}>Equipe</Link>
         </li>
@@ -131,7 +131,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'  || getRole() == 'equipeintervention'
+       getRole() == 'manager'  || getRole() == 'teamanager'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/contact"}>Contact</Link>
         </li>
@@ -139,7 +139,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'gestionnaire'
+       getRole() == 'manager'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signalisations"}>Signalisation</Link>
          </li>
@@ -147,7 +147,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'etudiant' || getRole() == 'prof'
+       getRole() == 'student' || getRole() == 'teacher'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
          </li>
@@ -171,7 +171,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'etudiant' || getRole() == 'prof'
+       getRole() == 'student' || getRole() == 'teacher'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/history"}>History</Link>
          </li>
@@ -179,7 +179,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'etudiant' || getRole() == 'prof'
+       getRole() == 'student' || getRole() == 'teacher'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/all"}>All Signale</Link>
          </li>
@@ -187,7 +187,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'etudiant' || getRole() == 'prof'
+       getRole() == 'student' || getRole() == 'teacher'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signaler"}>Signaler</Link>
          </li>
