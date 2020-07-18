@@ -5,7 +5,7 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {email: '',password: '',loading: false,vd: false};
+        this.state = {email: '',password: '',errorMessage: '',loading: false,vd: false};
     
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -45,13 +45,16 @@ const handleLogin = () => {
       console.log(response)
 
     }).catch(function (error) {
-      console.log(error);
+      console.log('gggggg' + error);
+       alert('username or password is wrong !');
     });
 }
 
 return (
 <div className="container mt-5">
-    <div className="row">
+    <div className="row">{ this.state.errorMessage }
+    { this.state.errorMessage && <div class="alert alert-danger" role="alert">{ this.state.errorMessage }</div> }
+
     <div className="col-md-6">
             <div className="card border-0 shadow">
                 <div className="card-header border-0">Login</div>

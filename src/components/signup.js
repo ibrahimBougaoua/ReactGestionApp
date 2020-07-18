@@ -57,7 +57,7 @@ export default class Signup extends Component {
         console.log('telephone : ' + this.state.telephone);
         console.log('sexe : ' + this.state.sexe);
         console.log('role : ' + this.state.role);
-        this.setState({loading: true});
+        //this.setState({loading: true});
         event.preventDefault();
       }
 
@@ -74,11 +74,11 @@ const handleSignin = () => {
         role    : this.state.role,
     }).then(function (response) {
       // setter
-      localStorage.setItem('token', response.data.access_token)
-      localStorage.setItem('id', response.data.user.id)
-      localStorage.setItem('name', response.data.user.name)
-      localStorage.setItem('email', response.data.user.email)
-      localStorage.setItem('role', response.data.user.role)
+      //localStorage.setItem('token', response.data.access_token)
+      //localStorage.setItem('id', response.data.user.id)
+      //localStorage.setItem('name', response.data.user.name)
+      // localStorage.setItem('email', response.data.user.email)
+      //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
     }).catch(function (error) {
@@ -86,10 +86,10 @@ const handleSignin = () => {
     });
 }
 
+// { this.state.loading ? <Redirect to='/dashboard' /> : null }
+
 return (
 <div className="container mt-5">
-
-{ this.state.loading ? <Redirect to='/dashboard' /> : null }
 
     <div className="row">
     <div className="col-md-6">
