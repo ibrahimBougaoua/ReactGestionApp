@@ -16,8 +16,25 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {all: []};
+        this.state = {all: [],value: '',cate: 'desc'};
+        this.handleChangeValue = this.handleChangeValue.bind(this);
+        this.handleChangeCate = this.handleChangeCate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
+
+      handleChangeValue(event) {
+        this.setState({value: event.target.value});
+      }
+
+      handleChangeCate(event) {
+        this.setState({cate: event.target.options[event.target.selectedIndex].value});
+      }
+      
+  handleSubmit(event) {
+    console.log('value : ' + this.state.value)
+    console.log('cate : ' + this.state.cate)
+    event.preventDefault();
+  }
 
       componentDidMount = () => {
         all_signalisations().then(response => {
@@ -28,6 +45,35 @@ export default class Home extends Component {
       }
 
 render() {
+
+// handle button click of signin form
+const handleSearch = () => {
+    if(this.state.cate == 'desc') {
+        axios.get('http://127.0.0.1:8000/api/auth/search/?desc=' + this.state.value).then(function (response) {
+        console.log(response)
+        }).catch(function (error) {
+        console.log(error);
+        });
+    } else if(this.state.cate == 'nature') {
+        axios.get('http://127.0.0.1:8000/api/auth/search/?nature=' + this.state.value).then(function (response) {
+        console.log(response)
+        }).catch(function (error) {
+        console.log(error);
+        });
+    } else if(this.state.cate == 'cause') {
+        axios.get('http://127.0.0.1:8000/api/auth/search/?cause=' + this.state.value).then(function (response) {
+        console.log(response)
+        }).catch(function (error) {
+        console.log(error);
+    });
+    } else if(this.state.cate == 'localisation') {
+        axios.get('http://127.0.0.1:8000/api/auth/search/?localisation=' + this.state.value).then(function (response) {
+          console.log(response)
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+}
 
 const all_data = this.state.all.map((element) =>
 <div className="card">
@@ -50,21 +96,23 @@ return (
                     <h2 className="lead font-weight-bold text-info">Informer.</h2>
 
                     <div className="mt-5">
-                    <form method="POST">
+                    <form method="POST" onSubmit={this.handleSubmit}>
           
           <div className="form-group col-md-12">
-              <input className="form-control form-control-lg" name="search" type="text" placeholder="Rechercher des problemes by sa nature" aria-label="Search" />          
+              <input className="form-control form-control-lg" name="search" type="text" onChange={this.handleChangeValue} value={this.state.value} placeholder="Rechercher des problemes by sa nature" aria-label="Search" />          
           </div>    
           
           <div className="form-group col-md-12">
-              <select name="cate" class="form-control form-control-lg">
-                <option value="emplois">emplois</option>
-                <option value="entreprises">entreprises</option>
-              </select>
+        <select name="cate" class="form-control" value={this.state.cate} onChange={this.handleChangeCate}>
+  <option value="desc">Description</option>
+  <option value="nature">Nature</option>
+  <option value="cause">Cause</option>
+  <option value="localisation">Localisation</option>
+</select>
           </div>
-          
+
           <div className="form-group col-md-6 ml-0">
-              <button className="btn btn-lg btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit">Search</button>
+              <button className="btn btn-lg btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Search</button>
           </div>
     
           </form>

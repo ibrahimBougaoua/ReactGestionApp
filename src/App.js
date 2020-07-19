@@ -147,7 +147,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
          </li>
@@ -171,7 +171,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/history"}>History</Link>
          </li>
@@ -179,7 +179,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/all"}>All Signale</Link>
          </li>
@@ -187,7 +187,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signaler"}>Signaler</Link>
          </li>

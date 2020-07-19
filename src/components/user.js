@@ -237,6 +237,7 @@ return (<div className="container mt-5">
   <option value="interventionteam">équipes d'intervention</option>
   <option value="student">Etudiant</option>
   <option value="teacher">Prof</option>
+  <option value="ats">ATS</option>
   <option value="employee">Employee</option>
 </select>
         </div>
