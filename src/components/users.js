@@ -6,7 +6,7 @@ export default class User extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: '',vd: false,loading: false};
+        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: '',vdName: false,vdEmail: false,vdPassword: false,vdTelephone: false,loading: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -20,27 +20,26 @@ export default class User extends Component {
     
       handleChangeName(event) {
         this.setState({name: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdName: true});
       }
     
       handleChangeEmail(event) {
         this.setState({email: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdEmail: true});
       }
     
       handleChangePassword(event) {
         this.setState({password: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdPassword: true});
       }
     
       handleChangeTelephone(event) {
         this.setState({telephone: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdTelephone: true});
       }
     
       handleChangeSexe(event) {
         this.setState({sexe: event.target.options[event.target.selectedIndex].value});
-        this.setState({vd: true});
       }
 
       //handleChangeConfirmePassword(event) {
@@ -49,7 +48,6 @@ export default class User extends Component {
     
       handleChangeRole(event) {
         this.setState({role: event.target.options[event.target.selectedIndex].value});
-        this.setState({vd: true});
       }
 
       handleSubmit(event) {
@@ -101,8 +99,8 @@ return (
                     <div class="form-row">
                         <div className="form-group col-md-6">
                             <label for="name">Name</label>
-                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="name" required/>
-                            { this.state.name == '' && this.state.vd
+                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vdName ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="name" required/>
+                            { this.state.name == '' && this.state.vdName
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
                             }
@@ -110,8 +108,8 @@ return (
 
                         <div className="form-group col-md-6">
                             <label for="email">E-Mail Address</label>
-                            <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" placeholder="exmple@mail.dz" required/>
-                            { this.state.email == '' && this.state.vd
+                            <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vdEmail ? 'form-control is-invalid' : "form-control is-valid" } name="email" placeholder="exmple@mail.dz" required/>
+                            { this.state.email == '' && this.state.vdEmail
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
                             }
@@ -119,8 +117,8 @@ return (
 
                         <div className="form-group col-md-6">
                             <label for="password">Password</label>
-                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="password" placeholder="password" required/>
-                            { this.state.password == '' && this.state.vd
+                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } name="password" placeholder="password" required/>
+                            { this.state.password == '' && this.state.vdPassword
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
                             }
@@ -128,8 +126,8 @@ return (
 
                         <div className="form-group col-md-6">
                             <label for="telephone">Telephone</label>
-                            <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone} placeholder="0123456789" required/>
-                            { this.state.telephone == '' && this.state.vd
+                            <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vdTelephone ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone} placeholder="0123456789" required/>
+                            { this.state.telephone == '' && this.state.vdTelephone
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
                             }
@@ -149,10 +147,10 @@ return (
   <option value="adminstrator">Adminstrator</option>
   <option value="manager">Gestionnaire</option>
   <option value="interventionteam">équipes d'intervention</option>
+  <option value="employee">Employee</option>
+  <option value="ats">ATS</option>
   <option value="student">Etudiant</option>
   <option value="teacher">Prof</option>
-  <option value="ats">ATS</option>
-  <option value="employee">Employee</option>
 </select>
 </div>
 
