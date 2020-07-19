@@ -6,7 +6,7 @@ export default class Signup extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',telephone: '',sexe: 'male',role: 'etudiant',loading: false,vd: false};
+        this.state = {name: '',email: '',password: '',telephone: '',sexe: 'male',role: 'student',loading: false,vdName: false,vdEmail: false,vdPassword: false,vdTelephone: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -20,26 +20,26 @@ export default class Signup extends Component {
     
       handleChangeName(event) {
         this.setState({name: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdName: true});
       }
     
       handleChangeEmail(event) {
         this.setState({email: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdEmail: true});
       }
     
       handleChangePassword(event) {
         this.setState({password: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdPassword: true});
       }
 
       handleChangeTelephone(event) {
         this.setState({telephone: event.target.value});
-        this.setState({vd: true});
+        this.setState({vdTelephone: true});
       }
     
       handleChangeSexe(event) {
-        this.setState({sexe:  event.target.options[event.target.selectedIndex].text});
+        this.setState({sexe:  event.target.options[event.target.selectedIndex].value});
       }
     
       //handleChangeConfirmePassword(event) {
@@ -47,7 +47,7 @@ export default class Signup extends Component {
       //}
     
       handleChangeRole(event) {
-        this.setState({role: event.target.options[event.target.selectedIndex].text});
+        this.setState({role: event.target.options[event.target.selectedIndex].value});
       }
 
       handleSubmit(event) {
@@ -102,8 +102,8 @@ return (
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
                             <div className="col-md-8">
-                                <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
-                                { this.state.name == '' && this.state.vd
+                                <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vdName ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
+                                { this.state.name == '' && this.state.vdName
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
                                 } 
@@ -113,8 +113,8 @@ return (
                         <div className="form-group row">
                             <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                             <div className="col-md-8">
-                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="email" required/>
-                                { this.state.email == '' && this.state.vd
+                                <input id="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vdEmail ? 'form-control is-invalid' : "form-control is-valid" } name="email" required/>
+                                { this.state.email == '' && this.state.vdEmail
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
                                 } 
@@ -124,8 +124,8 @@ return (
                         <div className="form-group row">
                             <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
                             <div className="col-md-8">
-                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="password" required/>
-                                { this.state.password == '' && this.state.vd
+                                <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } name="password" required/>
+                                { this.state.password == '' && this.state.vdPassword
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
                                 } 
@@ -135,8 +135,8 @@ return (
                         <div className="form-group row">
     <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
     <div className="col-md-8">
-        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone}/>
-        { this.state.telephone == '' && this.state.vd
+        <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vdTelephone ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone}/>
+        { this.state.telephone == '' && this.state.vdTelephone
           ? <div className="invalid-feedback"> This field is empty.</div>
           : null
         } 
