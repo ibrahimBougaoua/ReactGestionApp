@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
 export default class Login extends Component {
@@ -43,16 +44,21 @@ const handleLogin = () => {
       localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      return(<Redirect to='/dashboard' delay={2000} />);
+      
 
     }).catch(function (error) {
       console.log('gggggg' + error);
-       alert('username or password is wrong !');
+      //return (<div class="alert alert-danger" role="alert">username or password is wrong !</div>);
     });
 }
 
 return (
 <div className="container mt-5">
     <div className="row">{ this.state.errorMessage }
+
+    { this.state.loading ? <Redirect to='/dashboard' delay={2000} /> : null }
+
     { this.state.errorMessage && <div class="alert alert-danger" role="alert">{ this.state.errorMessage }</div> }
 
     <div className="col-md-6">
