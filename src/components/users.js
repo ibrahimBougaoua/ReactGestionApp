@@ -6,7 +6,7 @@ export default class User extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {name: '',email: '',password: '',sexe: '',telephone: '',role: '',vdName: false,vdEmail: false,vdPassword: false,vdTelephone: false,loading: false};
+        this.state = {name: '',email: '',password: '',sexe: 'male',telephone: '',role: 'ats',vdName: false,vdEmail: false,vdPassword: false,vdTelephone: false,loading: false};
     
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
