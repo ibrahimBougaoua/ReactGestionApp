@@ -54,7 +54,6 @@ return (
      <h5 class="card-header border-0">comment</h5>
      <div class="card-body">
      <h5 class="card-title">la list est vide</h5>
-     <p class="card-text">en peut ajouter des comment.</p>
      </div>
      </div>
     :
