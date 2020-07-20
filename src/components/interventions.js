@@ -131,7 +131,7 @@ return (
                             <label for="name" className="col-md-4 col-form-label text-md-right">Signalisations</label>
                             <div className="col-md-8">
                             <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisation_id}>
-                            {select_data}
+                            {select_data == '' ? <option value="0">No Signalisation</option> : select_data }
                             </select>
                             </div>
                         </div>
