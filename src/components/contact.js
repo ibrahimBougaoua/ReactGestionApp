@@ -4,7 +4,7 @@ import Nav from './nav';
 
 async function all_chefs() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/showlistchef')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
       //console.log(response);
       return response;
     } catch (error) {
