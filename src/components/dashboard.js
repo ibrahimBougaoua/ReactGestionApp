@@ -105,7 +105,7 @@ async function equipeDashboard() {
 
 async function userProfCountByRole() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/prof')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/teacher')
       console.log(response);
       return response;
     } catch (error) {
@@ -115,7 +115,7 @@ async function userProfCountByRole() {
 
 async function userEtudiantCountByRole() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/etudiant')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/student')
       console.log(response);
       return response;
     } catch (error) {
@@ -135,7 +135,7 @@ async function userEmployeeCountByRole() {
 
 async function userGestionnaireCountByRole() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/gestionnaire')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usercountbyrole/manager')
       console.log(response);
       return response;
     } catch (error) {
@@ -486,7 +486,7 @@ return (
         : null
         }
 
-        { getRole() == 'teacher' || getRole() == 'student'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -505,7 +505,7 @@ return (
         : null
         }
         
-        { getRole() == 'teacher' || getRole() == 'student'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -582,13 +582,13 @@ return (
         }
 
 
-{ getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam'
+{ getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
       <div className="row no-gutters align-items-center">
         <div className="col mr-2">
-          <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Etudiants</div>
+          <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Student</div>
           <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.etudiantCountRec}</div>
         </div>
         <div className="col-auto">
@@ -601,13 +601,13 @@ return (
         : null
         }
 
-        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Profs</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Teachers</div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.profCountRec}</div>
                 </div>
                 <div className="col-auto">
@@ -630,7 +630,7 @@ return (
    : null
    }
 
-   { getRole() == 'teacher' || getRole() == 'student'
+   { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'ats'
       ? <div className="col-md-6">
            <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
                <Bar data={bar} />
@@ -638,7 +638,7 @@ return (
          </div>
          : null
          }
-        { getRole() == 'teacher' || getRole() == 'student'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'ats'
         ? <div className="col-md-6">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Pie data={pie} />
@@ -647,7 +647,7 @@ return (
       : null
       }
 
-      { getRole() == 'teacher' || getRole() == 'student'
+      { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'ats'
        ? <div className="col-md-12 mt-3">
         <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <Line data={line} />
