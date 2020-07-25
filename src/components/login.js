@@ -2,11 +2,26 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
+async function checkLoginUser() {
+    try {
+      const response = await axios({
+        method :'POST',
+        url :'http://127.0.0.1:8000/api/auth/me',
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
+      console.log('ccccccc : ' + response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
 export default class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {email: '',password: '',errorMessage: '',loading: false,vdUserName: false,vdPassword: false};
+        this.state = {hasLogin: false,email: '',password: '',errorMessage: '',loading: false,vdUserName: false,vdPassword: false};
     
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -26,6 +41,17 @@ export default class Login extends Component {
       handleSubmit(event) {
         this.setState({loading: true});
         event.preventDefault();
+      }
+
+      componentDidMount = () => {
+        checkLoginUser().then(response => {
+          console.log(response);
+          if(response){
+            this.setState({
+              hasLogin: true
+            });
+          }
+        });
       }
 
     render() {
@@ -57,7 +83,7 @@ return (
 <div className="container mt-5">
     <div className="row">{ this.state.errorMessage }
 
-    { this.state.loading ? <Redirect to='/dashboard' delay={2000} /> : null }
+{ this.state.hasLogin ? <Redirect to='/dashboard' /> : null }
 
     { this.state.errorMessage && <div class="alert alert-danger" role="alert">{ this.state.errorMessage }</div> }
 

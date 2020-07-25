@@ -231,100 +231,138 @@ export default class Dashboard extends Component {
           }
         });
         usersCount().then(response => {
+          if(response){
             this.setState({
                 usersCountRec: response.data
             });
+          }
         });
         equipeCount().then(response => {
+          if(response){
             this.setState({
                 equipeCountRec: response.data
             });
+          }
         });
         signalerCount(localStorage.getItem('id')).then(response => {
+          if(response){
             this.setState({
                 signalerCountRec: response.data
             });
+          }
         });
         commentsCountDashboard(localStorage.getItem('id')).then(response => {
+          if(response){
             this.setState({
                 commentsCountRec: response.data
             });
+          }
         });
         userProfCountByRole().then(response => {
+          if(response){
             this.setState({
                 profCountRec: response.data
             });
+          }
         });
         userEtudiantCountByRole().then(response => {
+          if(response){
             this.setState({
                 etudiantCountRec: response.data
             });
+          }
         });
         signalisationCount().then(response => {
+          if(response){
             this.setState({
                 signalisationCountRec: response.data
             });
+          }
         });
         allSignalerCount().then(response => {
+          if(response){
             this.setState({
                 allSignalerCountRec: response.data
             });
+          }
         });
         signalisationDashboard().then(response => {
+          if(response){
             this.setState({
                 signalisationDashboardRec: response.data
             });
+          }
         });
         userSignalisationDashboard(localStorage.getItem('id')).then(response => {
+          if(response){
             this.setState({
                 userSignalisationDashboardRec: response.data
             });
+          }
         });
         userRoleDashboard().then(response => {
+          if(response){
             this.setState({
                 userRoleDashboardRec: response.data
             });
+          }
         });
         equipeDashboard().then(response => {
+          if(response){
             this.setState({
                 equipedashboardRec: response.data
             });
+          }
         });
         signalisationCommentsDashboard().then(response => {
+          if(response){
             this.setState({
                 signalisationCommentsDashboardRec: response.data
             });
+          }
         });
         signalisationEtatAvancementDashboard().then(response => {
+          if(response){
             this.setState({
                 signalisationEtatAvancementDashboardRec: response.data
             });
+          }
         });
         userEmployeeCountByRole().then(response => {
+          if(response){
             this.setState({
                 userEmployeeCountByRole: response.data
             });
+          }
         });
         userGestionnaireCountByRole().then(response => {
+          if(response){
             this.setState({
                 gestionnaireCountRec: response.data
             });
+          }
         });
         allComments().then(response => {
+          if(response){
             this.setState({
                 allCommentsCountRec: response.data
             });
+          }
         });
         interventionCountDashbordById().then(response => {
+          if(response){
             this.setState({
               interventionCountDashbordByChefRec: response.data
             });
+          }
         });
         
         membreCountDashboard().then(response => {
-          this.setState({
-            membreCountDashboardRec: response.data
-          });
+          if(response){
+             this.setState({
+              membreCountDashboardRec: response.data
+             });
+          }
       });
       
       }
@@ -392,7 +430,7 @@ const bar = {
 return (
 <div className="container mt-5">
     <Nav name="Dashboard" />
-{ this.state.hasLogin ? 'has login' : <Redirect to='/' /> }
+{ this.state.hasLogin ? null  : <Redirect to='/' /> }
     <div className="row">
         
     { getRole() == 'interventionteam'

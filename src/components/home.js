@@ -75,7 +75,8 @@ const handleSearch = () => {
     }
 }
 
-const all_data = this.state.all.map((element) =>
+
+const all_data = this.state.all == [] ? this.state.all.map((element) =>
 <div className="card">
   <img src="https://images.pexels.com/photos/3815585/pexels-photo-3815585.jpeg?cs=srgb&dl=person-writing-on-white-paper-3815585.jpg&fm=jpg" className="card-img-top" alt="..." />
   <div className="card-body">
@@ -83,7 +84,7 @@ const all_data = this.state.all.map((element) =>
     <Link to={'view/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link>
   </div>
 </div>
-);
+) : <div className="alert alert-light" role="alert"><h5 className="font-weight-bold text-info">No Signalisation yet !</h5></div>;
     
 return (
     <div className="row justify-content-center">
