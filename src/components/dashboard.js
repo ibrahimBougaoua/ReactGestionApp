@@ -1,5 +1,6 @@
 import React, { Component} from "react";
 import { Bar,Pie,Line,HorizontalBar } from 'react-chartjs-2';
+import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import Nav from './nav';
 
@@ -391,7 +392,7 @@ const bar = {
 return (
 <div className="container mt-5">
     <Nav name="Dashboard" />
-{this.state.hasLogin ? 'has login' : 'you need to login !'}
+{ this.state.hasLogin ? 'has login' : <Redirect to='/' /> }
     <div className="row">
         
     { getRole() == 'interventionteam'
