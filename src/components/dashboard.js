@@ -3,6 +3,21 @@ import { Bar,Pie,Line,HorizontalBar } from 'react-chartjs-2';
 import axios from 'axios';
 import Nav from './nav';
 
+async function checkLoginUser() {
+  try {
+    const response = await axios({
+      method :'POST',
+      url :'http://127.0.0.1:8000/api/auth/me',
+      headers : {'Accept':'application/json'},
+      params : {'token':localStorage.getItem('token')}
+    })
+    console.log('ccccccc : ' + response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function usersCount() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/auth/usercount')
@@ -73,9 +88,9 @@ async function signalisationDashboard() {
     }
 }
 
-async function userSignalisationDashboard() {
+async function userSignalisationDashboard(user_id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/usersignalisationdashboard')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/usersignalisationdashboard/' + user_id)
       console.log(response);
       return response;
     } catch (error) {
@@ -203,10 +218,17 @@ export default class Dashboard extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0,allSignalerCountRec: 0,allCommentsCountRec: 0,interventionCountDashbordByChefRec: 0,membreCountDashboardRec: 0}
+        this.state = {hasLogin: false,labelsBar: [],dataBar: [],all: [],usersCountRec: 0,equipeCountRec: 0,signalerCountRec: 0,signalisationCountRec: 0,signalisationDashboardRec: 0,userSignalisationDashboardRec: 0,userRoleDashboardRec: 0,equipedashboardRec: 0,commentsCountRec: 0,etudiantCountRec: 0,profCountRec: 0,signalisationCommentsDashboardRec: 0,signalisationEtatAvancementDashboardRec: 0,employeeCountRec: 0,gestionnaireCountRec: 0,allSignalerCountRec: 0,allCommentsCountRec: 0,interventionCountDashbordByChefRec: 0,membreCountDashboardRec: 0}
     }
 
       componentDidMount = () => {
+        checkLoginUser().then(response => {
+          if(response){
+            this.setState({
+              hasLogin: true
+            });
+          }
+        });
         usersCount().then(response => {
             this.setState({
                 usersCountRec: response.data
@@ -252,7 +274,7 @@ export default class Dashboard extends Component {
                 signalisationDashboardRec: response.data
             });
         });
-        userSignalisationDashboard().then(response => {
+        userSignalisationDashboard(localStorage.getItem('id')).then(response => {
             this.setState({
                 userSignalisationDashboardRec: response.data
             });
@@ -369,7 +391,7 @@ const bar = {
 return (
 <div className="container mt-5">
     <Nav name="Dashboard" />
-
+{this.state.hasLogin ? 'has login' : 'you need to login !'}
     <div className="row">
         
     { getRole() == 'interventionteam'

@@ -4,17 +4,27 @@ import Nav from './nav';
 
 async function all_chefs() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
+      const response = await axios({
+        method :'GET',
+        url :'http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam' ,
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
       //console.log(response);
       return response;
     } catch (error) {
       console.error(error);
     }
-  }
+}
 
 async function all_message(id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/messages/' + id)
+      const response = await axios({
+        method :'GET',
+        url :'http://127.0.0.1:8000/api/auth/messages/' + id,
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
       //console.log(response);
       return response;
     } catch (error) {

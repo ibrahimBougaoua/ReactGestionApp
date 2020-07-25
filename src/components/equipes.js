@@ -13,14 +13,20 @@ async function all_equipes() {
   }
 }
 
-async function all_users() {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+
+async function all_chefs() {
+  try {
+    const response = await axios({
+      method :'GET',
+      url :'http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam' ,
+      headers : {'Accept':'application/json'},
+      params : {'token':localStorage.getItem('token')}
+    })
+    //console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default class Equipe extends Component {
@@ -67,7 +73,7 @@ export default class Equipe extends Component {
                 all: response.data
             });
         });
-        all_users().then(response => {
+        all_chefs().then(response => {
             this.setState({
                 allUsers: response.data
             });

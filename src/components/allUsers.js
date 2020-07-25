@@ -5,7 +5,12 @@ import Nav from './nav';
 
 async function all_users() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+      const response = await axios({
+        method :'GET',
+        url :'http://127.0.0.1:8000/api/auth/user',
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
       console.log(response);
       return response;
     } catch (error) {

@@ -172,7 +172,7 @@ return (
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleCreate}>
-                                Update Intervention
+                                Create Intervention
                                 </button>
                             </div>
                         </div>

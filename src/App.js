@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -29,16 +30,25 @@ import Comments from "./components/comments";
 import Comment from "./components/comment";
 import Dashboard from "./components/dashboard";
 
+async function checkLoginUser() {
+  try {
+    const response = await axios({
+      method :'POST',
+      url :'http://127.0.0.1:8000/api/auth/me',
+      headers : {'Accept':'application/json'},
+      params : {'token':localStorage.getItem('token')}
+    })
+    console.log('ccccccc : ' + response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 function getRole() {
   if(localStorage.getItem('role'))
   return localStorage.getItem('role');
   return '';
-}
-
-function HasLogin() {
-  if(localStorage.getItem('token'))
-  return true;
-  return false;
 }
 
 function aboutUs(){
@@ -63,15 +73,26 @@ function aboutUs(){
 }
 
 function App() {
- 
+
 const Logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("id");
-  localStorage.removeItem("name");
-  localStorage.removeItem("email");
-  localStorage.removeItem("role");
-  window.location.replace("/")
+  try {
+    const response = axios({
+      method :'POST',
+      url :'http://127.0.0.1:8000/api/auth/logout',
+      headers : {'Accept':'application/json'},
+      params : {'token':localStorage.getItem('token')}
+    })
+    console.log(response);
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+  } catch (error) {
+    console.error(error);
+  }
 }
+
 
   return (<Router>
     <div className="container-fluid">
@@ -91,7 +112,7 @@ const Logout = () => {
 
     <ul className="navbar-nav ml-auto">
       {
-       HasLogin()
+       checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/dashboard"}>Dashboard</Link>
          </li>
@@ -99,7 +120,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'interventionteam'
+       getRole() == 'interventionteam' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/chef-intervention"}>Interventions</Link>
          </li>
@@ -107,7 +128,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'interventionteam'
+       getRole() == 'interventionteam' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/membre"}>Membres</Link>
          </li>
@@ -115,7 +136,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'
+       getRole() == 'manager' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/interventions"}>Interventions</Link>
          </li>
@@ -123,7 +144,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'
+       getRole() == 'manager' && checkLoginUser()
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/equipes"}>Equipe</Link>
         </li>
@@ -131,7 +152,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'  || getRole() == 'teamanager'
+       getRole() == 'manager'  || getRole() == 'interventionteam' && checkLoginUser()
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/contact"}>Contact</Link>
         </li>
@@ -139,7 +160,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'
+       getRole() == 'manager' && checkLoginUser() == true
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signalisations"}>Signalisation</Link>
          </li>
@@ -147,7 +168,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
          </li>
@@ -155,7 +176,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'adminstrator'
+       getRole() == 'adminstrator' && checkLoginUser()
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New User</Link>
          </li>
@@ -163,7 +184,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'adminstrator'
+       getRole() == 'adminstrator' && checkLoginUser()
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/users"}>All users</Link>
          </li>
@@ -171,7 +192,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/history"}>History</Link>
          </li>
@@ -179,7 +200,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/all"}>All Signale</Link>
          </li>
@@ -187,7 +208,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats'
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signaler"}>Signaler</Link>
          </li>
@@ -201,23 +222,23 @@ const Logout = () => {
       </li>
 
       {
-       ! HasLogin()
+        checkLoginUser()
        ? <li className="nav-item">
-         <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>Sign up</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
          </li>
        : <li className="nav-item">
-       <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
-       </li>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>Sign up</Link>
+         </li>
       }
       
       {
-       ! HasLogin()
-       ? <li className="nav-item">
-         <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Login</Link>
-         </li>
-       : <li className="nav-item">
-       <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
-       </li>
+        checkLoginUser()
+       ?  <li className="nav-item">
+            <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
+          </li>
+       :  <li className="nav-item">
+            <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Login</Link>
+          </li>
       }
     </ul>
           </div>
