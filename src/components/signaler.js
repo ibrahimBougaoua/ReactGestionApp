@@ -1,6 +1,33 @@
-import React, { Component} from "react";
+import React, { useState,Component } from "react";
 import axios from 'axios';
 import Nav from './nav';
+import MultiImageInput from 'react-multiple-image-input';
+
+function MultiImageupload()
+{
+  const crop = {
+    unit: '%',
+    aspect: 4 / 3,
+    width: '100'
+  };
+ 
+  const [images, setImages] = useState({});
+ 
+  return (
+    <MultiImageInput
+      images={images}
+      setImages={setImages}
+      cropConfig={{ crop, ruleOfThirds: true }}
+      theme={{
+        background: '#ffffff',
+        outlineColor: '#ddd',
+        textColor: 'rgba(255,255,255,0.6)',
+        buttonColor: '#ff0e1f',
+        modalColor: '#ffffff'
+      }}
+    />
+  );
+}
 
 export default class Signaler extends Component {
     
@@ -48,6 +75,7 @@ export default class Signaler extends Component {
 
     render() {
 
+     
 // handle button click of signin form
 const handleCreate = () => {
     axios.post('http://127.0.0.1:8000/api/auth/signalisation', {
@@ -88,6 +116,7 @@ const handleCreate = () => {
     });
 }
 
+
 return (
 <div className="container mt-5">
     <Nav name="Signaler" />
@@ -118,7 +147,7 @@ return (
      }
 </div>
 
-<div className="form-group col-md-6">
+<div className="form-group col-md-4">
     <label for="lieu">Lieu</label>
     <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className={ this.state.lieu == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="lieu" required/>
     { this.state.lieu == '' && this.state.vd
@@ -127,7 +156,7 @@ return (
     }
 </div>
 
-<div className="form-group col-md-6">
+<div className="form-group col-md-4">
     <label for="nature">Nature</label>
     <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className={ this.state.nature == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="nature" required/>
     { this.state.nature == '' && this.state.vd
@@ -136,7 +165,7 @@ return (
     }
 </div>
 
-<div className="form-group col-md-6">
+<div className="form-group col-md-4">
     <label for="cause">Cause</label>
     <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className={ this.state.cause == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="cause" required/>
     { this.state.cause == '' && this.state.vd
@@ -145,12 +174,11 @@ return (
     }
 </div>
 
-<div className="form-group col-md-6">
+<div className="form-group col-md-12">
 <label for="upload">Upload picturs</label>
-<div className="custom-file">
-  <input type="file" className="custom-file-input" id="customFile" />
-  <label className="custom-file-label" for="customFile">Choose file</label>
-</div>
+
+<MultiImageupload />
+
 </div>
 
                         <div className="form-group col-md-12 mb-0">
