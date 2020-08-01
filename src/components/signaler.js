@@ -23,7 +23,7 @@ function MultiImageupload()
         outlineColor: '#ddd',
         textColor: 'rgba(255,255,255,0.6)',
         buttonColor: '#ff0e1f',
-        modalColor: '#ffffff'
+        modalColor: '#ddd'
       }}
     />
   );
