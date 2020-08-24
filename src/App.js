@@ -30,20 +30,21 @@ import Comments from "./components/comments";
 import Comment from "./components/comment";
 import Dashboard from "./components/dashboard";
 
-async function checkLoginUser() {
-  try {
-    const response = await axios({
-      method :'POST',
-      url :'http://127.0.0.1:8000/api/auth/me',
-      headers : {'Accept':'application/json'},
-      params : {'token':localStorage.getItem('token')}
-    })
-    console.log('ccccccc : ' + response);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+async function isLogin() {
+try {
+  const response = axios({
+    method :'POST',
+    url :'http://127.0.0.1:8000/api/auth/me',
+    headers : {'Accept':'application/json'},
+    params : {'token':localStorage.getItem('token')}
+  })
+  console.error(response); 
+  return response;
+} catch (error) {
+  console.error(error);
 }
+}
+
 
 function getRole() {
   if(localStorage.getItem('role'))
@@ -72,8 +73,29 @@ function aboutUs(){
 </div>);
 }
 
-function App() {
- 
+
+class App extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+    isLogin: false
+    };
+  }
+
+  
+  componentDidMount = () => {
+    isLogin().then(response => {
+      if(response){
+        this.setState({
+          isLogin: true
+        });
+      }
+    });
+  }
+
+render() {
+
 const Logout = () => {
   try {
     const response = axios({
@@ -94,6 +116,7 @@ const Logout = () => {
 }
 
 
+
   return (<Router>
     <div className="container-fluid">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top mb-5 shadow-sm p-3 mb-5 bg-white rounded">
@@ -112,7 +135,7 @@ const Logout = () => {
 
     <ul className="navbar-nav ml-auto">
       {
-       checkLoginUser()
+       this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/dashboard"}>Dashboard</Link>
          </li>
@@ -120,7 +143,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'interventionteam' && checkLoginUser()
+       getRole() == 'interventionteam' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/chef-intervention"}>Interventions</Link>
          </li>
@@ -128,7 +151,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'interventionteam' && checkLoginUser()
+       getRole() == 'interventionteam' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/membre"}>Membres</Link>
          </li>
@@ -136,7 +159,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager' && checkLoginUser()
+       getRole() == 'manager' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/interventions"}>Interventions</Link>
          </li>
@@ -144,7 +167,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager' && checkLoginUser()
+       getRole() == 'manager' && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/equipes"}>Equipe</Link>
         </li>
@@ -152,7 +175,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'  || getRole() == 'interventionteam' && checkLoginUser()
+       getRole() == 'manager'  || getRole() == 'interventionteam' && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/contact"}>Contact</Link>
         </li>
@@ -160,7 +183,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager' && checkLoginUser() == true
+       getRole() == 'manager' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signalisations"}>Signalisation</Link>
          </li>
@@ -168,7 +191,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/comments"}>All comments</Link>
          </li>
@@ -176,7 +199,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'adminstrator' && checkLoginUser()
+       getRole() == 'adminstrator' && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New User</Link>
          </li>
@@ -184,7 +207,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'adminstrator' && checkLoginUser()
+       getRole() == 'adminstrator' && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/users"}>All users</Link>
          </li>
@@ -192,7 +215,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/history"}>History</Link>
          </li>
@@ -200,7 +223,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/all"}>All Signale</Link>
          </li>
@@ -208,7 +231,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && checkLoginUser()
+       getRole() == 'student' || getRole() == 'teacher' || getRole() == 'ats' && this.state.isLogin
        ? <li className="nav-item">
            <Link className="btn btn-sm btn-outline-info mr-2" to={"/signaler"}>Signaler</Link>
          </li>
@@ -222,7 +245,7 @@ const Logout = () => {
       </li>
 
       {
-        checkLoginUser()
+        this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
          </li>
@@ -232,7 +255,7 @@ const Logout = () => {
       }
       
       {
-        checkLoginUser()
+        this.state.isLogin
        ?  <li className="nav-item">
             <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
           </li>
@@ -308,6 +331,7 @@ const Logout = () => {
           
     </div><Footer /></Router>
   );
+}
 }
 
 export default App;
