@@ -80,16 +80,16 @@ const handleLogin = () => {
 }
 
 return (
-<div className="container mt-5">
-    <div className="row">{ this.state.errorMessage }
+<div className="container">
+    <div className="row mt-5">{ this.state.errorMessage }
 
 { this.state.hasLogin ? <Redirect to='/dashboard' /> : null }
 
     { this.state.errorMessage && <div class="alert alert-danger" role="alert">{ this.state.errorMessage }</div> }
 
-    <div className="col-md-6">
+    <div className="col-md-6 mt-5">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Login</div>
+                <div className="card-header border-0 bg-info text-white">Login</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -147,8 +147,8 @@ return (
         </div>
 
 
-        <div className="col-md-6">
-            <img src="/undraw_secure_login_pdn4.svg" className="w-100 mt-2 rounded" alt=""/>
+        <div className="col-md-6 mt-3">
+            <img src="/undraw_secure_login_pdn4.svg" className="w-100 h-75 mt-2 rounded" alt=""/>
         </div>
 
     </div>
