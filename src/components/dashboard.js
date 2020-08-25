@@ -430,8 +430,8 @@ const bar = {
 return (
 <div className="container mt-5">
     <Nav name="Dashboard" />
-{ this.state.hasLogin ? null  : <Redirect to='/' /> }
-    <div className="row">
+
+<div className="row">
         
     { getRole() == 'interventionteam'
           ? <div className="col-md-3 mb-4">

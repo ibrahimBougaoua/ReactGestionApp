@@ -89,12 +89,12 @@ const handleSignin = () => {
 // { this.state.loading ? <Redirect to='/dashboard' /> : null }
 
 return (
-<div className="container mt-5">
+<div className="container">
 
-    <div className="row">
-    <div className="col-md-6">
+    <div className="row mt-5">
+    <div className="col-md-6 mt-4">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Register</div>
+                <div className="card-header border-0 bg-info text-white">Register</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -176,6 +176,12 @@ return (
                 </div>
             </div>
         </div>
+
+
+        <div className="col-md-6 mt-3">
+            <img src="/undraw_sign_in_e6hj.svg" className="w-100 mt-2 rounded" alt=""/>
+        </div>
+
     </div>
 </div>
         );

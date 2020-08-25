@@ -148,7 +148,7 @@ return (
 
 
         <div className="col-md-6 mt-3">
-            <img src="/undraw_secure_login_pdn4.svg" className="w-100 h-75 mt-2 rounded" alt=""/>
+            <img src="/undraw_secure_login_pdn4.svg" className="w-100 h-100 mt-2 rounded" alt=""/>
         </div>
 
     </div>
