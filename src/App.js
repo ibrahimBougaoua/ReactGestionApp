@@ -90,6 +90,7 @@ class App extends React.Component {
         this.setState({
           isLogin: true
         });
+        console.log(this.state.isLogin)
       }
     });
   }
@@ -175,7 +176,7 @@ const Logout = () => {
       }
 
       {
-       getRole() == 'manager'  || getRole() == 'interventionteam' && this.state.isLogin
+       (getRole() == 'manager'  || getRole() == 'interventionteam') && this.state.isLogin
        ? <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/contact"}>Contact</Link>
         </li>
