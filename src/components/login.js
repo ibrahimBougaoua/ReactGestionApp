@@ -145,6 +145,12 @@ return (
                 </div>
             </div>
         </div>
+
+
+        <div className="col-md-6">
+            <img src="/undraw_secure_login_pdn4.svg" className="w-100 mt-2 rounded" alt=""/>
+        </div>
+
     </div>
 </div>
         );
