@@ -66,22 +66,12 @@ async function user(id) {
   }
 }
 
-async function all_equipe_members() {
-  try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
-    //console.log(response);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export default class Single extends Component {
 
 constructor(props) {
 
     super(props);
-    this.state = {d_f_equipe: '',mail: '',telephone: '',dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],allMembers: [],getUserMembreByIds: [],dataUser: [],chef: '',allEquipeMembreById: [],loadingUpdate: false,loadingAddMembre: false,vd: false};
+    this.state = {d_f_equipe: '',mail: '',telephone: '',dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],getUserMembreByIds: [],dataUser: [],chef: '',allEquipeMembreById: [],loadingUpdate: false,loadingAddMembre: false,vd: false};
 
     this.handleChanged_f_equipe = this.handleChanged_f_equipe.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -134,12 +124,7 @@ constructor(props) {
         });
         all_employee().then(response => {
           this.setState({
-              allUsers: response.data
-          });
-        });
-        all_equipe_members().then(response => {
-          this.setState({
-              allMembers: response.data
+              allUsers: response.data.data
           });
         });
 
