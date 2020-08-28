@@ -25,7 +25,7 @@ async function all_signalisations() {
 
 async function all_chef() {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
     //console.log(response);
     return response;
   } catch (error) {
@@ -45,7 +45,12 @@ async function getChefByID(id) {
 
 async function evaluer(intervention_id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/ifevaluer/' + intervention_id)
+      const response = await axios({
+        method :'GET',
+        url :'http://127.0.0.1:8000/api/auth/ifevaluer/'+intervention_id,
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
       console.log(response);
       return response;
     } catch (error) {
@@ -120,12 +125,12 @@ constructor(props) {
         });
         all_signalisations().then(response => {
             this.setState({
-                select_signalisation: response.data
+                select_signalisation: response.data.data
             });
         });
         all_chef().then(response => {
             this.setState({
-                allChef: response.data
+                allChef: response.data.data
             });
         });
 
@@ -280,6 +285,8 @@ return (<div className="container mt-5">
                 <div className="card-header border-0">Évaluer</div>
 
                 <div className="card-body">
+                <img src="/undraw_schedule_pnbk.svg" className="w-100 h-100 p-2 mb-2" alt=""/>
+
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
@@ -295,7 +302,7 @@ return (<div className="container mt-5">
                         </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-12 ml-3">
+                            <div className="col-md-6 ml-3">
                               { this.state.hasEvaluer
                                 ? <button type="submit" className="btn btn-secondary" disabled>Évaluer</button>
                                 : <button type="submit" className="btn btn-outline-info" onClick={handleEvaluer}>Évaluer</button>
