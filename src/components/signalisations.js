@@ -23,7 +23,7 @@ export default class Signalisation extends Component {
       componentDidMount = () => {
         all_signalisations().then(response => {
             this.setState({
-                all: response.data
+                all: response.data.data
             });
         });
       }
