@@ -251,7 +251,6 @@ return (<div className="container mt-5">
                               }
                             </div>
 
-<button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter1">Delete</button>
 
 
 <div className="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -287,18 +286,8 @@ return (<div className="container mt-5">
                 <div className="card-header border-0">Info</div>
 
                 <div className="card-body">
+                <img src="/undraw_browsing_urt9.svg" className="w-100 h-75 p-2 mb-3" alt=""/>
                     <form method="POST" onSubmit={this.handleSubmit}>
-
-                        <div className="form-group row">
-                            <div className="col-md-8">
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                                <p class="text-left">Left aligned text on all viewport sizes.</p>
-                            </div>
-                        </div>
                         <div className="form-group row mb-0">
                             <div className="col-md-6">
                             <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete this Membre</button>
