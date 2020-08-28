@@ -70,7 +70,7 @@ constructor(props) {
     componentDidMount =() => {
         all_chefs().then(response => {
           this.setState({
-              allUsers: response.data
+              allUsers: response.data.data
           });
         });
     }
