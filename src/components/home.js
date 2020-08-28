@@ -39,7 +39,7 @@ export default class Home extends Component {
       componentDidMount = () => {
         all_signalisations().then(response => {
             this.setState({
-                all: response.data
+                all: response.data.data
             });
         });
       }

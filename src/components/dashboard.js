@@ -233,56 +233,56 @@ export default class Dashboard extends Component {
         usersCount().then(response => {
           if(response){
             this.setState({
-                usersCountRec: response.data
+                usersCountRec: response.data.data
             });
           }
         });
         equipeCount().then(response => {
           if(response){
             this.setState({
-                equipeCountRec: response.data
+                equipeCountRec: response.data.data
             });
           }
         });
         signalerCount(localStorage.getItem('id')).then(response => {
           if(response){
             this.setState({
-                signalerCountRec: response.data
+                signalerCountRec: response.data.data
             });
           }
         });
         commentsCountDashboard(localStorage.getItem('id')).then(response => {
           if(response){
             this.setState({
-                commentsCountRec: response.data
+                commentsCountRec: response.data.data
             });
           }
         });
         userProfCountByRole().then(response => {
           if(response){
             this.setState({
-                profCountRec: response.data
+                profCountRec: response.data.data
             });
           }
         });
         userEtudiantCountByRole().then(response => {
           if(response){
             this.setState({
-                etudiantCountRec: response.data
+                etudiantCountRec: response.data.data
             });
           }
         });
         signalisationCount().then(response => {
           if(response){
             this.setState({
-                signalisationCountRec: response.data
+                signalisationCountRec: response.data.data
             });
           }
         });
         allSignalerCount().then(response => {
           if(response){
             this.setState({
-                allSignalerCountRec: response.data
+                allSignalerCountRec: response.data.data
             });
           }
         });
@@ -296,7 +296,7 @@ export default class Dashboard extends Component {
         userSignalisationDashboard(localStorage.getItem('id')).then(response => {
           if(response){
             this.setState({
-                userSignalisationDashboardRec: response.data
+                userSignalisationDashboardRec: response.data.data
             });
           }
         });
@@ -310,7 +310,7 @@ export default class Dashboard extends Component {
         equipeDashboard().then(response => {
           if(response){
             this.setState({
-                equipedashboardRec: response.data
+                equipedashboardRec: response.data.data
             });
           }
         });
@@ -331,28 +331,28 @@ export default class Dashboard extends Component {
         userEmployeeCountByRole().then(response => {
           if(response){
             this.setState({
-                userEmployeeCountByRole: response.data
+                userEmployeeCountByRole: response.data.data
             });
           }
         });
         userGestionnaireCountByRole().then(response => {
           if(response){
             this.setState({
-                gestionnaireCountRec: response.data
+                gestionnaireCountRec: response.data.data
             });
           }
         });
         allComments().then(response => {
           if(response){
             this.setState({
-                allCommentsCountRec: response.data
+                allCommentsCountRec: response.data.data
             });
           }
         });
         interventionCountDashbordById().then(response => {
           if(response){
             this.setState({
-              interventionCountDashbordByChefRec: response.data
+              interventionCountDashbordByChefRec: response.data.data
             });
           }
         });
@@ -360,7 +360,7 @@ export default class Dashboard extends Component {
         membreCountDashboard().then(response => {
           if(response){
              this.setState({
-              membreCountDashboardRec: response.data
+              membreCountDashboardRec: response.data.data
              });
           }
       });
@@ -585,7 +585,7 @@ return (
         : null
         }
 
-        { getRole() == 'adminstrator'
+        { getRole() == 'adminstrator s'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -604,7 +604,7 @@ return (
         : null
         }
 
-        { getRole() == 'adminstrator'
+        { getRole() == 'adminstrator s'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -623,7 +623,7 @@ return (
         : null
         }
 
-        { getRole() == 'adminstrator'
+        { getRole() == 'adminstrator s'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
@@ -643,7 +643,7 @@ return (
         }
 
 
-{ getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam' || getRole() == 'ats'
+{ getRole() == 'teacher' || getRole() == 'student' || getRole() == 'interventionteam' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
   <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
     <div className="card-body">
@@ -662,7 +662,7 @@ return (
         : null
         }
 
-        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'adminstrator' || getRole() == 'interventionteam' || getRole() == 'ats'
+        { getRole() == 'teacher' || getRole() == 'student' || getRole() == 'interventionteam' || getRole() == 'ats'
           ? <div className="col-md-3 mb-4">
           <div className="card border-left-primary shadow h-100 py-2 bg-white border-0">
             <div className="card-body">
