@@ -75,7 +75,7 @@ export default class Equipe extends Component {
         });
         all_chefs().then(response => {
             this.setState({
-                allUsers: response.data
+                allUsers: response.data.data
             });
         });
       }
