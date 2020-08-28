@@ -35,7 +35,7 @@ async function all_gest() {
 
 async function all_chef() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
       console.log(response);
       return response;
     } catch (error) {
@@ -45,7 +45,13 @@ async function all_chef() {
 
 async function HasInformer(id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/ifinformer/' + id)
+      
+      const response = await axios({
+        method :'GET',
+        url :'http://127.0.0.1:8000/api/auth/ifinformer/'+id,
+        headers : {'Accept':'application/json'},
+        params : {'token':localStorage.getItem('token')}
+      })
       console.log(response);
       return response;
     } catch (error) {
@@ -138,20 +144,15 @@ constructor(props) {
             this.setState({
               HasInformerVf: true
             });
-            console.log(response.data.name)
+            console.log("name : " + response.data.name)
             this.setState({
               name: response.data.name
             });
           }
         });
-        all_gest().then(response => {
-            this.setState({
-                allGest: response.data
-            });
-        });
         all_chef().then(response => {
             this.setState({
-                allChef: response.data
+                allChef: response.data.data
             });
         });
       }
@@ -328,15 +329,16 @@ return (<div className="container mt-5">
                 <div className="card-header border-0">Informer</div>
 
                 <div className="card-body">
+
+                <img src="/undraw_business_decisions_gjwy.svg" className="w-100 h-100 p-2 mb-3" alt=""/>
+
                     <form method="POST" onSubmit={this.handleSubmit}>
-
-
 
                     <div className="form-group row">
                             <label for="name" className="col-md-2 col-form-label text-md-right">Chefs</label>
                             <div className="col-md-10">
                            
-                            { this.state.HasInformerVf
+                            { !this.state.HasInformerVf
                               ? <fieldset disabled><select id="disabledSelect" class="form-control"><option>{this.state.name}</option></select></fieldset>
                               : <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>{fetchChef}</select>
                             }
