@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Nav from './nav';
+import { Link } from "react-router-dom";
 
 // handle button click of login form
 async function signalisation(id) {
@@ -63,7 +64,7 @@ export default class Signale extends Component {
 
 constructor(props) {
     super(props);
-    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',chef_id: '',name: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformerVf: [],loading: false,vd: false};
+    this.state = {desc: '',localisation: '',lieu: '',nature: '',cause: '',chef_id: '',name: '',allGest: [],allChef: [],dataEquipe: [],all: [],allUsers: [],HasInformer: [],loading: false,vd: false};
 
     this.handleChangeDesc = this.handleChangeDesc.bind(this);
     this.handleChangeLocalisation = this.handleChangeLocalisation.bind(this);
@@ -142,11 +143,7 @@ constructor(props) {
         HasInformer(this.props.match.params.id).then(response => {
           if(response.data != ""){
             this.setState({
-              HasInformerVf: true
-            });
-            console.log("name : " + response.data.name)
-            this.setState({
-              name: response.data.name
+              HasInformer: response.data
             });
           }
         });
@@ -214,6 +211,17 @@ const handleInformer = () => {
         console.log(error);
     });
 }
+
+const all_datas = this.state.HasInformer.map((element,key) =>
+<tr>
+<td key={key}>{element.name}</td>
+<td key={key}>{element.email}</td>
+<td key={key}>{element.telephone}</td>
+<td key={key}>{element.sexe}</td>
+<td key={key}>{element.created_at}</td>
+<td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
+</tr>
+);
 
 const fetchChef = this.state.allChef.map((element) =>
 <option value={element['id']}>{element['name']}</option>
@@ -330,28 +338,20 @@ return (<div className="container mt-5">
 
                 <div className="card-body">
 
-                <img src="/undraw_business_decisions_gjwy.svg" className="w-100 h-100 p-2 mb-3" alt=""/>
+                <img src="/undraw_business_decisions_gjwy.svg" className="w-75 h-50 p-2" alt=""/>
 
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                     <div className="form-group row">
                             <label for="name" className="col-md-2 col-form-label text-md-right">Chefs</label>
                             <div className="col-md-10">
-                           
-                            { !this.state.HasInformerVf
-                              ? <fieldset disabled><select id="disabledSelect" class="form-control"><option>{this.state.name}</option></select></fieldset>
-                              : <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>{fetchChef}</select>
-                            }
-                           
+                              <select class="custom-select custom-select-sm" name="chef_id" value={this.state.chef_id} onChange={this.handleChangeChefId}>{fetchChef}</select>                           
                             </div>
                         </div>
 
                         <div className="form-group row mb-0">
                             <div className="col-md-12 ml-3">
-                              { this.state.HasInformerVf
-                                ? <button type="submit" className="btn btn-secondary" disabled>Informer</button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleInformer}>Informer</button>
-                              }
+                              <button type="submit" className="btn btn-outline-info" onClick={handleInformer}>Informer</button>
                             </div>
                         </div>
 
@@ -362,6 +362,29 @@ return (<div className="container mt-5">
 
 
         </div>
+
+        <div className="row">    
+        <div className="col-md-12 mt-4">
+    
+<table className="table shadow">
+  <thead>
+    <tr className="border-top-0">
+      <th scope="col">Name</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Telephone</th>
+      <th scope="col">Sexe</th>
+      <th scope="col">Created at</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+  {all_datas}
+  </tbody>
+</table>
+
+        </div>
+    
+    </div>
 
 </div>
 );
