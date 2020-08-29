@@ -234,7 +234,7 @@ return (<div className="container mt-5">
     <div className="col-md-6">
         
     <div className="card border-0 shadow">
-                <div className="card-header border-0">Update signalisation</div>
+                <div className="card-header border-0 bg-info text-white">Update signalisation</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -334,7 +334,7 @@ return (<div className="container mt-5">
 
         <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Informer</div>
+                <div className="card-header border-0 bg-info text-white">Informer</div>
 
                 <div className="card-body">
 
