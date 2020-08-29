@@ -218,7 +218,7 @@ return (<div className="container mt-5">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Update Intervention</div>
+                <div className="card-header border-0 bg-info text-white">Update Intervention</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -282,7 +282,7 @@ return (<div className="container mt-5">
 
         <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Évaluer</div>
+                <div className="card-header border-0 bg-info text-white">Évaluer</div>
 
                 <div className="card-body">
                 <img src="/undraw_schedule_pnbk.svg" className="w-100 h-100 p-2 mb-2" alt=""/>
