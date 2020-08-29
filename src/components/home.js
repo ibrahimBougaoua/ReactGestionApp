@@ -76,7 +76,7 @@ const handleSearch = () => {
 }
 
 
-const all_data = this.state.all == [] ? this.state.all.map((element) =>
+const all_data = this.state.all != [] ? this.state.all.map((element) =>
 <div className="card">
   <img src="https://images.pexels.com/photos/3815585/pexels-photo-3815585.jpeg?cs=srgb&dl=person-writing-on-white-paper-3815585.jpg&fm=jpg" className="card-img-top" alt="..." />
   <div className="card-body">

@@ -70,7 +70,7 @@ const handleLogin = () => {
       localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
-      return(<Redirect to='/dashboard' delay={2000} />);
+      return(<Redirect to='/dashboard' />);
       
 
     }).catch(function (error) {

@@ -98,7 +98,7 @@ constructor(props) {
         });
         all_signalisations().then(response => {
             this.setState({
-                all: response.data
+                all: response.data.data
             });
         });
         allComments(this.props.match.params.id).then(response => {
@@ -258,6 +258,14 @@ return (<div className="container-fluid mt-5">
         </div>
 
 <div className="col-md-12">    
+    <div className="jumbotron jumbotron-fluid">
+            <div class="card-deck">
+                {all_data}
+            </div>
+    </div>
+</div>
+
+<div className="col-md-12">    
 {all_comments}
 <div className="card border-0 shadow">
                 <div className="card-body">
@@ -295,13 +303,6 @@ return (<div className="container-fluid mt-5">
             </div> 
 </div>
 
-<div className="col-md-12">    
-    <div className="jumbotron jumbotron-fluid">
-            <div class="card-deck">
-                {all_data}
-            </div>
-    </div>
-</div>
 
         </div>
 
