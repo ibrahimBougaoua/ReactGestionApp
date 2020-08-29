@@ -121,7 +121,7 @@ return (
     <div className="row">
     <div className="col-md-5">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Create Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Create Equipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -186,7 +186,7 @@ return (
 
         { this.state.all == '' 
    ? <div class="card shadow border-0">
-     <h5 class="card-header border-0">équipe</h5>
+     <h5 class="card-header border-0 bg-info text-white">équipe</h5>
      <div class="card-body">
      <h5 class="card-title">la list est vide</h5>
      </div>
