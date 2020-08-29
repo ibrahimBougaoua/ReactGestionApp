@@ -204,7 +204,7 @@ return (<div className="container mt-5">
     <div className="row">
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Update Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Update Equipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -295,7 +295,7 @@ return (<div className="container mt-5">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Add a membre to Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Add a membre to Equipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
