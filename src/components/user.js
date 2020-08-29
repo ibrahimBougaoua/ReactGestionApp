@@ -172,7 +172,7 @@ return (<div className="container mt-5">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Update user information </div>
+                <div className="card-header border-0 bg-info text-white">Update user information </div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -283,7 +283,7 @@ return (<div className="container mt-5">
 
         <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Info</div>
+                <div className="card-header border-0 bg-info text-white">Info</div>
 
                 <div className="card-body">
                 <img src="/undraw_browsing_urt9.svg" className="w-100 h-75 p-2 mb-3" alt=""/>
