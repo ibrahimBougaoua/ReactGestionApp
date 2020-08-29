@@ -116,7 +116,7 @@ return (<div className="container mt-5">
     <div className="row">
     <div className="col-md-4">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">list of chef d'equipe d'intervention</div>
+                <div className="card-header border-0 bg-info text-white">list of chef d'equipe d'intervention</div>
 
                 <div className="card-body">
                         <div className="form-group row">
@@ -133,7 +133,7 @@ return (<div className="container mt-5">
 
     <div className="col-md-8">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Contact : {this.state.name}</div>
+                <div className="card-header border-0 bg-info text-white">Contact : {this.state.name}</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
