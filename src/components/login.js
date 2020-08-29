@@ -55,6 +55,7 @@ export default class Login extends Component {
       }
 
     render() {
+      const { history } = this.props;
 
 // handle button click of login form
 const handleLogin = () => {
@@ -70,7 +71,8 @@ const handleLogin = () => {
       localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
-      return(<Redirect to='/dashboard' />);
+      history.push('/dashboard');
+      //return(<Redirect to='/dashboard' />);
       
 
     }).catch(function (error) {

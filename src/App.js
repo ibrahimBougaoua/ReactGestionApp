@@ -52,28 +52,6 @@ function getRole() {
   return '';
 }
 
-function aboutUs(){
-  return (<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>);
-}
-
-
 class App extends React.Component {
 
   constructor() {
@@ -97,6 +75,8 @@ class App extends React.Component {
 
 render() {
 
+  const { history } = this.props;
+
 const Logout = () => {
   try {
     const response = axios({
@@ -111,6 +91,7 @@ const Logout = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("role");
+    history.push('/');
   } catch (error) {
     console.error(error);
   }
@@ -127,12 +108,6 @@ const Logout = () => {
     <span class="navbar-toggler-icon"></span>
   </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">About us</button>
-            </li>
-          </ul>
 
     <ul className="navbar-nav ml-auto">
       {
