@@ -162,13 +162,13 @@ return (<div className="container mt-5">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Update Profile </div>
+                <div className="card-header border-0 bg-info text-white">Mettre à jour le profil </div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">Nom</label>
                             <div className="col-md-8">
                                 <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
                                 { this.state.name == '' && this.state.vd
@@ -190,14 +190,14 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-                            <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
+                            <label for="password" className="col-md-4 col-form-label text-md-right">Mot de passe</label>
                             <div className="col-md-8">
                                 <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" name="password" />
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
+    <label for="telephone" className="col-md-4 col-form-label text-md-right">Téléphone</label>
     <div className="col-md-8">
         <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" }  name="telephone" value={this.state.telephone}/>
         { this.state.telephone == '' && this.state.vd
@@ -219,7 +219,7 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-        <label for="name" className="col-md-4 col-form-label text-md-right">Role</label>
+        <label for="name" className="col-md-4 col-form-label text-md-right">Rôle</label>
         <div className="col-md-8">
   <fieldset disabled>
       <select id="disabledSelect" class="form-control">
@@ -232,8 +232,8 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                               { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
                               }
                             </div>
                         </div>
