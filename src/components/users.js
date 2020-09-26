@@ -88,18 +88,18 @@ const handleCreate = () => {
 
 return (
 <div className="container mt-5">
-<Nav name="add new user" />
+<Nav name="Ajouter un nouvel utilisateur" />
     <div className="row">
     <div className="col-md-12">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Add a new user</div>
+                <div className="card-header border-0">Ajouter un nouvel utilisateur</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
                     <div class="form-row">
                         <div className="form-group col-md-6">
-                            <label for="name">Name</label>
-                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vdName ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="name" required/>
+                            <label for="name">Nom</label>
+                            <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vdName ? 'form-control is-invalid' : "form-control is-valid" } name="name" placeholder="Nom" required/>
                             { this.state.name == '' && this.state.vdName
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
@@ -116,8 +116,8 @@ return (
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label for="password">Password</label>
-                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } name="password" placeholder="password" required/>
+                            <label for="password">Mot de passe</label>
+                            <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } name="password" placeholder="Mot de passe" required/>
                             { this.state.password == '' && this.state.vdPassword
                               ? <div className="invalid-feedback"> This field is empty.</div>
                               : null
@@ -125,7 +125,7 @@ return (
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label for="telephone">Telephone</label>
+                            <label for="telephone">Téléphone</label>
                             <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vdTelephone ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone} placeholder="0123456789" required/>
                             { this.state.telephone == '' && this.state.vdTelephone
                               ? <div className="invalid-feedback"> This field is empty.</div>
@@ -142,7 +142,7 @@ return (
                         </div>
 
 <div className="form-group col-md-6">
-    <label for="role-confirm">Role</label>
+    <label for="role-confirm">Rôle</label>
     <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="adminstrator">Adminstrator</option>
   <option value="manager">Gestionnaire</option>
@@ -156,8 +156,8 @@ return (
 
                         <div className="form-group col-md-6 mb-0">
                             { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>created... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Create</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Ajouter... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Ajouter</button>
                               }
                         </div>
                       </div>

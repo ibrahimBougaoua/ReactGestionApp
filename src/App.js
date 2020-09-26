@@ -68,7 +68,7 @@ class App extends React.Component {
         this.setState({
           isLogin: true
         });
-        console.log(this.state.isLogin)
+        console.log('LOGIN : ' + this.state.isLogin)
       }
     });
   }
@@ -113,7 +113,7 @@ const Logout = () => {
       {
        this.state.isLogin
        ? <li className="nav-item">
-           <Link className="btn btn-sm btn-outline-info mr-2" to={"/dashboard"}>Dashboard</Link>
+           <Link className="btn btn-sm btn-outline-info mr-2" to={"/dashboard"}>Tableau de bord</Link>
          </li>
        : null
       }
@@ -177,7 +177,7 @@ const Logout = () => {
       {
        getRole() == 'adminstrator' && this.state.isLogin
        ? <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>New User</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/new"}>Nouvel utilisateur</Link>
          </li>
        : null
       }
@@ -185,7 +185,7 @@ const Logout = () => {
       {
        getRole() == 'adminstrator' && this.state.isLogin
        ? <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/users"}>All users</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/users"}>Utilisateurs</Link>
          </li>
        : null
       }
@@ -223,7 +223,7 @@ const Logout = () => {
       {
         this.state.isLogin
        ? <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profil</Link>
          </li>
        : <li className="nav-item">
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>S'inscrire</Link>
@@ -233,7 +233,7 @@ const Logout = () => {
       {
         this.state.isLogin
        ?  <li className="nav-item">
-            <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
+            <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Se déconnecter</button>
           </li>
        :  <li className="nav-item">
             <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Se connecter</Link>

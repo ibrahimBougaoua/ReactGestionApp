@@ -419,17 +419,21 @@ const bar = {
         labels: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
         datasets: [
           {
-            label: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
+            //label: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
+            label: ['Administrateur','ATS','Employés',"Équipe d'intervention",'Gestionnaire','Étudiants','Enseignants'],
             data: Object.values(this.state.userRoleDashboardRec).map(function(value) {return value;}),
             fill: false,          // Don't fill area under the line
-            borderColor: 'black'  // Line color
+            backgroundColor: '#17a2b8',
+            borderColor: '#17a2b8',
+            hoverBackgroundColor: '#17a2b8',
+            hoverBorderColor: '#17a2b8',
           }
         ]
       }
 
 return (
 <div className="container mt-5">
-    <Nav name="Dashboard" />
+    <Nav name="Tableau de bord" />
 
 <div className="row">
         
@@ -477,7 +481,7 @@ return (
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Users</div>
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Utilisateurs</div>
                   <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.usersCountRec}</div>
                 </div>
                 <div className="col-auto">
@@ -534,7 +538,7 @@ return (
     <div className="card-body">
       <div className="row no-gutters align-items-center">
         <div className="col mr-2">
-          <div className="text-sm font-weight-bold text-info text-uppercase mb-1">Comments</div>
+          <div className="text-sm font-weight-bold text-info text-uppercase mb-1">Commentaires</div>
           <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.allCommentsCountRec}</div>
         </div>
         <div className="col-auto">
