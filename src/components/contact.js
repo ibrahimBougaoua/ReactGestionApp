@@ -37,7 +37,7 @@ export default class Contact extends Component {
 constructor(props) {
 
     super(props);
-    this.state = {name: 'Select a friend !',user_id: 0,message: '',allUsers: [],allMessage: []};
+    this.state = {name: 'Sélectionnez un chef',user_id: 0,message: '',allUsers: [],allMessage: []};
 
     this.handleChangeUser = this.handleChangeUser.bind(this);
     this.handleChangeMessage = this.handleChangeMessage.bind(this);
@@ -116,7 +116,7 @@ return (<div className="container mt-5">
     <div className="row">
     <div className="col-md-4">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">list of chef d'equipe d'intervention</div>
+                <div className="card-header border-0 bg-info text-white">liste des chefs d'équipe d'intervention</div>
 
                 <div className="card-body">
                         <div className="form-group row">
@@ -157,7 +157,7 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-12">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleSendMessage}>
-                                    Send a message
+                                    Envoyé un message
                                 </button>
                             </div>
                         </div>
