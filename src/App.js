@@ -258,6 +258,7 @@ const Logout = () => {
         <Route path="/signale/single/:id" exact component={Signale} />
         <Route path="/view/single/:id" exact component={View} />
         <Route path="/interventions" exact component={Interventions} />
+        <Route path="/interventions/:id" exact component={Interventions} />
         <Route path="/intervention/single/:id" exact component={Intervention} />
         <Route path="/chef-intervention" exact component={InterChef} />
         <Route path="/chef-intervention/single/:id" exact component={InterSingle} />

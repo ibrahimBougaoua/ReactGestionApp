@@ -113,7 +113,7 @@ const all_data = this.state.all.map((element) =>
 );
 
 const select_data = this.state.select_signalisation.map((element) =>
-<option value={element['id']}>{element['nature']}</option>
+<option value={element['id']}>{'#ID ' + element['id'] + ' / Nature : ' + element['nature']}</option>
 );
 
 return (
@@ -128,7 +128,7 @@ return (
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Signalisations</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">#ID Signalisation</label>
                             <div className="col-md-8">
                             <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisationId}>
                             {select_data == '' ? <option value="0">No Signalisation</option> : select_data }
