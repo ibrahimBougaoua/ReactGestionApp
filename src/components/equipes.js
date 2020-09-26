@@ -107,7 +107,7 @@ const all_data = this.state.all.map((element) =>
 <tr>
 <td key={element['d_f_equipe']}>{element['d_f_equipe']}</td>
 <td key={element['mail']}>{element['mail']}</td>
-<td key={element['id']}><Link to={'equipe/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'equipe/single/' + element['id']} className="btn btn-sm btn-outline-info">Voire plus</Link></td>
 </tr>
 );
 
@@ -117,17 +117,17 @@ const fetchUsers = this.state.allUsers.map((element) =>
 
 return (
 <div className="container mt-5">
-    <Nav name="Equipe" />
+    <Nav name="Équipe" />
     <div className="row">
     <div className="col-md-5">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Create Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Ajouter Équipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">d f equipe</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">D f Équipe</label>
                             <div className="col-md-8">
                                 <input id="name" type="text" value={this.state.d_f_equipe} onChange={this.handleChanged_f_equipe} className={ this.state.d_f_equipe == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
                                 { this.state.d_f_equipe == '' && this.state.vd
@@ -149,7 +149,7 @@ return (
 </div>
 
 <div className="form-group row">
-    <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
+    <label for="telephone" className="col-md-4 col-form-label text-md-right">Téléphone</label>
     <div className="col-md-8">
         <input id="telephone" type="text" value={this.state.telephone} onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" required/>
         { this.state.telephone == '' && this.state.vd
@@ -172,8 +172,8 @@ return (
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                             { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>Created... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Create</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Ajouter... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleCreate} >Ajouter</button>
                             }
                             </div>
                         </div>
@@ -186,7 +186,7 @@ return (
 
         { this.state.all == '' 
    ? <div class="card shadow border-0">
-     <h5 class="card-header border-0 bg-info text-white">équipe</h5>
+     <h5 class="card-header border-0 bg-info text-white">Équipe</h5>
      <div class="card-body">
      <h5 class="card-title">la list est vide</h5>
      </div>
@@ -195,9 +195,9 @@ return (
     <table className="table shadow">
       <thead>
       <tr className="border-top-0">
-      <th scope="col">domaine fonctionnement équipe</th>
+      <th scope="col">Domaine fonctionnement équipe</th>
       <th scope="col">E-mail</th>
-      <th scope="col">View</th>
+      <th scope="col">Voire plus</th>
       </tr>
       </thead>
       <tbody> {all_data} </tbody>

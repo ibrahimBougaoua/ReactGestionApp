@@ -205,7 +205,7 @@ const delete_intervention = () => {
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
-<option value={element['id']}>{element['desc']}</option>
+<option value={element['id']}>{element['nature']}</option>
 );
 
 const fetchChef = this.state.allChef.map((element) =>
@@ -270,8 +270,8 @@ return (<div className="container mt-5">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
                                 Mettre à jour
                                 </button>
+                                <button type="button" className="btn btn-outline-danger float-right" onClick={delete_intervention}>Supprimer</button>
                             </div>
-                            <button type="button" className="btn btn-outline-danger" onClick={delete_intervention}>Supprimer</button>
                         </div>
                     </form>
                 </div>
