@@ -92,7 +92,7 @@ return (
     <div className="row">
     <div className="col-md-12">
             <div className="card border-0 shadow">
-                <div className="card-header border-0">Ajouter un nouvel utilisateur</div>
+                <div className="card-header border-0 bg-info text-white">Ajouter un nouvel utilisateur</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>

@@ -42,18 +42,18 @@ const all_data = this.state.allUsers.map((element) =>
 <td key={element['telephone']}>{element['telephone']}</td>
 <td key={element['role']}>{element['role']}</td>
 <td key={element['created_at']}>{element['created_at']}</td>
-<td key={element['id']}><Link to={'user/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'user/single/' + element['id']} className="btn btn-sm btn-outline-info">Voir plus</Link></td>
 </tr>
 );
 
 return (
 <div className="container mt-5">
-<Nav name="all users" />
+<Nav name="tous les utilisateurs" />
     <div className="row">
 <div className="col-md-12">
   { this.state.allUsers == '' 
    ? <div class="card shadow border-0">
-     <h5 class="card-header border-0">Users</h5>
+     <h5 class="card-header border-0">utilisateurs</h5>
      <div class="card-body">
      <h5 class="card-title">la list est vide</h5>
      <p class="card-text">en peut ajouter des utilisator.</p>
@@ -64,12 +64,12 @@ return (
     <table className="table shadow">
       <thead>
         <tr className="border-top-0">
-          <th scope="col">Name</th>
+          <th scope="col">Nom</th>
           <th scope="col">E-mail</th>
-          <th scope="col">Telephone</th>
-          <th scope="col">Role</th>
-          <th scope="col">Created at</th>
-          <th scope="col">View</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col">Rôle</th>
+          <th scope="col">Créé à</th>
+          <th scope="col">Voir plus</th>
         </tr>
       </thead>
       <tbody> {all_data} </tbody>
