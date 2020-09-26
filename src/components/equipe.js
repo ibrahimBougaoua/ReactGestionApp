@@ -191,7 +191,7 @@ const all_datas = this.state.allEquipeMembreById.map((element,key) =>
 <td key={key}>{element.telephone}</td>
 <td key={key}>{element.sexe}</td>
 <td key={key}>{element.created_at}</td>
-<td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">Voire plus</Link></td>
 </tr>
 );
 
@@ -200,17 +200,17 @@ const all_data_users = this.state.allUsers.map((element) =>
 );
 
 return (<div className="container mt-5">
-    <Nav name="Single Equipe" />
+    <Nav name="Voir l'équipe" />
     <div className="row">
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Update Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Mettre à jour l'équipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">d f equipe</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">D f equipe</label>
                             <div className="col-md-8">
                                 <input id="name" type="text" onChange={this.handleChanged_f_equipe} className={ this.state.dataEquipe.d_f_equipe == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="d_f_equipe" value={this.state.dataEquipe.d_f_equipe} required/>
                                 { this.state.dataEquipe.d_f_equipe == '' && this.state.vd
@@ -232,7 +232,7 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
+    <label for="telephone" className="col-md-4 col-form-label text-md-right">Téléphone</label>
     <div className="col-md-8">
         <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.dataEquipe.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.dataEquipe.telephone}/>
         { this.state.dataEquipe.telephone == '' && this.state.vd
@@ -243,7 +243,7 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="chef" className="col-md-4 col-form-label text-md-right">chef</label>
+    <label for="chef" className="col-md-4 col-form-label text-md-right">Chef</label>
     <div className="col-md-8">    
   <fieldset disabled>
         <input id="chef" type="text" className="form-control" name="chef" value={this.state.dataEquipe.name}/>
@@ -255,28 +255,27 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                             { this.state.loadingUpdate
-                                ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                                ? <button type="submit" className="btn btn-outline-info float-left" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info float-left" onClick={handleUpdate} >Mettre à jour</button>
                               }
+                              <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
-
-                            <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
 
                             <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalCenterTitle">Delete this Equipe</h5>
+        <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette équipe</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
-      Are you sure ? This Equipe will deleted and you can't see it anymore ! 
+      Êtes-vous sûr ? Cette équipe sera supprimée et vous ne pourrez plus la voir!
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_equipe}>Delete</button>
-        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-outline-danger" onClick={delete_equipe}>Supprimer</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -295,7 +294,7 @@ return (<div className="container mt-5">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Add a membre to Equipe</div>
+                <div className="card-header border-0 bg-info text-white">Ajouter un membre à l'équipe</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -312,8 +311,8 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6">
                                 { this.state.member_id != 0
-                                ? <button type="submit" className="btn btn-outline-info" onClick={handleAddMembre}>Add a membre</button>
-                                : <p className="btn btn-outline-secondary">Select a membre</p>
+                                ? <button type="submit" className="btn btn-outline-info" onClick={handleAddMembre}>Ajouter un membre</button>
+                                : <p className="btn btn-outline-secondary">Sélectionnez un membre</p>
                                 }
                             </div>
                         </div>
@@ -326,15 +325,19 @@ return (<div className="container mt-5">
 <div className="row">    
         <div className="col-md-12 mt-4">
     
+        <div className="card border-0 shadow">
+                <div className="card-header border-0 bg-info text-white">Membres de l'équipe</div>
+
+                <div className="card-body">
 <table className="table shadow">
   <thead>
     <tr className="border-top-0">
-      <th scope="col">Name</th>
+      <th scope="col">Nom</th>
       <th scope="col">E-mail</th>
-      <th scope="col">Telephone</th>
+      <th scope="col">Teéléphone</th>
       <th scope="col">Sexe</th>
-      <th scope="col">Created at</th>
-      <th scope="col">View</th>
+      <th scope="col">Créé à</th>
+      <th scope="col">Voire plus</th>
     </tr>
   </thead>
   <tbody>
@@ -342,6 +345,8 @@ return (<div className="container mt-5">
   </tbody>
 </table>
 
+</div>
+        </div>
         </div>
     
     </div>
