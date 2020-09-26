@@ -39,7 +39,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element['cause']}>{element['cause']}</td>
 <td key={element['created_at']}>{element['created_at']}</td>
 <td key={element['id']}><Link to={'interventions/' + element['id']} className="btn btn-sm btn-outline-info">Intervention</Link></td>
-<td key={element['id']}><Link to={'signale/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'signale/single/' + element['id']} className="btn btn-sm btn-outline-info">Voire plus</Link></td>
 </tr>
 );
 
@@ -63,14 +63,14 @@ return (
     <table className="table shadow">
       <thead>
       <tr className="border-top-0">
-      <th scope="col">Desc</th>
+      <th scope="col">Description</th>
       <th scope="col">Localisation</th>
       <th scope="col">Lieu</th>
       <th scope="col">Nature</th>
       <th scope="col">Cause</th>
-      <th scope="col">Created at</th>
+      <th scope="col">Créé à</th>
       <th scope="col">Intervention</th>
-      <th scope="col">View</th>
+      <th scope="col">Voire plus</th>
       </tr>
       </thead>
       <tbody> {all_data} </tbody>
