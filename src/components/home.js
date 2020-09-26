@@ -133,7 +133,7 @@ return (
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
                     <h1 className="display-5 text-center text-white font-weight-bold">Trouvez des Problemes et Support les Signalisation !</h1>
-                    <p className="lead text-center text-white">follow thousands of problemes for free with limited ads.</p>
+{ true  ? null : <p className="lead text-center text-white">follow thousands of problemes for free with limited ads.</p> }
                 </div>
             </div>
         </div>

@@ -98,13 +98,13 @@ return (
     <div className="row mt-5">
     <div className="col-md-6 mt-4">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Register</div>
+                <div className="card-header border-0 bg-info text-white">S'inscrire</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Name</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">Nom</label>
                             <div className="col-md-8">
                                 <input id="name" type="text" value={this.state.name} onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vdName ? 'form-control is-invalid' : "form-control is-valid" } name="name" required/>
                                 { this.state.name == '' && this.state.vdName
@@ -126,7 +126,7 @@ return (
                         </div>
 
                         <div className="form-group row">
-                            <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
+                            <label for="password" className="col-md-4 col-form-label text-md-right">Mot de passe</label>
                             <div className="col-md-8">
                                 <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } name="password" required/>
                                 { this.state.password == '' && this.state.vdPassword
@@ -137,7 +137,7 @@ return (
                         </div>
 
                         <div className="form-group row">
-    <label for="telephone" className="col-md-4 col-form-label text-md-right">Telephone</label>
+    <label for="telephone" className="col-md-4 col-form-label text-md-right">Téléphone</label>
     <div className="col-md-8">
         <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vdTelephone ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone}/>
         { this.state.telephone == '' && this.state.vdTelephone
@@ -159,7 +159,7 @@ return (
 </div>
 
 <div className="form-group row">
-    <label for="role-confirm" className="col-md-4 col-form-label text-md-right">Role</label>
+    <label for="role-confirm" className="col-md-4 col-form-label text-md-right">Rôle</label>
     <div className="col-md-8">
 <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="student">etudiant</option>
@@ -171,8 +171,8 @@ return (
                         <div className="form-group row mb-0">
                             <div className="col-md-8 offset-md-4">                                
                             { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>Registering... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleSignin} >Register</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>S'inscrire... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleSignin} >S'inscrire</button>
                             }
                             </div>
                         </div>
