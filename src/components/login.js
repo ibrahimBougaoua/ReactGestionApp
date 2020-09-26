@@ -91,7 +91,7 @@ return (
 
     <div className="col-md-6 mt-5">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Login</div>
+                <div className="card-header border-0 bg-info text-white">Se connecter</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -109,7 +109,7 @@ return (
                         </div>
 
                         <div className="form-group row">
-                            <label for="password" className="col-md-4 col-form-label text-md-right">Password</label>
+                            <label for="password" className="col-md-4 col-form-label text-md-right">Mot de passe</label>
 
                             <div className="col-md-8">
                                 <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className={ this.state.password == '' && this.state.vdPassword ? 'form-control is-invalid' : "form-control is-valid" } required/>
@@ -126,7 +126,7 @@ return (
                                     <input className="form-check-input" type="checkbox" name="remember" id="remember"/>
 
                                     <label className="form-check-label" for="remember">
-                                    Remember Me
+                                    Se souvenir de moi
                                     </label>
                                 </div>
                             </div>
@@ -135,11 +135,11 @@ return (
                         <div className="form-group row mb-0">
                             <div className="col-md-8 offset-md-4">
                                 { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>Login... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleLogin} >Login</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Se connecter... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleLogin} >Se connecter</button>
                                 }
                                     <a className="btn btn-link" href="a">
-                                        Forgot Your Password?
+                                    Mot de passe oublié ?
                                     </a>
                             </div>
                         </div>

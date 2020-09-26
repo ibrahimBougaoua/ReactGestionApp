@@ -78,9 +78,9 @@ const handleSearch = () => {
 
 const all_data = this.state.all != [] ? this.state.all.map((element) =>
 <div className="card">
-  <img src="https://images.pexels.com/photos/3815585/pexels-photo-3815585.jpeg?cs=srgb&dl=person-writing-on-white-paper-3815585.jpg&fm=jpg" className="card-img-top" alt="..." />
+  <img src={'http://localhost:3000/storage/images/' + element['name']} className="card-img-top" alt="..." />
   <div className="card-body">
-    <h6 className="card-title">{element['desc']}</h6>
+    <h6 className="card-title">{element['nature']}</h6>
     <Link to={'view/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link>
   </div>
 </div>
@@ -113,7 +113,7 @@ return (
           </div>
 
           <div className="form-group col-md-6 ml-0">
-              <button className="btn btn-lg btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Search</button>
+              <button className="btn btn-lg btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Chercher</button>
           </div>
     
           </form>

@@ -216,7 +216,7 @@ const Logout = () => {
       
       <li className="nav-item">
         <button type="button" class="btn btn-sm btn-outline-info mr-2">
-          Call us  <span class="badge badge-info"> 0712548569</span>
+        Appelez nous  <span class="badge badge-info"> 0712548569</span>
         </button>
       </li>
 
@@ -226,7 +226,7 @@ const Logout = () => {
           <Link className="btn btn-sm btn-outline-info mr-2" to={"/profile"}><i className="fas fa-user"></i> Profile</Link>
          </li>
        : <li className="nav-item">
-          <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>Sign up</Link>
+          <Link className="btn btn-sm btn-outline-info mr-2" to={"/signup"}>S'inscrire</Link>
          </li>
       }
       
@@ -236,7 +236,7 @@ const Logout = () => {
             <button type="submit" className="btn btn-sm btn-outline-info" onClick={Logout}><i className="fas fa-sign-out-alt"></i> Logout</button>
           </li>
        :  <li className="nav-item">
-            <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Login</Link>
+            <Link className="btn btn-sm btn-outline-info mr-2" to={"/login"}>Se connecter</Link>
           </li>
       }
     </ul>
