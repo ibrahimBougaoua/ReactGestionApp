@@ -213,12 +213,12 @@ const fetchChef = this.state.allChef.map((element) =>
 );
 
 return (<div className="container mt-5">
-    <Nav name="Intervention" />
+    <Nav name="l'intervention" />
     <div className="row">
 
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Update Intervention</div>
+                <div className="card-header border-0 bg-info text-white">Mettre à jour l'intervention</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -233,14 +233,14 @@ return (<div className="container mt-5">
                         </div>
 
 <div className="form-group row">
-    <label for="price" className="col-md-4 col-form-label text-md-right">Price</label>
+    <label for="price" className="col-md-4 col-form-label text-md-right">Prix</label>
     <div className="col-md-8">
         <input id="price" type="range" value={this.state.price} onChange={this.handleChangePrice} className="custom-range" min="0" max="150" name="price" required/>
     </div>
 </div>
 
 <div className="form-group row">
-    <label for="etat_avancement" className="col-md-4 col-form-label text-md-right">Etat avancement</label>
+    <label for="etat_avancement" className="col-md-4 col-form-label text-md-right">État d'avancement</label>
     <div className="col-md-8">
     <select class="custom-select custom-select-sm" name="etat_avancement" value={this.state.etat_avancement} onChange={this.handleChangeEtatAvancement}>
         <option value="debut">Debut</option>
@@ -268,10 +268,10 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
-                                Update Intervention
+                                Mettre à jour
                                 </button>
                             </div>
-                            <button type="button" className="btn btn-outline-danger" onClick={delete_intervention}>Delete</button>
+                            <button type="button" className="btn btn-outline-danger" onClick={delete_intervention}>Supprimer</button>
                         </div>
                     </form>
                 </div>

@@ -29,7 +29,7 @@ export default class Interventions extends Component {
         super(props);
         this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',select_signalisation: [],all: []};
     
-        this.handleChangeSignalisation_id = this.handleChangeSignalisation_id.bind(this);
+        this.handleChangeSignalisationId = this.handleChangeSignalisationId.bind(this);
         this.handleChangePrice = this.handleChangePrice.bind(this);
         this.handleChangeEtatAvancement = this.handleChangeEtatAvancement.bind(this);
         this.handleChangeDateDebut = this.handleChangeDateDebut.bind(this);
@@ -37,8 +37,8 @@ export default class Interventions extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
-      handleChangeSignalisation_id(event) {
-        this.setState({signalisation_id: event.target.value});
+      handleChangeSignalisationId(event) {
+        this.setState({signalisation_id:  event.target.options[event.target.selectedIndex].text});
       }
     
       handleChangePrice(event) {
@@ -108,21 +108,21 @@ const all_data = this.state.all.map((element) =>
 <td key={element['signalisation_id']}>{element['signalisation_id']}</td>
 <td key={element['price']}>{element['price']}</td>
 <td key={element['etat_avancement']}>{element['etat_avancement']}</td>
-<td key={element['id']}><Link to={'intervention/single/' + element['signalisation_id']} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={element['id']}><Link to={'intervention/single/' + element['signalisation_id']} className="btn btn-sm btn-outline-info">Voir plus</Link></td>
 </tr>
 );
 
 const select_data = this.state.select_signalisation.map((element) =>
-<option value={element['id']}>{element['desc']}</option>
+<option value={element['id']}>{element['nature']}</option>
 );
 
 return (
 <div className="container mt-5">
-    <Nav name="Interventions" />
+    <Nav name="Intervention" />
     <div className="row">
     <div className="col-md-6">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">New Intervention</div>
+                <div className="card-header border-0 bg-info text-white">Nouvelle intervention</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
@@ -130,21 +130,21 @@ return (
                         <div className="form-group row">
                             <label for="name" className="col-md-4 col-form-label text-md-right">Signalisations</label>
                             <div className="col-md-8">
-                            <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisation_id}>
+                            <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisationId}>
                             {select_data == '' ? <option value="0">No Signalisation</option> : select_data }
                             </select>
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="price" className="col-md-4 col-form-label text-md-right">Price</label>
+    <label for="price" className="col-md-4 col-form-label text-md-right">Prix</label>
     <div className="col-md-8">
         <input id="price" type="range" value={this.state.price} onChange={this.handleChangePrice} className="custom-range" min="0" max="150" name="price" required/>
     </div>
 </div>
 
 <div className="form-group row">
-    <label for="etat_avancement" className="col-md-4 col-form-label text-md-right">Etat avancement</label>
+    <label for="etat_avancement" className="col-md-4 col-form-label text-md-right">État d'avancement</label>
     <div className="col-md-8">
     <select class="custom-select custom-select-sm" name="etat_avancement" value={this.state.etat_avancement} onChange={this.handleChangeEtatAvancement}>
         <option value="debut">Debut</option>
@@ -172,7 +172,7 @@ return (
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleCreate}>
-                                Create Intervention
+                                Créer une intervention
                                 </button>
                             </div>
                         </div>
@@ -194,10 +194,10 @@ return (
     <table className="table shadow">
       <thead>
       <tr className="border-top-0">
-      <th scope="col">Signalisation</th>
-      <th scope="col">Price</th>
-      <th scope="col">Etat Avancement</th>
-      <th scope="col">View</th>
+      <th scope="col">#ID Signalisation</th>
+      <th scope="col">Prix</th>
+      <th scope="col">État d'avancement</th>
+      <th scope="col">Voir plus</th>
       </tr>
       </thead>
       <tbody> {all_data} </tbody>

@@ -157,7 +157,7 @@ const delete_user = () => {
 }
 
 return (<div className="container mt-5">
-    <Nav name="Profile" />
+    <Nav name="Profil" />
     <div className="row">
 
     <div className="col-md-6">
@@ -251,7 +251,7 @@ return (<div className="container mt-5">
                     <form method="POST" onSubmit={this.handleSubmit}>
                         <div className="form-group row mb-0">
                             <div className="col-md-6">
-                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete account</button>
+                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer le compte</button>
                             </div>
 
 <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -264,11 +264,11 @@ return (<div className="container mt-5">
         </button>
       </div>
       <div className="modal-body">
-      Are you sure ? you'r account will deleted and you can't login anymore to you'r account ! 
+      Êtes-vous sûr ? votre compte sera supprimé et vous ne pourrez plus vous connecter à votre compte!
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_user}>Delete</button>
-        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-outline-danger" onClick={delete_user}>supprimé</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
