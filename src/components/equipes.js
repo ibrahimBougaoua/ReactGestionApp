@@ -18,7 +18,7 @@ async function all_chefs() {
   try {
     const response = await axios({
       method :'GET',
-      url :'http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam' ,
+      url :'http://127.0.0.1:8000/api/auth/allChefsHasNoIntervention' ,
       headers : {'Accept':'application/json'},
       params : {'token':localStorage.getItem('token')}
     })
@@ -88,7 +88,7 @@ const handleCreate = () => {
         d_f_equipe    : this.state.d_f_equipe,
         mail    : this.state.mail,
         telephone    : this.state.telephone,
-        chef_equipe : 4
+        chef_equipe : this.state.chef
     }).then(function (response) {
       // setter
       //localStorage.setItem('token', response.data.access_token)
