@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import Post from "./post";
 import { Link } from "react-router-dom";
 
 async function all_signalisations() {
@@ -75,17 +76,19 @@ const handleSearch = () => {
     }
 }
 
-
-const all_data = this.state.all != [] ? this.state.all.map((element) =>
+/*
+const all_data = (elements) => elements.map((elements) =>
+elements.map((element) => 
 <div className="card">
-  <img src={'http://localhost:3000/storage/images/' + element['name']} className="card-img-top" alt="..." />
+  <img src={'http://127.0.0.1:8000/storage/images/' + element['name']} className="card-img-top" alt="..." />
   <div className="card-body">
     <h6 className="card-title">{element['nature']}</h6>
     <Link to={'view/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link>
   </div>
 </div>
-) : <div className="alert alert-light" role="alert"><h5 className="font-weight-bold text-info">No Signalisation yet !</h5></div>;
-    
+));
+*/
+
 return (
     <div className="row justify-content-center">
         <div className="col-md-12">    
@@ -138,14 +141,8 @@ return (
             </div>
         </div>
 
-        <div className="col-md-12">    
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container">  
-                    <div class="card-deck">
-                        {all_data}
-                    </div>
-                </div>
-            </div>
+        <div className="container-fluid">
+        <Post name="Les dernières Signalisations" link="/account/single/" elements={this.state.all}></Post>
         </div>
 
     </div>
