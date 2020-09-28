@@ -161,9 +161,10 @@ return (
 <div className="form-group row">
     <label for="role-confirm" className="col-md-4 col-form-label text-md-right">Rôle</label>
     <div className="col-md-8">
-<select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
-  <option value="student">etudiant</option>
+<select name="role" class="custom-select custom-select-sm" value={this.state.role} onChange={this.handleChangeRole}>
+  <option value="student">étudiant</option>
   <option value="teacher">prof</option>
+  <option value="ats">ats</option>
 </select>
 </div>
 </div>
