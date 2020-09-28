@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Nav from './nav';
+import Moment from 'moment';
 
 async function all_users() {
     try {
@@ -35,13 +36,27 @@ export default class allUser extends Component {
 
     render() {
 
+      const roles = (role) => {
+        switch(role) {
+  
+          case "manager":   return "Gestionnaire";
+          case "adminstrator":   return "Adminstrateur";
+          case "ats": return "ATS";
+          case "student":  return "Étudiant";
+          case "interventionteam":  return "Chef équipe";
+          case "teacher":  return "Prof";
+  
+          default:      return "No role match"
+        }
+      }
+
 const all_data = this.state.allUsers.map((element) =>
 <tr>
 <td key={element['name']}>{element['name']}</td>
 <td key={element['email']}>{element['email']}</td>
 <td key={element['telephone']}>{element['telephone']}</td>
-<td key={element['role']}>{element['role']}</td>
-<td key={element['created_at']}>{element['created_at']}</td>
+<td key={element['role']}>{roles(element['role'])}</td>
+<td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
 <td key={element['id']}><Link to={'user/single/' + element['id']} className="btn btn-sm btn-outline-info">Voir plus</Link></td>
 </tr>
 );
