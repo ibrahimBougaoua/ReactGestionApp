@@ -420,7 +420,7 @@ const bar = {
         datasets: [
           {
             //label: Object.keys(this.state.userRoleDashboardRec).map(function(key) {return key;}),
-            label: ['Administrateur','ATS','Employés',"Équipe d'intervention",'Gestionnaire','Étudiants','Enseignants'],
+            label: ['Administrateur','ATS',"chef équipe",'Gestionnaire','Étudiants','Enseignants'],
             data: Object.values(this.state.userRoleDashboardRec).map(function(value) {return value;}),
             fill: false,          // Don't fill area under the line
             backgroundColor: '#17a2b8',
