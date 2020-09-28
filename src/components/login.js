@@ -71,8 +71,9 @@ const handleLogin = () => {
       localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
-      history.push('/dashboard');
+      //history.push('/dashboard');
       //return(<Redirect to='/dashboard' />);
+      window.location.replace("/dashboard");
       
 
     }).catch(function (error) {

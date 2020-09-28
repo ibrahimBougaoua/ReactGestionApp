@@ -90,7 +90,8 @@ const Logout = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("role");
-    history.push('/');
+    //history.push('/');
+    window.location.replace("/");
   } catch (error) {
     console.error(error);
   }
