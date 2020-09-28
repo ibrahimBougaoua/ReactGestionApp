@@ -234,7 +234,7 @@ const delete_intervention = () => {
     console.log('ibrahim => ' + error);
   });
   
-  window.location.reload();
+  window.location.replace("/interventions");
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
@@ -301,7 +301,7 @@ return (<div className="container mt-5">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
                                 Mettre à jour
                                 </button>
-                                <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
+                                <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
                         </div>
                     </form>
