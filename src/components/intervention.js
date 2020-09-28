@@ -23,6 +23,16 @@ async function all_signalisations() {
     }
 }
 
+async function getSignalisation(id) {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation/' + id)
+      //console.log(response);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+}
+
 async function all_chef() {
   try {
     const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
@@ -47,7 +57,7 @@ async function evaluer(intervention_id) {
     try {
       const response = await axios({
         method :'GET',
-        url :'http://127.0.0.1:8000/api/auth/ifevaluer/'+intervention_id,
+        url :'http://127.0.0.1:8000/api/auth/ifevaluer/' + intervention_id,
         headers : {'Accept':'application/json'},
         params : {'token':localStorage.getItem('token')}
       })
@@ -62,7 +72,7 @@ export default class Intervention extends Component {
 
 constructor(props) {
     super(props);    
-    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',name: '',chef_id: '',dataIntervention: [],select_signalisation: [],all: [],evaluers: [],chefs_ids: [],allChef: [],hasEvaluer: false};
+    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',name: '',chef_id: '',nature: '',dataIntervention: [],select_signalisation: [],all: [],evaluers: [],chefs_ids: [],allChef: [],hasEvaluer: false};
     
     this.handleChangeSignalisation_id = this.handleChangeSignalisation_id.bind(this);
     this.handleChangePrice = this.handleChangePrice.bind(this);
@@ -103,9 +113,10 @@ constructor(props) {
   }
 
       componentDidMount = () => {
+        
         getIntervention(this.props.match.params.id).then(response => {
             this.setState({
-                dataIntervention: response.data
+                dataIntervention: response.data.data
             });
             this.setState({
               signalisation_id: this.state.dataIntervention['signalisation_id']
@@ -122,6 +133,12 @@ constructor(props) {
             this.setState({
               date_fin: this.state.dataIntervention['date_fin']
             });
+            getSignalisation(this.state.dataIntervention['signalisation_id']).then(response => {
+              this.setState({
+                nature: response.data['nature']
+              })
+            });
+            
         });
         all_signalisations().then(response => {
             this.setState({
@@ -135,12 +152,12 @@ constructor(props) {
         });
 
         evaluer(this.props.match.params.id).then(response => {
-            if(response.data != ""){
+            if(response.data.data != null){
               this.setState({
                 hasEvaluer: true
               });
               this.setState({
-                name: response.data['name']
+                name: response.data.data['name']
               });
             }
         });
@@ -166,6 +183,7 @@ const handleUpdate = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
@@ -185,6 +203,7 @@ const handleEvaluer  = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
@@ -202,10 +221,22 @@ const delete_intervention = () => {
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
+
+  axios.delete('http://127.0.0.1:8000/api/auth/evaluer/' + this.props.match.params.id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
-<option value={element['id']}>{element['nature']}</option>
+<option value={element['id']}>{'#ID ' + element['id'] + ' / Nature : ' + element['nature']}</option>
 );
 
 const fetchChef = this.state.allChef.map((element) =>
@@ -224,16 +255,14 @@ return (<div className="container mt-5">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Signalisations</label>
+                            <label for="name" className="col-md-4 col-form-label text-md-right">#ID Signalisations</label>
                             <div className="col-md-8">
-                            <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisation_id}>
-                            {fetch_signalisation}
-                            </select>
+                            <fieldset disabled><select id="disabledSelect" class="form-control"><option>{'#ID ' + this.state.signalisation_id + ' / Nature : ' + this.state.nature}</option></select></fieldset>
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="price" className="col-md-4 col-form-label text-md-right">Prix</label>
+    <label for="price" className="col-md-4 col-form-label text-md-right">Coût : {this.state.price} DA</label>
     <div className="col-md-8">
         <input id="price" type="range" value={this.state.price} onChange={this.handleChangePrice} className="custom-range" min="0" max="150" name="price" required/>
     </div>
@@ -270,7 +299,7 @@ return (<div className="container mt-5">
                                 <button type="submit" className="btn btn-outline-info" onClick={handleUpdate}>
                                 Mettre à jour
                                 </button>
-                                <button type="button" className="btn btn-outline-danger float-right" onClick={delete_intervention}>Supprimer</button>
+                                <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
                         </div>
                     </form>
@@ -278,7 +307,25 @@ return (<div className="container mt-5">
             </div>
         </div>
 
-
+<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer ce intervention</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+      Êtes-vous sûr ? votre intervention sera supprimé !
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-outline-danger" onClick={delete_intervention}>Supprimer</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
         <div className="col-md-6">
             <div className="card border-0 shadow">

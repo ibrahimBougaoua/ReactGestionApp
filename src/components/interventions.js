@@ -5,7 +5,7 @@ import Nav from './nav';
 
 async function all_signalisations() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allSignalisation')
       console.log(response);
       return response;
     } catch (error) {
@@ -27,7 +27,7 @@ export default class Interventions extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',select_signalisation: [],all: []};
+        this.state = {signalisation_id: '',price: 0,etat_avancement: 'debut',date_debut: '',date_fin: '',select_signalisation: [],all: []};
     
         this.handleChangeSignalisationId = this.handleChangeSignalisationId.bind(this);
         this.handleChangePrice = this.handleChangePrice.bind(this);
@@ -38,7 +38,7 @@ export default class Interventions extends Component {
       }
     
       handleChangeSignalisationId(event) {
-        this.setState({signalisation_id:  event.target.options[event.target.selectedIndex].text});
+        this.setState({signalisation_id:  event.target.options[event.target.selectedIndex].value});
       }
     
       handleChangePrice(event) {
@@ -46,7 +46,7 @@ export default class Interventions extends Component {
       }
     
       handleChangeEtatAvancement(event) {
-        this.setState({etat_avancement: event.target.options[event.target.selectedIndex].text});
+        this.setState({etat_avancement: event.target.options[event.target.selectedIndex].value});
       }
 
       handleChangeDateDebut(event) {
@@ -98,6 +98,7 @@ const handleCreate = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
@@ -106,9 +107,10 @@ const handleCreate = () => {
 const all_data = this.state.all.map((element) =>
 <tr>
 <td key={element['signalisation_id']}>{element['signalisation_id']}</td>
-<td key={element['price']}>{element['price']}</td>
+<td key={element['name']}><img key={element['name']} src={'http://127.0.0.1:8000/storage/images/' + element['name']} className="card-img rounded-0 w-100 w-100" alt="..."/></td>
+<td key={element['price']}>{element['price']} DA</td>
 <td key={element['etat_avancement']}>{element['etat_avancement']}</td>
-<td key={element['id']}><Link to={'intervention/single/' + element['signalisation_id']} className="btn btn-sm btn-outline-info">Voir plus</Link></td>
+<td key={element['id']}><Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-outline-info">Voir plus</Link></td>
 </tr>
 );
 
@@ -117,10 +119,10 @@ const select_data = this.state.select_signalisation.map((element) =>
 );
 
 return (
-<div className="container mt-5">
+<div className="container-fluid mt-5">
     <Nav name="Intervention" />
     <div className="row">
-    <div className="col-md-6">
+    <div className="col-md-5">
             <div className="card border-0 shadow">
                 <div className="card-header border-0 bg-info text-white">Nouvelle intervention</div>
 
@@ -128,24 +130,24 @@ return (
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">#ID Signalisation</label>
-                            <div className="col-md-8">
+                            <label for="name" className="col-md-5 col-form-label text-md-right">#ID Signalisation</label>
+                            <div className="col-md-6">
                             <select class="custom-select custom-select-sm" name="signalisation_id" value={this.state.signalisation_id} onChange={this.handleChangeSignalisationId}>
-                            {select_data == '' ? <option value="0">No Signalisation</option> : select_data }
+                            <option value="0">Select a signalisation</option>{select_data == '' ? <option value="0">No Signalisation</option> : select_data }
                             </select>
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="price" className="col-md-4 col-form-label text-md-right">Prix</label>
-    <div className="col-md-8">
+    <label for="price" className="col-md-5 col-form-label text-md-right">Coût : {this.state.price} DA</label>
+    <div className="col-md-6">
         <input id="price" type="range" value={this.state.price} onChange={this.handleChangePrice} className="custom-range" min="0" max="150" name="price" required/>
     </div>
 </div>
 
 <div className="form-group row">
-    <label for="etat_avancement" className="col-md-4 col-form-label text-md-right">État d'avancement</label>
-    <div className="col-md-8">
+    <label for="etat_avancement" className="col-md-5 col-form-label text-md-right">État d'avancement</label>
+    <div className="col-md-6">
     <select class="custom-select custom-select-sm" name="etat_avancement" value={this.state.etat_avancement} onChange={this.handleChangeEtatAvancement}>
         <option value="debut">Debut</option>
         <option value="moyenn">Moyenn</option>
@@ -156,15 +158,15 @@ return (
 </div>
 
 <div className="form-group row">
-    <label for="date" className="col-md-4 col-form-label text-md-right">Date Debut</label>
-    <div className="col-md-8">
+    <label for="date" className="col-md-5 col-form-label text-md-right">Date Debut</label>
+    <div className="col-md-6">
         <input id="date" type="date" value={this.state.date_debut} onChange={this.handleChangeDateDebut} className="form-control" name="date" required/>
     </div>
 </div>
 
 <div className="form-group row">
-    <label for="date" className="col-md-4 col-form-label text-md-right">Date Fin</label>
-    <div className="col-md-8">
+    <label for="date" className="col-md-5 col-form-label text-md-right">Date Fin</label>
+    <div className="col-md-6">
         <input id="date" type="date" value={this.state.date_fin} onChange={this.handleChangeDateFin} className="form-control" name="date" required/>
     </div>
 </div>
@@ -180,7 +182,7 @@ return (
                 </div>
             </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-7">
 
 
         { this.state.all == '' 
@@ -192,10 +194,11 @@ return (
      </div>
     :
     <table className="table shadow">
-      <thead>
+      <thead className="thead-info">
       <tr className="border-top-0">
       <th scope="col">#ID Signalisation</th>
-      <th scope="col">Prix</th>
+      <th scope="col" style={{width: "30px"}}>Image</th>
+      <th scope="col">Coût</th>
       <th scope="col">État d'avancement</th>
       <th scope="col">Voir plus</th>
       </tr>
