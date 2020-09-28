@@ -112,6 +112,8 @@ if(this.state.password === '') {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      //window.location.replace("/user");
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
@@ -132,6 +134,7 @@ if(this.state.password === '') {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.replace("/user/single/" + this.props.match.params.id);
     }).catch(function (error) {
         console.log(error);
     });
@@ -234,7 +237,7 @@ return (<div className="container mt-5">
         <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="adminstrator">Adminstrator</option>
   <option value="manager">Gestionnaire</option>
-  <option value="interventionteam">équipes d'intervention</option>
+  <option value="interventionteam">Chef équipes</option>
   <option value="student">Etudiant</option>
   <option value="teacher">Prof</option>
   <option value="ats">ATS</option>

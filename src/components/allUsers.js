@@ -68,7 +68,7 @@ return (
           <th scope="col">E-mail</th>
           <th scope="col">Téléphone</th>
           <th scope="col">Rôle</th>
-          <th scope="col">Créé à</th>
+          <th scope="col">Créé le</th>
           <th scope="col">Voir plus</th>
         </tr>
       </thead>

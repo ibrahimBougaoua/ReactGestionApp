@@ -81,6 +81,7 @@ const handleCreate = () => {
       // localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.replace("/users");
     }).catch(function (error) {
         console.log(error);
     });
@@ -146,7 +147,7 @@ return (
     <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="adminstrator">Adminstrator</option>
   <option value="manager">Gestionnaire</option>
-  <option value="interventionteam">équipes d'intervention</option>
+  <option value="interventionteam">Chef équipes</option>
   <option value="employee">Employee</option>
   <option value="ats">ATS</option>
   <option value="student">Etudiant</option>
