@@ -2,6 +2,7 @@ import React, { Component} from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Nav from './nav';
+import Moment from 'moment';
 
 async function all_signalisations() {
     try {
@@ -66,9 +67,9 @@ export default class Signalisation extends Component {
     render() {
 
 // handle button click of signin form
-const handleCreate = () => {
+const handleCreate = (id) => {
   axios.post('http://127.0.0.1:8000/api/auth/intervention', {
-      signalisation_id    : this.state.signalisation_id,
+      signalisation_id    : id,
       price    : this.state.price,
       etat_avancement    : this.state.etat_avancement,
       date_debut    : this.state.date_debut,
@@ -88,14 +89,14 @@ const handleCreate = () => {
   });
 }
 
-const model = (id) =>
+const model = (element,id) =>
       {
         return (
-      <div className="modal fade" id={id} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div className="modal fade" id={element} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette équipe</h5>
+            <h5 className="modal-title" id="exampleModalCenterTitle">Nouvelle intervention {id}</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -143,8 +144,8 @@ const model = (id) =>
       </div>
       
                               <div className="form-group row mb-0">
-                                  <div className="col-md-6 offset-md-4">
-                                      <button type="submit" className="btn btn-outline-info" onClick={handleCreate}>
+                                  <div className="col-md-6 offset-md-5">
+                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(id)}>
                                       Créer une intervention
                                       </button>
                                   </div>
@@ -156,7 +157,6 @@ const model = (id) =>
       
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-outline-danger">Supprimer</button>
             <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -172,20 +172,18 @@ const all_data = this.state.all.map((element) =>
 <td key={element['lieu']}>{element['lieu']}</td>
 <td key={element['nature']}>{element['nature']}</td>
 <td key={element['cause']}>{element['cause']}</td>
-<td key={element['created_at']}>{element['created_at']}</td>
-<td key={element['id']}><button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button>{model(element['id'])}</td>
+<td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
+<td key={element['id']}><button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button>{model(element['id'],element['id'])}</td>
 <td key={element['id']}><Link to={'signale/single/' + element['id']} className="btn btn-sm btn-outline-info">Voire plus</Link></td>
 </tr>
 );
 
 return (
-<div className="container mt-5">
+<div className="container-fluid mt-5">
     <Nav name="Signalisation" />
 
     <div className="row">
         <div className="col-md-12">
-
-
 
         { this.state.all == '' 
    ? <div class="card shadow border-0">
