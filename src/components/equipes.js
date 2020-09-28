@@ -109,6 +109,7 @@ const handleCreate = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
