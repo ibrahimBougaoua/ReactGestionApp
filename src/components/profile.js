@@ -145,24 +145,31 @@ if(this.state.password === '') {
 }
 
 const delete_user = () => {
-  axios.delete('http://127.0.0.1:8000/api/auth/user/' + this.props.match.params.id)
+
+  axios.delete('http://127.0.0.1:8000/api/auth/user/' + localStorage.getItem("id"))
   .then(function (response) {
     // setter
     //const token = localStorage.setItem('token', response.data.access_token)
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
-
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+    window.location.replace("/");
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
+
 }
 
 return (<div className="container mt-5">
     <Nav name="Profil" />
     <div className="row">
 
-    <div className="col-md-6">
+    <div className="col-md-7">
             <div className="card border-0 shadow">
                 <div className="card-header border-0 bg-info text-white">Mettre à jour le profil </div>
 
@@ -170,8 +177,8 @@ return (<div className="container mt-5">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-4 col-form-label text-md-right">Nom</label>
-                            <div className="col-md-8">
+                            <label for="name" className="col-md-3 col-form-label text-md-right">Nom</label>
+                            <div className="col-md-9">
                                 <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
                                 { this.state.name == '' && this.state.vd
                                   ? <div className="invalid-feedback"> This field is empty.</div>
@@ -181,8 +188,8 @@ return (<div className="container mt-5">
                         </div>
 
 <div className="form-group row">
-    <label for="email" className="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-    <div className="col-md-8">
+    <label for="email" className="col-md-3 col-form-label text-md-right">E-Mail</label>
+    <div className="col-md-9">
         <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.email == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" }  name="email" value={this.state.email} required/>
         { this.state.email == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -192,15 +199,15 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-                            <label for="password" className="col-md-4 col-form-label text-md-right">Mot de passe</label>
-                            <div className="col-md-8">
+                            <label for="password" className="col-md-3 col-form-label text-md-right">Mot de passe</label>
+                            <div className="col-md-9">
                                 <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" name="password" />
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="telephone" className="col-md-4 col-form-label text-md-right">Téléphone</label>
-    <div className="col-md-8">
+    <label for="telephone" className="col-md-3 col-form-label text-md-right">Téléphone</label>
+    <div className="col-md-9">
         <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" }  name="telephone" value={this.state.telephone}/>
         { this.state.telephone == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -210,8 +217,8 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-        <label for="name" className="col-md-4 col-form-label text-md-right">Sexe</label>
-        <div className="col-md-8">
+        <label for="name" className="col-md-3 col-form-label text-md-right">Sexe</label>
+        <div className="col-md-9">
         {
         this.state.sex === 'male'
         ? <select class="custom-select custom-select-sm" name="sexe" value={this.state.sexe} onChange={this.handleChangeSexe}><option value="male">male</option><option value="female">female</option></select>
@@ -221,8 +228,8 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-        <label for="name" className="col-md-4 col-form-label text-md-right">Rôle</label>
-        <div className="col-md-8">
+        <label for="name" className="col-md-3 col-form-label text-md-right">Rôle</label>
+        <div className="col-md-9">
   <fieldset disabled>
       <select id="disabledSelect" class="form-control">
         <option>{this.state.role}</option>
@@ -232,7 +239,7 @@ return (<div className="container mt-5">
 </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-6 offset-md-4">
+                            <div className="col-md-6 offset-md-3">
                               { this.state.loading
                                 ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
                                 : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
@@ -244,12 +251,12 @@ return (<div className="container mt-5">
             </div>
         </div>
 
-    <div className="col-md-6">
+    <div className="col-md-5">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Info</div>
+                <div className="card-header border-0 bg-info text-white">Êtes-vous sûr ? votre compte sera supprimé !</div>
 
                 <div className="card-body">
-                <img src="/undraw_browsing_urt9.svg" className="w-100 h-75 p-2 mb-3" alt=""/>
+                <img src="/recycling_.png" className="w-100 h-100 p-2 mb-3" alt=""/>
                     <form method="POST" onSubmit={this.handleSubmit}>
                         <div className="form-group row mb-0">
                             <div className="col-md-6">
@@ -260,7 +267,7 @@ return (<div className="container mt-5">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalCenterTitle">Delete you'r account</h5>
+        <h5 className="modal-title" id="exampleModalCenterTitle">Êtes-vous sûr ? votre compte sera supprimé !</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -197,18 +197,18 @@ const delete_membre = () => {
 }
 
 return (<div className="container mt-5">
-    <Nav name="Update user information" />
+    <Nav name="Mettre à jour les informations utilisateur" />
     <div className="row">
 
     <div className="col-md-7">
             <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Update user information </div>
+                <div className="card-header border-0 bg-info text-white">Mettre à jour les informations utilisateur </div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="name" className="col-md-2 col-form-label text-md-right">Name</label>
+                            <label for="name" className="col-md-3 col-form-label text-md-right">Nom</label>
                             <div className="col-md-9">
                                 <input id="name" type="text" onChange={this.handleChangeName} className={ this.state.name == '' ? 'form-control is-invalid' : "form-control is-valid" } name="name" value={this.state.name} required/>
                                 { this.state.name == ''
@@ -219,7 +219,7 @@ return (<div className="container mt-5">
                         </div>
 
 <div className="form-group row">
-    <label for="email" className="col-md-2 col-form-label text-md-right">E-Mail</label>
+    <label for="email" className="col-md-3 col-form-label text-md-right">E-Mail</label>
     <div className="col-md-9">
         <input id="email" type="email" onChange={this.handleChangeEmail} className={ this.state.email == '' ? 'form-control is-invalid' : "form-control is-valid" } name="email" value={this.state.email} required/>
         { this.state.email == ''
@@ -230,14 +230,14 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-                            <label for="password" className="col-md-2 col-form-label text-md-right">Password</label>
+                            <label for="password" className="col-md-3 col-form-label text-md-right">Mot de passe</label>
                             <div className="col-md-9">
                                 <input id="password" type="password" value={this.state.password} onChange={this.handleChangePassword} className="form-control" name="password" />
                             </div>
                         </div>
 
 <div className="form-group row">
-    <label for="telephone" className="col-md-2 col-form-label text-md-right">Telephone</label>
+    <label for="telephone" className="col-md-3 col-form-label text-md-right">Téléphone</label>
     <div className="col-md-9">
         <input id="telephone" type="text" onChange={this.handleChangeTelephone} className={ this.state.telephone == '' ? 'form-control is-invalid' : "form-control is-valid" } name="telephone" value={this.state.telephone}/>
         { this.state.telephone == ''
@@ -248,7 +248,7 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-        <label for="name" className="col-md-2 col-form-label text-md-right">Sexe</label>
+        <label for="name" className="col-md-3 col-form-label text-md-right">Sexe</label>
         <div className="col-md-9">
 
         <select name="sexe" class="form-control" value={this.state.sexe} onChange={this.handleChangeSexe}>
@@ -259,7 +259,7 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-        <label for="name" className="col-md-2 col-form-label text-md-right">Role</label>
+        <label for="name" className="col-md-3 col-form-label text-md-right">Role</label>
         <div className="col-md-9">
         <select name="role" class="form-control" value={this.state.role} onChange={this.handleChangeRole}>
   <option value="adminstrator">Adminstrator</option>
@@ -273,34 +273,13 @@ return (<div className="container mt-5">
 </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-6 offset-md-2">
+                            <div className="col-md-6 offset-md-3">
                               { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
                               }
                             </div>
 
-
-
-<div className="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div className="modal-dialog modal-dialog-centered" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalCenterTitle">Delete this account</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-      Are you sure ? you'r account will deleted and you can't login anymore to this account ! 
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_user}>Delete</button>
-        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
                         </div>
