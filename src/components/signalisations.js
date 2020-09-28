@@ -63,40 +63,40 @@ export default class Signalisation extends Component {
             });
         });
       }
+      
+      handleCreate(id)
+      {
+        axios.post('http://127.0.0.1:8000/api/auth/intervention', {
+            signalisation_id    : id,
+            price    : this.state.price,
+            etat_avancement    : this.state.etat_avancement,
+            date_debut    : this.state.date_debut,
+            date_fin    : this.state.date_fin
+        }).then(function (response) {
+          console.log(response)
+          window.location.reload();
+        }).catch(function (error) {
+            console.log(error);
+        });
+      }
 
     render() {
 
-// handle button click of signin form
-const handleCreate = (id) => {
-  axios.post('http://127.0.0.1:8000/api/auth/intervention', {
-      signalisation_id    : id,
-      price    : this.state.price,
-      etat_avancement    : this.state.etat_avancement,
-      date_debut    : this.state.date_debut,
-      date_fin    : this.state.date_fin
-  }).then(function (response) {
-    // setter
-    //localStorage.setItem('token', response.data.access_token)
-    //localStorage.setItem('id', response.data.user.id)
-    //localStorage.setItem('name', response.data.user.name)
-    //localStorage.setItem('email', response.data.user.email)
-    //localStorage.setItem('role', response.data.user.role)
-    // route for profile
-    console.log(response)
-    window.location.reload();
-  }).catch(function (error) {
-      console.log(error);
-  });
-}
+const all_data = this.state.all.map((element) =>
+<tr>
+<td key={element['desc']}>{element['desc']}</td>
+<td key={element['localisation']}>{element['localisation']}</td>
+<td key={element['lieu']}>{element['lieu']}</td>
+<td key={element['nature']}>{element['nature']}</td>
+<td key={element['cause']}>{element['cause']}</td>
+<td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
+<td key={element['id']}><button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button>
 
-const model = (element,id) =>
-      {
-        return (
-      <div className="modal fade" id={element} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalCenterTitle">Nouvelle intervention {id}</h5>
+            <h5 className="modal-title" id="exampleModalCenterTitle">Nouvelle intervention {element['id']}</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -145,7 +145,19 @@ const model = (element,id) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(id)}>
+                                      <button type="submit" className="btn btn-outline-success float-right" onClick={
+                                        axios.post('http://127.0.0.1:8000/api/auth/intervention', {
+                                          signalisation_id    : element['id'],
+                                          price    : this.state.price,
+                                          etat_avancement    : this.state.etat_avancement,
+                                          date_debut    : this.state.date_debut,
+                                          date_fin    : this.state.date_fin
+                                      }).then(function (response) {
+                                        console.log(response)
+                                        window.location.reload();
+                                      }).catch(function (error) {
+                                          console.log(error);
+                                      })}>
                                       Créer une intervention
                                       </button>
                                   </div>
@@ -161,19 +173,14 @@ const model = (element,id) =>
           </div>
         </div>
       </div>
-      </div>);
-      }
+      </div>
 
 
-const all_data = this.state.all.map((element) =>
-<tr>
-<td key={element['desc']}>{element['desc']}</td>
-<td key={element['localisation']}>{element['localisation']}</td>
-<td key={element['lieu']}>{element['lieu']}</td>
-<td key={element['nature']}>{element['nature']}</td>
-<td key={element['cause']}>{element['cause']}</td>
-<td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
-<td key={element['id']}><button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button>{model(element['id'],element['id'])}</td>
+
+
+
+
+</td>
 <td key={element['id']}><Link to={'signale/single/' + element['id']} className="btn btn-sm btn-outline-info">Voire plus</Link></td>
 </tr>
 );
