@@ -46,9 +46,9 @@ async function all_equipes() {
     }
 }
 
-async function all_employee() {
+async function all_ats() {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/employee')
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/allAtssHasNoInvitationInTeam')
     //console.log(response);
     return response;
   } catch (error) {
@@ -122,7 +122,7 @@ constructor(props) {
                 all: response.data
             });
         });
-        all_employee().then(response => {
+        all_ats().then(response => {
           this.setState({
               allUsers: response.data.data
           });
