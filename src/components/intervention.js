@@ -233,6 +233,8 @@ const delete_intervention = () => {
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
+  
+  window.location.reload();
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
