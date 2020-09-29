@@ -315,10 +315,7 @@ return (<div className="container mt-5">
 
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-3">
-                            { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={() => {handleUpdate(this.props.match.params.id,this.state.desc,this.state.localisation,this.state.lieu,this.state.nature,this.state.cause)}} >Mettre à jour</button>
-                            }
+                              <button type="submit" className="btn btn-outline-info" onClick={() => {handleUpdate(this.props.match.params.id,this.state.desc,this.state.localisation,this.state.lieu,this.state.nature,this.state.cause)}} >Mettre à jour</button>
                             <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
                             

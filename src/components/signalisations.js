@@ -109,7 +109,7 @@ export default class Signalisation extends Component {
 
 const all_data = this.state.all.map((element) =>
 <tr>
-<td key={element['desc']}>{element['desc']}</td>
+<td key={element['id']}>{element['id']}</td>
 <td key={element['localisation']}>{element['localisation']}</td>
 <td key={element['lieu']}>{element['lieu']}</td>
 <td key={element['nature']}>{element['nature']}</td>
@@ -218,7 +218,7 @@ return (
     <table className="table shadow">
       <thead class="thead-light">
       <tr className="border-top-0">
-      <th scope="col">Description</th>
+      <th scope="col">#ID Signalisation</th>
       <th scope="col">Localisation</th>
       <th scope="col">Lieu</th>
       <th scope="col">Nature</th>
