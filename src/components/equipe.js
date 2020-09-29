@@ -25,17 +25,6 @@ async function equipe(id) {
     }
 }
 
-// handle button click of login form
-async function membres() {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/membre');
-      //console.log(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-}
-
 async function all_equipes() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/auth/equipe')
@@ -56,14 +45,47 @@ async function all_ats() {
   }
 }
 
-async function user(id) {
-  try {
-    const response = await axios.get('http://127.0.0.1:8000/api/auth/user/' + id)
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+
+function handleTeamUpdate(d_f_equipe,mail,telephone)
+{
+  axios.put('http://127.0.0.1:8000/api/auth/equipe/' + this.props.match.params.id, {
+    d_f_equipe    : d_f_equipe,
+    mail    : mail,
+    telephone    : telephone
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+    
+    window.location.reload();
+  }).catch(function (error) {
+      console.log(error);
+  });
+}
+
+function handleAddMembre(member_id,id)
+{
+  axios.post('http://127.0.0.1:8000/api/auth/membre', {
+      user_id    : member_id,
+      equipe_id    : id
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+    window.location.reload();
+  }).catch(function (error) {
+      console.log(error);
+  });
 }
 
 export default class Single extends Component {
@@ -131,44 +153,6 @@ constructor(props) {
       }
 
 render() {
-// handle button click of signin form
-const handleUpdate = () => {
-  axios.post('http://127.0.0.1:8000/api/auth/equipe', {
-      d_f_equipe    : this.state.d_f_equipe,
-      mail    : this.state.mail,
-      telephone    : this.state.telephone
-  }).then(function (response) {
-    // setter
-    //localStorage.setItem('token', response.data.access_token)
-    //localStorage.setItem('id', response.data.user.id)
-    //localStorage.setItem('name', response.data.user.name)
-    //localStorage.setItem('email', response.data.user.email)
-    //localStorage.setItem('role', response.data.user.role)
-    // route for profile
-    console.log(response)
-  }).catch(function (error) {
-      console.log(error);
-  });
-}
-
-// handle button click of signin form
-const handleAddMembre = () => {
-    axios.post('http://127.0.0.1:8000/api/auth/membre', {
-        user_id    : this.state.member_id,
-        equipe_id    : this.props.match.params.id,
-    }).then(function (response) {
-      // setter
-      //localStorage.setItem('token', response.data.access_token)
-      //localStorage.setItem('id', response.data.user.id)
-      //localStorage.setItem('name', response.data.user.name)
-      //localStorage.setItem('email', response.data.user.email)
-      //localStorage.setItem('role', response.data.user.role)
-      // route for profile
-      console.log(response)
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
 
 const delete_equipe = () => {
   axios.delete('http://127.0.0.1:8000/api/auth/equipe/' + this.props.match.params.id)
@@ -178,7 +162,7 @@ const delete_equipe = () => {
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
-
+    window.location.reload();
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
@@ -256,7 +240,7 @@ return (<div className="container mt-5">
                             <div className="col-md-6 offset-md-4">
                             { this.state.loadingUpdate
                                 ? <button type="submit" className="btn btn-outline-info float-left" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info float-left" onClick={handleUpdate} >Mettre à jour</button>
+                                : <button type="submit" className="btn btn-outline-info float-left" onClick={() => {handleTeamUpdate(this.state.d_f_equipe,this.state.mail,this.state.telephone,)}} >Mettre à jour</button>
                               }
                               <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
@@ -311,7 +295,7 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6">
                                 { this.state.member_id != 0
-                                ? <button type="submit" className="btn btn-outline-info" onClick={handleAddMembre}>Ajouter un membre</button>
+                                ? <button type="submit" className="btn btn-outline-info" onClick={() => {handleAddMembre(this.state.member_id,this.props.match.params.id)}}>Ajouter un membre</button>
                                 : <p className="btn btn-outline-secondary">Sélectionnez un membre</p>
                                 }
                             </div>
