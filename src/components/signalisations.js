@@ -31,7 +31,7 @@ function handleCreate(id,price,etat_avancement,date_debut,date_fin)
     //localStorage.setItem('role', response.data.user.role)
     // route for profile
     console.log(response)
-    window.location.reload();
+    //window.location.reload();
   }).catch(function (error) {
       console.log(error);
   });
@@ -175,7 +175,7 @@ const all_data = this.state.all.map((element) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(2,2,2,2,2)}>
+                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}>
                                       Créer une intervention
                                       </button>
                                   </div>
