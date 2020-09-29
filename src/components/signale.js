@@ -44,12 +44,12 @@ async function all_chef() {
     }
 }
 
-async function HasInformer(id) {
+async function allChefsHasInformer(id) {
     try {
       
       const response = await axios({
         method :'GET',
-        url :'http://127.0.0.1:8000/api/auth/ifinformer/'+id,
+        url :'http://127.0.0.1:8000/api/auth/allChefsHasInformer/' + id,
         headers : {'Accept':'application/json'},
         params : {'token':localStorage.getItem('token')}
       })
@@ -58,6 +58,51 @@ async function HasInformer(id) {
     } catch (error) {
       console.error(error);
     }
+}
+
+// handle button click of signin form
+function handleUpdate(id,desc,localisation,lieu,nature,cause)
+{
+  axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + id, {
+    desc    : desc,
+    localisation    : localisation,
+    lieu    : lieu,
+    nature    : nature,
+    cause    : cause
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+    window.location.reload();
+  }).catch(function (error) {
+      console.log(error);
+  });
+}
+
+function handleInformer(id,gest_id,chef_id)
+{
+  axios.post('http://127.0.0.1:8000/api/auth/informer', {
+      gest_id	: gest_id,
+      chef_id	: chef_id,
+      signalisation_id : id
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+    window.location.reload();
+  }).catch(function (error) {
+      console.log(error);
+  });
 }
 
 export default class Signale extends Component {
@@ -140,10 +185,10 @@ constructor(props) {
                 all: response.data
             });
         });
-        HasInformer(this.props.match.params.id).then(response => {
-          if(response.data != ""){
+        allChefsHasInformer(this.props.match.params.id).then(response => {
+          if(response.data.data != null){
             this.setState({
-              HasInformer: response.data
+              HasInformer: response.data.data
             });
           }
         });
@@ -156,28 +201,6 @@ constructor(props) {
 
 render() {
 
-// handle button click of signin form
-const handleUpdate = () => {
-    axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + this.props.match.params.id, {
-      desc    : this.state.desc,
-      localisation    : this.state.localisation,
-      lieu    : this.state.lieu,
-      nature    : this.state.nature,
-      cause    : this.state.cause
-    }).then(function (response) {
-      // setter
-      //localStorage.setItem('token', response.data.access_token)
-      //localStorage.setItem('id', response.data.user.id)
-      //localStorage.setItem('name', response.data.user.name)
-      //localStorage.setItem('email', response.data.user.email)
-      //localStorage.setItem('role', response.data.user.role)
-      // route for profile
-      console.log(response)
-      window.location.reload();
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
 
 const delete_signalisation = () => {
   axios.delete('http://127.0.0.1:8000/api/auth/signalisation/' + this.props.match.params.id)
@@ -207,25 +230,6 @@ const delete_signalisation = () => {
   window.location.replace("/signalisations");
 }
 
-// handle button click of signin form
-const handleInformer = () => {
-    axios.post('http://127.0.0.1:8000/api/auth/informer', {
-        gest_id	: localStorage.getItem('id'),
-        chef_id	: this.state.chef_id,
-        signalisation_id : this.props.match.params.id
-    }).then(function (response) {
-      // setter
-      //localStorage.setItem('token', response.data.access_token)
-      //localStorage.setItem('id', response.data.user.id)
-      //localStorage.setItem('name', response.data.user.name)
-      //localStorage.setItem('email', response.data.user.email)
-      //localStorage.setItem('role', response.data.user.role)
-      // route for profile
-      console.log(response)
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
 
 const all_datas = this.state.HasInformer.map((element,key) =>
 <tr>
@@ -257,7 +261,7 @@ return (<div className="container mt-5">
                         <div className="form-group row">
                             <label for="desc" className="col-md-3 col-form-label text-md-right">Description</label>
                             <div className="col-md-9">
-                            <textarea id="desc" type="text" onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required rows="3" value={this.state.desc}></textarea>
+                            <textarea id="desc" type="text" onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required rows="5" value={this.state.desc}></textarea>
                                 { this.state.desc == '' && this.state.vd
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
@@ -313,7 +317,7 @@ return (<div className="container mt-5">
                             <div className="col-md-6 offset-md-3">
                             { this.state.loading
                                 ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={() => {handleUpdate(this.props.match.params.id,this.state.desc,this.state.localisation,this.state.lieu,this.state.nature,this.state.cause)}} >Mettre à jour</button>
                             }
                             <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
@@ -366,7 +370,7 @@ return (<div className="container mt-5">
 
                         <div className="form-group row mb-0">
                             <div className="col-md-12 ml-3">
-                              <button type="submit" className="btn btn-outline-info" onClick={handleInformer}>Informer</button>
+                              <button type="submit" className="btn btn-outline-info" onClick={() => {handleInformer(this.props.match.params.id,localStorage.getItem('id'),this.state.chef_id)}}>Informer</button>
                             </div>
                         </div>
 
