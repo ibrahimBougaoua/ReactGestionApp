@@ -228,21 +228,21 @@ const fetchChef = this.state.allChef.map((element) =>
 );
 
 return (<div className="container mt-5">
-    <Nav name="Single Equipe" />
+    <Nav name="Signalisation" />
     <div className="row">
         
     <div className="col-md-6">
         
     <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Update signalisation</div>
+                <div className="card-header border-0 bg-info text-white">Mettre à jour signalisation</div>
 
                 <div className="card-body">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="desc" className="col-md-4 col-form-label text-md-right">desc</label>
+                            <label for="desc" className="col-md-4 col-form-label text-md-right">Description</label>
                             <div className="col-md-8">
-                                <input id="desc" type="text" value={this.state.desc} onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required/>
+                            <textarea id="desc" type="text" onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required rows="3" value={this.state.desc}></textarea>
                                 { this.state.desc == '' && this.state.vd
                                   ? <div className="invalid-feedback"> This field is empty.</div>
                                   : null
@@ -297,28 +297,28 @@ return (<div className="container mt-5">
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
                             { this.state.loading
-                                ? <button type="submit" className="btn btn-outline-info" disabled>Updated... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
-                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Update</button>
+                                ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
+                                : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
                             }
                             </div>
-                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             
                         
-                            <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalCenterTitle">Delete you'r signalisation</h5>
+        <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette équipe</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
-      Are you sure ? you'r signalisation will deleted and you can't see any details ! 
+      Êtes-vous sûr ? Cette équipe sera supprimée et vous ne pourrez plus la voir!
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Delete</button>
-        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Supprimer</button>
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -338,7 +338,7 @@ return (<div className="container mt-5">
 
                 <div className="card-body">
 
-                <img src="/undraw_business_decisions_gjwy.svg" className="w-75 h-50 p-2" alt=""/>
+                <img src="/undraw_business_decisions_gjwy.svg" className="w-100 h-100 p-2 mb-3" alt=""/>
 
                     <form method="POST" onSubmit={this.handleSubmit}>
 
