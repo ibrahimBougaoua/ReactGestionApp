@@ -114,6 +114,8 @@ const all_data = this.state.all.map((element) =>
 <td key={element['lieu']}>{element['lieu']}</td>
 <td key={element['nature']}>{element['nature']}</td>
 <td key={element['cause']}>{element['cause']}</td>
+<td key={element['user_name']}>{element['user_name']}</td>
+<td key={element['name']}><img key={element['name']} src={'http://127.0.0.1:8000/storage/images/' + element['name']} className="card-img rounded-0 w-100 w-100" alt="..."/></td>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
 <td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-info float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-success">Mise à jour</Link>}
 
@@ -214,13 +216,15 @@ return (
      </div>
     :
     <table className="table shadow">
-      <thead>
+      <thead class="thead-light">
       <tr className="border-top-0">
       <th scope="col">Description</th>
       <th scope="col">Localisation</th>
       <th scope="col">Lieu</th>
       <th scope="col">Nature</th>
       <th scope="col">Cause</th>
+      <th scope="col">Auteur(e)</th>
+      <th scope="col" style={{width: "30px"}}>Image</th>
       <th scope="col">Créé à</th>
       <th scope="col">Intervention</th>
       <th scope="col">Voire plus</th>
