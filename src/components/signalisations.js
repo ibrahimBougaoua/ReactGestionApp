@@ -37,6 +37,31 @@ function handleCreate(id,price,etat_avancement,date_debut,date_fin)
   });
 }
 
+
+function handleUpdate(id,price,etat_avancement,date_debut,date_fin)
+{
+axios.put('http://127.0.0.1:8000/api/auth/intervention/' + this.props.match.params.id, {
+  signalisation_id    : this.state.signalisation_id,
+  price    : this.state.price,
+  etat_avancement    : this.state.etat_avancement,
+  date_debut    : this.state.date_debut,
+  date_fin    : this.state.date_fin
+}).then(function (response) {
+// setter
+//localStorage.setItem('token', response.data.access_token)
+//localStorage.setItem('id', response.data.user.id)
+//localStorage.setItem('name', response.data.user.name)
+//localStorage.setItem('email', response.data.user.email)
+//localStorage.setItem('role', response.data.user.role)
+// route for profile
+console.log(response)
+window.location.reload();
+}).catch(function (error) {
+  console.log(error);
+});
+
+}
+
 export default class Signalisation extends Component {
     
     constructor(props) {
@@ -99,11 +124,11 @@ const all_data = this.state.all.map((element) =>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
 <td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Mise à jour</button>}
 
-<div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div className="modal fade" id={element['edit'] == 0 ? element['id'] : '_' + element['id'] } tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalCenterTitle">Nouvelle intervention {element['id']}</h5>
+            <h5 className="modal-title" id="exampleModalCenterTitle">{element['edit'] == 0 ? 'Nouvelle intervention' : 'Mise à jour' }</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -112,7 +137,7 @@ const all_data = this.state.all.map((element) =>
             
           <div className="col-md-12">
                   <div className="card border-0 shadow">
-                      <div className="card-header border-0 bg-info text-white">Nouvelle intervention</div>
+                      <div className="card-header border-0 bg-info text-white">{element['edit'] == 0 ? 'Nouvelle intervention' : 'Mise à jour' }</div>
       
                       <div className="card-body">
                           <form method="POST" onSubmit={this.handleSubmit}>
@@ -152,9 +177,7 @@ const all_data = this.state.all.map((element) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={() => {handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>
-                                      Créer une intervention
-                                      </button>
+                                     {element['edit'] == 0 ? <button type="submit" className="btn btn-outline-success float-right" onClick={() => {handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>Créer une intervention</button> : <button type="submit" className="btn btn-outline-success float-right" onClick={() => {handleUpdate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>Mise à jour</button> }
                                   </div>
                               </div>
                           </form>
