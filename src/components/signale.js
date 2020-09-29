@@ -173,6 +173,7 @@ const handleUpdate = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+      window.location.reload();
     }).catch(function (error) {
         console.log(error);
     });
@@ -190,6 +191,20 @@ const delete_signalisation = () => {
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
+
+  axios.delete('http://127.0.0.1:8000/api/auth/deleteAllSignales/' + this.props.match.params.id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+
+  window.location.reload();
 }
 
 // handle button click of signin form
@@ -240,8 +255,8 @@ return (<div className="container mt-5">
                     <form method="POST" onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
-                            <label for="desc" className="col-md-4 col-form-label text-md-right">Description</label>
-                            <div className="col-md-8">
+                            <label for="desc" className="col-md-3 col-form-label text-md-right">Description</label>
+                            <div className="col-md-9">
                             <textarea id="desc" type="text" onChange={this.handleChangeDesc} className={ this.state.desc == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="desc" required rows="3" value={this.state.desc}></textarea>
                                 { this.state.desc == '' && this.state.vd
                                   ? <div className="invalid-feedback"> This field is empty.</div>
@@ -251,8 +266,8 @@ return (<div className="container mt-5">
                         </div>
 
 <div className="form-group row">
-    <label for="localisation" className="col-md-4 col-form-label text-md-right">Localisation</label>
-    <div className="col-md-8">
+    <label for="localisation" className="col-md-3 col-form-label text-md-right">Localisation</label>
+    <div className="col-md-9">
         <input id="localisation" type="text" value={this.state.localisation} onChange={this.handleChangeLocalisation} className={ this.state.localisation == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="localisation" required/>
         { this.state.localisation == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -262,8 +277,8 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="lieu" className="col-md-4 col-form-label text-md-right">Lieu</label>
-    <div className="col-md-8">
+    <label for="lieu" className="col-md-3 col-form-label text-md-right">Lieu</label>
+    <div className="col-md-9">
         <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className={ this.state.lieu == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="lieu" required/>
         { this.state.lieu == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -273,8 +288,8 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="nature" className="col-md-4 col-form-label text-md-right">Nature</label>
-    <div className="col-md-8">
+    <label for="nature" className="col-md-3 col-form-label text-md-right">Nature</label>
+    <div className="col-md-9">
         <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className={ this.state.nature == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="nature" required/>
         { this.state.nature == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -284,8 +299,8 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="cause" className="col-md-4 col-form-label text-md-right">Cause</label>
-    <div className="col-md-8">
+    <label for="cause" className="col-md-3 col-form-label text-md-right">Cause</label>
+    <div className="col-md-9">
         <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className={ this.state.cause == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="cause" required/>
         { this.state.cause == '' && this.state.vd
           ? <div className="invalid-feedback"> This field is empty.</div>
@@ -295,26 +310,26 @@ return (<div className="container mt-5">
 </div>
 
                         <div className="form-group row mb-0">
-                            <div className="col-md-6 offset-md-4">
+                            <div className="col-md-6 offset-md-3">
                             { this.state.loading
                                 ? <button type="submit" className="btn btn-outline-info" disabled>Mettre à jour... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
                                 : <button type="submit" className="btn btn-outline-info" onClick={handleUpdate} >Mettre à jour</button>
                             }
+                            <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
-                            <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             
                         
 <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette équipe</h5>
+        <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette signalisation</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
-      Êtes-vous sûr ? Cette équipe sera supprimée et vous ne pourrez plus la voir!
+      Êtes-vous sûr ? Cette signalisation sera supprimée et vous ne pourrez plus la voir!
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Supprimer</button>
