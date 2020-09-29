@@ -86,29 +86,6 @@ export default class Signalisation extends Component {
             });
         });
       }
-      
-      handleCreate(id)
-      {
-        axios.post('http://127.0.0.1:8000/api/auth/intervention', {
-            signalisation_id    : id,
-            price    : this.state.price,
-            etat_avancement    : this.state.etat_avancement,
-            date_debut    : this.state.date_debut,
-            date_fin    : this.state.date_fin
-        }).then(function (response) {
-          // setter
-          //localStorage.setItem('token', response.data.access_token)
-          //localStorage.setItem('id', response.data.user.id)
-          //localStorage.setItem('name', response.data.user.name)
-          //localStorage.setItem('email', response.data.user.email)
-          //localStorage.setItem('role', response.data.user.role)
-          // route for profile
-          console.log(response)
-          window.location.reload();
-        }).catch(function (error) {
-            console.log(error);
-        });
-      }
 
     render() {
 
@@ -120,7 +97,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element['nature']}>{element['nature']}</td>
 <td key={element['cause']}>{element['cause']}</td>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
-<td key={element['id']}><button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button>
+<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Mise à jour</button>}
 
 <div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -175,7 +152,7 @@ const all_data = this.state.all.map((element) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}>
+                                      <button type="submit" className="btn btn-outline-success float-right" onClick={() => {handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>
                                       Créer une intervention
                                       </button>
                                   </div>
