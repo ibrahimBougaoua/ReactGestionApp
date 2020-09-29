@@ -2,7 +2,6 @@ import React, { Component} from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Nav from './nav';
-import List from './list';
 import Moment from 'moment';
 
 async function all_signalisations() {
@@ -13,6 +12,29 @@ async function all_signalisations() {
     } catch (error) {
       console.error(error);
     }
+}
+
+function handleCreate(id,price,etat_avancement,date_debut,date_fin)
+{
+  axios.post('http://127.0.0.1:8000/api/auth/intervention', {
+      signalisation_id    : id,
+      price    : price,
+      etat_avancement    : etat_avancement,
+      date_debut    : date_debut,
+      date_fin    : date_fin
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+    window.location.reload();
+  }).catch(function (error) {
+      console.log(error);
+  });
 }
 
 export default class Signalisation extends Component {
@@ -74,6 +96,13 @@ export default class Signalisation extends Component {
             date_debut    : this.state.date_debut,
             date_fin    : this.state.date_fin
         }).then(function (response) {
+          // setter
+          //localStorage.setItem('token', response.data.access_token)
+          //localStorage.setItem('id', response.data.user.id)
+          //localStorage.setItem('name', response.data.user.name)
+          //localStorage.setItem('email', response.data.user.email)
+          //localStorage.setItem('role', response.data.user.role)
+          // route for profile
           console.log(response)
           window.location.reload();
         }).catch(function (error) {
@@ -146,19 +175,7 @@ const all_data = this.state.all.map((element) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={
-                                        axios.post('http://127.0.0.1:8000/api/auth/intervention', {
-                                          signalisation_id    : element['id'],
-                                          price    : this.state.price,
-                                          etat_avancement    : this.state.etat_avancement,
-                                          date_debut    : this.state.date_debut,
-                                          date_fin    : this.state.date_fin
-                                      }).then(function (response) {
-                                        console.log(response)
-                                        window.location.reload();
-                                      }).catch(function (error) {
-                                          console.log(error);
-                                      })}>
+                                      <button type="submit" className="btn btn-outline-success float-right" onClick={handleCreate(2,2,2,2,2)}>
                                       Créer une intervention
                                       </button>
                                   </div>
