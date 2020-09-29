@@ -98,6 +98,25 @@ const handleCreate = () => {
       //localStorage.setItem('role', response.data.user.role)
       // route for profile
       console.log(response)
+
+
+      axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + this.state.response.data.signalisation_id, {
+        edit    : 1
+      }).then(function (response) {
+        // setter
+        //localStorage.setItem('token', response.data.access_token)
+        //localStorage.setItem('id', response.data.user.id)
+        //localStorage.setItem('name', response.data.user.name)
+        //localStorage.setItem('email', response.data.user.email)
+        //localStorage.setItem('role', response.data.user.role)
+        // route for profile
+        console.log(response)
+      }).catch(function (error) {
+          console.log(error);
+      });
+    
+
+
       window.location.reload();
     }).catch(function (error) {
         console.log(error);
