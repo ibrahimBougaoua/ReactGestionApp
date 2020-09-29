@@ -166,6 +166,18 @@ constructor(props) {
 render() {
 
 const delete_equipe = () => {
+  axios.delete('http://127.0.0.1:8000/api/auth/deleteAllMembre/' + this.props.match.params.id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+  
   axios.delete('http://127.0.0.1:8000/api/auth/equipe/' + this.props.match.params.id)
   .then(function (response) {
     // setter
@@ -173,10 +185,11 @@ const delete_equipe = () => {
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
-    window.location.reload();
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
+  
+  window.location.replace("/equipes");
 }
 
 const all_datas = this.state.allEquipeMembreById.map((element,key) =>
