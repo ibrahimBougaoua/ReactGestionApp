@@ -122,7 +122,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element['nature']}>{element['nature']}</td>
 <td key={element['cause']}>{element['cause']}</td>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
-<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Mise à jour</button>}
+<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#_' + element['id']}>Mise à jour</button>}
 
 <div className="modal fade" id={element['edit'] == 0 ? element['id'] : '_' + element['id'] } tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
