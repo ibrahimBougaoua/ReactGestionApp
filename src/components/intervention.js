@@ -115,6 +115,8 @@ constructor(props) {
       componentDidMount = () => {
         
         getIntervention(this.props.match.params.id).then(response => {
+          if(response.data.data != null)
+          {
             this.setState({
                 dataIntervention: response.data.data
             });
@@ -138,6 +140,7 @@ constructor(props) {
                 nature: response.data['nature']
               })
             });
+          }
             
         });
         all_signalisations().then(response => {
