@@ -113,9 +113,9 @@ const all_data = this.state.all.map((element) =>
 <td key={element['localisation']}>{element['localisation']}</td>
 <td key={element['lieu']}>{element['lieu']}</td>
 <td key={element['nature']}>{element['nature']}</td>
-<td key={element['cause']}>{element['edit']}</td>
+<td key={element['cause']}>{element['cause']}</td>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
-<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-outline-success float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-outline-success">Mise à jour</Link>}
+<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-info float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-success">Mise à jour</Link>}
 
 <div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -170,7 +170,7 @@ const all_data = this.state.all.map((element) =>
       
                               <div className="form-group row mb-0">
                                   <div className="col-md-6 offset-md-5">
-                                      <button type="submit" className="btn btn-outline-success float-right" onClick={() => {handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>
+                                      <button type="submit" className="btn btn-success float-right" onClick={() => {handleCreate(element['id'],this.state.price,this.state.etat_avancement,this.state.date_debut,this.state.date_fin)}}>
                                       Créer une intervention
                                       </button>
                                   </div>
