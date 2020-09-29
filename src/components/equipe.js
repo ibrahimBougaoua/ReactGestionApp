@@ -45,13 +45,12 @@ async function all_ats() {
   }
 }
 
-
-function handleTeamUpdate(d_f_equipe,mail,telephone)
+function handleTeamUpdate(id,_d_f_equipe,_mail,_telephone)
 {
-  axios.put('http://127.0.0.1:8000/api/auth/equipe/' + this.props.match.params.id, {
-    d_f_equipe    : d_f_equipe,
-    mail    : mail,
-    telephone    : telephone
+  axios.put('http://127.0.0.1:8000/api/auth/equipe/' + id, {
+    d_f_equipe    : _d_f_equipe,
+    mail    : _mail,
+    telephone    : _telephone
   }).then(function (response) {
     // setter
     //localStorage.setItem('token', response.data.access_token)
@@ -247,10 +246,9 @@ return (<div className="container mt-5">
     </div>
 </div>
 
-
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-4">
-                              <button type="submit" className="btn btn-success float-left" onClick={() => {handleTeamUpdate(this.state.d_f_equipe,this.state.mail,this.state.telephone,)}} >Mettre à jour</button>
+                              <button type="submit" className="btn btn-success float-left" onClick={() => {handleTeamUpdate(this.props.match.params.id,this.state.d_f_equipe,this.state.mail,this.state.telephone,)}} >Mettre à jour</button>
                               <button type="button" className="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
 
