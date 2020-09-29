@@ -43,16 +43,6 @@ async function all_chef() {
   }
 }
 
-async function getChefByID(id) {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/user/' + id)
-      //console.log(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-}
-
 async function evaluer(intervention_id) {
     try {
       const response = await axios({

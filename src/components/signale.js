@@ -36,7 +36,7 @@ async function all_gest() {
 
 async function all_chef() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/showuerbyrole/interventionteam')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allChefsHasNoInformer/' + localStorage.getItem('id'))
       console.log(response);
       return response;
     } catch (error) {
@@ -204,7 +204,7 @@ const delete_signalisation = () => {
     console.log('ibrahim => ' + error);
   });
 
-  window.location.reload();
+  window.location.replace("/signalisations");
 }
 
 // handle button click of signin form
@@ -378,8 +378,14 @@ return (<div className="container mt-5">
 
         </div>
 
+
         <div className="row">    
         <div className="col-md-12 mt-4">
+    
+        <div className="card border-0 shadow">
+                <div className="card-header border-0 bg-info text-white">Membres de l'équipe</div>
+
+                <div className="card-body">
     
 <table className="table shadow">
   <thead>
@@ -397,6 +403,8 @@ return (<div className="container mt-5">
   </tbody>
 </table>
 
+</div>
+        </div>
         </div>
     
     </div>
