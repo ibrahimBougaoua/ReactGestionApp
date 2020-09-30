@@ -110,7 +110,6 @@ export default class Signalisation extends Component {
 const all_data = this.state.all.map((element) =>
 <tr>
 <td key={element['id']}>{element['id']}</td>
-<td key={element['localisation']}>{element['localisation']}</td>
 <td key={element['lieu']}>{element['lieu']}</td>
 <td key={element['nature']}>{element['nature']}</td>
 <td key={element['cause']}>{element['cause']}</td>
@@ -219,7 +218,6 @@ return (
       <thead class="thead-light">
       <tr className="border-top-0">
       <th scope="col">#ID Signalisation</th>
-      <th scope="col">Localisation</th>
       <th scope="col">Lieu</th>
       <th scope="col">Nature</th>
       <th scope="col">Cause</th>
