@@ -11,9 +11,9 @@ const listItems = (elements) => {
         <h5 className="card-title text-info">Nature : {element['nature']}</h5>
         <p className="card-text text-sm text-secondary">Cause : {element['cause']}</p>
         <p className="card-text text-sm text-secondary">Description : {element['desc']}</p>
-        <p className="card-text text-sm text-secondary">auteur(e) : {element['user_name']}</p>
-        <p className="card-text text-sm text-secondary">créé le : {Moment(element['created_at']).format('DD-MM-YYYY')}</p>
-        <Link to={'/single/' + element['id']} className="btn btn-sm btn-outline-info">Lire la suite</Link>
+        <p className="card-text text-sm text-secondary">Auteur(e) : {element['user_name']}</p>
+        <p className="card-text text-sm text-secondary">Créé le : {Moment(element['created_at']).format('DD-MM-YYYY')}</p>
+        <Link to={props.link + element['id']} className="btn btn-sm btn-outline-info">Lire la suite</Link>
         </div>
     </div>
 ));

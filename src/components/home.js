@@ -67,12 +67,6 @@ const handleSearch = () => {
         }).catch(function (error) {
         console.log(error);
     });
-    } else if(this.state.cate == 'localisation') {
-        axios.get('http://127.0.0.1:8000/api/auth/search/?localisation=' + this.state.value).then(function (response) {
-          console.log(response)
-        }).catch(function (error) {
-            console.log(error);
-        });
     }
 }
 
@@ -103,7 +97,7 @@ return (
                     <form method="POST" onSubmit={this.handleSubmit}>
           
           <div className="form-group col-md-12">
-              <input className="form-control form-control-lg" name="search" type="text" onChange={this.handleChangeValue} value={this.state.value} placeholder="Rechercher des problemes by sa nature" aria-label="Search" />          
+              <input className="form-control form-control-lg" name="search" type="text" onChange={this.handleChangeValue} value={this.state.value} placeholder="Rechercher des problemes par sa nature" aria-label="Rechercher" />          
           </div>    
           
           <div className="form-group col-md-12">
@@ -111,7 +105,6 @@ return (
   <option value="desc">Description</option>
   <option value="nature">Nature</option>
   <option value="cause">Cause</option>
-  <option value="localisation">Localisation</option>
 </select>
           </div>
 
@@ -142,7 +135,7 @@ return (
         </div>
 
         <div className="container-fluid">
-        <Post name="Les dernières Signalisations" link="/account/single/" elements={this.state.all}></Post>
+        <Post name="Les dernières Signalisations" link="/view/single/" elements={this.state.all}></Post>
         </div>
 
     </div>

@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Nav from './nav';
+import Moment from 'moment';
 import { Link } from "react-router-dom";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  >
+    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+  </GoogleMap>
+))
 
 // handle button click of login form
 async function hasSignaler(user_id) {
@@ -92,7 +103,7 @@ constructor(props) {
         signalisation(this.props.match.params.id).then(response => {
           console.log(response.data)
           this.setState({
-            dataEquipe: response.data
+            dataEquipe: response.data.data
           });
           
         });
@@ -161,15 +172,7 @@ const handleSignaler = () => {
         console.log(error);
     });
 }
-const all_data = this.state.all.map((element) =>
-<div className="card">
-  <img src="https://images.pexels.com/photos/3815585/pexels-photo-3815585.jpeg?cs=srgb&dl=person-writing-on-white-paper-3815585.jpg&fm=jpg" className="card-img-top" alt="..." />
-  <div className="card-body">
-    <h6 className="card-title">{element['desc']}</h6>
-    <Link to={'/view/single/' + element['id']} className="btn btn-sm btn-outline-info">View</Link>
-  </div>
-</div>
-);
+
 
 const all_comments = this.state.allComment.map((element) =>
 <div className="card border-0 shadow mb-3">
@@ -235,37 +238,35 @@ return (<div className="container-fluid mt-5">
 <div className="card mb-3 border-0 shadow">
   <div className="row no-gutters">
     <div className="col-md-4">
-      <img src="..." className="card-img" alt="..." />
+    <img key={this.state.dataEquipe['name']} src={'http://127.0.0.1:8000/storage/images/' + this.state.dataEquipe['name']} className="card-img rounded-0" alt="..."/>
     </div>
     <div className="col-md-8">
       <div className="card-body">
-      {
-        this.state.hasSn
-        ? <button type="submit" className="btn btn-secondary float-right" onClick={handleSignaler}>Allready Signaled</button>
-        : <button type="submit" className="btn btn-outline-info float-right" onClick={handleSignaler}>Signaler</button>
-        }
+        <p className="card-text">Description : {this.state.dataEquipe['desc']}</p>
         
-        <h5 className="card-title">{this.state.dataEquipe['desc']}</h5>
-        <h5 className="card-title">{this.state.dataEquipe['localisation']}</h5>
-        <h5 className="card-title">{this.state.dataEquipe['lieu']}</h5>
-        <h5 className="card-title">{this.state.dataEquipe['nature']}</h5>
-        <p className="card-text">{this.state.dataEquipe['cause']}</p>
-        <p className="card-text"><small className="text-muted">{this.state.dataEquipe['created_at']}</small></p>
+    <div style={{width:'100%',height:'50%'}}>
+    <p className="card-text">Localisation :</p>
+<MyMapComponent
+  isMarkerShown
+  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+  loadingElement={<div style={{ height: `100%` }} />}
+  containerElement={<div style={{ height: `200px` }} />}
+  mapElement={<div style={{ height: `100%` }} />}
+/>
+</div>
+        
+        <p className="card-text mt-2">Lieu : {this.state.dataEquipe['lieu']}</p>
+        <p className="card-text">Nature : {this.state.dataEquipe['nature']}</p>
+        <p className="card-text">Cause : {this.state.dataEquipe['cause']}</p>
+        <p className="card-text">Auteur(e) : {this.state.dataEquipe['user_name']}</p>
+        <p className="card-text"><small className="text-muted">Créé le : {Moment(this.state.dataEquipe['created_at']).format('DD-MM-YYYY')}</small></p>
       </div>
     </div>
   </div>
 </div>
         </div>
 
-<div className="col-md-12">    
-    <div className="jumbotron jumbotron-fluid">
-            <div class="card-deck">
-                {all_data}
-            </div>
-    </div>
-</div>
-
-<div className="col-md-12">    
+<div className="col-md-12 mt-3">    
 {all_comments}
 <div className="card border-0 shadow">
                 <div className="card-body">
