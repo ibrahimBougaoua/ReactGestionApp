@@ -458,7 +458,7 @@ return (<div className="container mt-5">
                 <div className="card-header border-0 bg-info text-white">Tous les membres qui ont été ajoutés</div>
 
                 <div className="card-body">
-    
+{all_datas != "" ? 
 <table className="table shadow">
   <thead>
     <tr className="border-top-0">
@@ -471,11 +471,12 @@ return (<div className="container mt-5">
     </tr>
   </thead>
   <tbody>
-  {all_datas != "" ? all_datas : null} 
+  {all_datas} 
   </tbody>
 </table>
+ : null }
 
-{all_datas != "" ? null : <img src="/user_group.png" className="w-50 h-50 p-2 m-5" alt=""/>} 
+{all_datas != "" ? null : <div class="row"><div class="col-md-7"><img src="/user_group.png" className="w-75 h-75 p-2 m-2" alt=""/></div><div class="col-md-5"><h1 class="load text-info text-sm">Pardon la liste est vide</h1></div></div>} 
 
 
 </div>
