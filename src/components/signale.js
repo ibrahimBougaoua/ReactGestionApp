@@ -3,8 +3,28 @@ import axios from 'axios';
 import Nav from './nav';
 import { Link } from "react-router-dom";
 import Moment from 'moment';
-import GoogleMapReact from 'google-map-react';
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker,
+  InfoWindow
+} from "react-google-maps";
+
+function Map()
+{
+  return (
+    <GoogleMap
+    defaultZoome={10}
+    defaultCenter={{lat:12,lng:12}}
+    >
+
+    </GoogleMap>
+
+  )
+}
+
+const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 // handle button click of login form
 async function signalisation(id) {
@@ -109,14 +129,6 @@ function handleInformer(id,gest_id,chef_id)
 }
 
 export default class Signale extends Component {
-
-  static defaultProps = {
-    center: {
-      lat: 36.7153873,
-      lng: 3.1822525
-    },
-    zoom: 18
-  };
 
 constructor(props) {
     super(props);
@@ -259,23 +271,16 @@ const fetchChef = this.state.allChef.map((element) =>
 
 return (<div className="container mt-5">
     <Nav name="Signalisation" />
-
-
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={3.1822525}
-            lng={36.7153873}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
-
     <div className="row">
-        
+    <div style={{ width: "100vw", height: "100vh" }}>
+
+        <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=aaaaaaaa`}
+
+loadingElement={<div style={{ height: `100%` }} />}
+containerElement={<div style={{ height: `100%` }} />}
+mapElement={<div style={{ height: `100%` }} />}
+        />
+</div>
     <div className="col-md-6">
         
     <div className="card border-0 shadow">
