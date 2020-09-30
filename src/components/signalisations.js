@@ -34,7 +34,7 @@ function handleCreate(id,price,etat_avancement,date_debut,date_fin)
 
 
   axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + id, {
-    edit    : 1
+    edit    : response.data.id
   }).then(function (response) {
     // setter
     //localStorage.setItem('token', response.data.access_token)
@@ -117,7 +117,7 @@ const all_data = this.state.all.map((element) =>
 <td key={element['user_name']}>{element['user_name']}</td>
 <td key={element['name']}><img key={element['name']} src={'http://127.0.0.1:8000/storage/images/' + element['name']} className="card-img rounded-0 w-100 w-100" alt="..."/></td>
 <td key={element['created_at']}>{Moment(element['created_at']).format('DD-MM-YYYY')}</td>
-<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-info float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <Link to={'intervention/single/' + element['id']} className="btn btn-sm btn-success">Mise à jour</Link>}
+<td key={element['id']}>{element['edit'] == 0 ? <button type="button" className="btn btn-sm btn-info float-right" data-toggle="modal" data-target={'#' + element['id']}>Intervention</button> : <Link to={'intervention/single/' + element['edit']} className="btn btn-sm btn-success">Mise à jour</Link>}
 
 <div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">

@@ -34,9 +34,9 @@ async function all_gest() {
     }
 }
 
-async function all_chef() {
+async function all_chef(signalisation_id) {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/allChefsHasNoInformer/' + localStorage.getItem('id'))
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/allChefsHasNoInformer/' + signalisation_id)
       console.log(response);
       return response;
     } catch (error) {
@@ -192,7 +192,7 @@ constructor(props) {
             });
           }
         });
-        all_chef().then(response => {
+        all_chef(this.props.match.params.id).then(response => {
             this.setState({
                 allChef: response.data.data
             });

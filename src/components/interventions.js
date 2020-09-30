@@ -100,8 +100,8 @@ const handleCreate = () => {
       console.log(response)
 
 
-      axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + this.state.response.data.signalisation_id, {
-        edit    : 1
+      axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + response.data.signalisation_id, {
+        edit    : response.data.id
       }).then(function (response) {
         // setter
         //localStorage.setItem('token', response.data.access_token)
