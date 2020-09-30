@@ -3,28 +3,17 @@ import axios from 'axios';
 import Nav from './nav';
 import { Link } from "react-router-dom";
 import Moment from 'moment';
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow
-} from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-function Map()
-{
-  return (
-    <GoogleMap
-    defaultZoome={10}
-    defaultCenter={{lat:12,lng:12}}
-    >
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  >
+    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+  </GoogleMap>
+))
 
-    </GoogleMap>
-
-  )
-}
-
-const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 // handle button click of login form
 async function signalisation(id) {
@@ -272,15 +261,7 @@ const fetchChef = this.state.allChef.map((element) =>
 return (<div className="container mt-5">
     <Nav name="Signalisation" />
     <div className="row">
-    <div style={{ width: "100vw", height: "100vh" }}>
 
-        <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDPfQBUdw6s5NYVm6CdCRrrbxeVnf56cjQ`}
-
-loadingElement={<div style={{ height: `100%` }} />}
-containerElement={<div style={{ height: `100%` }} />}
-mapElement={<div style={{ height: `100%` }} />}
-        />
-</div>
     <div className="col-md-6">
         
     <div className="card border-0 shadow">
@@ -303,11 +284,15 @@ mapElement={<div style={{ height: `100%` }} />}
 <div className="form-group row">
     <label for="localisation" className="col-md-3 col-form-label text-md-right">Localisation</label>
     <div className="col-md-9">
-        <input id="localisation" type="text" value={this.state.localisation} onChange={this.handleChangeLocalisation} className={ this.state.localisation == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="localisation" required/>
-        { this.state.localisation == '' && this.state.vd
-          ? <div className="invalid-feedback"> This field is empty.</div>
-          : null
-        }
+    <div style={{width:'100%',height:'50%'}}>
+<MyMapComponent
+  isMarkerShown
+  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+  loadingElement={<div style={{ height: `100%` }} />}
+  containerElement={<div style={{ height: `200px` }} />}
+  mapElement={<div style={{ height: `100%` }} />}
+/>
+</div>
     </div>
 </div>
 
@@ -400,7 +385,7 @@ mapElement={<div style={{ height: `100%` }} />}
 
                 <div className="card-body">
 
-                <img src="/undraw_business_decisions_gjwy.svg" className="w-100 h-100 p-2 mb-3" alt=""/>
+                <img src="/sent_messages_.png" className="w-100 h-100 p-2 mb-5" alt=""/>
 
                     <form method="POST" onSubmit={this.handleSubmit}>
 
@@ -430,7 +415,7 @@ mapElement={<div style={{ height: `100%` }} />}
         <div className="col-md-12 mt-4">
     
         <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-info text-white">Membres de l'équipe</div>
+                <div className="card-header border-0 bg-info text-white">Tous les membres qui ont été ajoutés</div>
 
                 <div className="card-body">
     
@@ -439,10 +424,10 @@ mapElement={<div style={{ height: `100%` }} />}
     <tr className="border-top-0">
       <th scope="col">Name</th>
       <th scope="col">E-mail</th>
-      <th scope="col">Telephone</th>
+      <th scope="col">Téléphone</th>
       <th scope="col">Sexe</th>
-      <th scope="col">Created at</th>
-      <th scope="col">View</th>
+      <th scope="col">Créé le</th>
+      <th scope="col">Supprimer</th>
     </tr>
   </thead>
   <tbody>
