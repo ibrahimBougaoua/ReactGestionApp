@@ -117,6 +117,24 @@ function handleInformer(id,gest_id,chef_id)
   });
 }
 
+function deleteMembre(chef_id,signalisation_id)
+{
+  axios.delete('http://127.0.0.1:8000/api/auth/deleteChefInformer/' + chef_id + '/signalisation_id/' + signalisation_id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+
+  window.location.reload();
+}
+
+
 export default class Signale extends Component {
 
 constructor(props) {
@@ -249,8 +267,30 @@ const all_datas = this.state.HasInformer.map((element,key) =>
 <td key={key}>{element.email}</td>
 <td key={key}>{element.telephone}</td>
 <td key={key}>{element.sexe}</td>
-<td key={key}>{Moment(element.created_at).format('DD-MM-YYYY')}</td>
-<td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
+<td key={key}>{Moment(element.created_at).format('DD-MM-YYYY')}</td>  
+<td key={element['id']}>{<button type="button" className="btn btn-sm btn-danger" data-toggle="modal" data-target={'#' + element['id']}>Supprimer</button>}
+
+<div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette membre</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+          Êtes-vous sûr ? votre membre sera supprimé !          
+          </div>
+          <div className="modal-footer">
+        <button type="button" className="btn btn-danger" onClick={() => {deleteMembre(element.id,this.props.match.params.id)}}>Supprimer</button>
+            <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+  </td>
 </tr>
 );
 
@@ -346,8 +386,8 @@ return (<div className="container mt-5">
 
                         <div className="form-group row mb-0">
                             <div className="col-md-6 offset-md-3">
-                              <button type="submit" className="btn btn-outline-info" onClick={() => {handleUpdate(this.props.match.params.id,this.state.desc,this.state.localisation,this.state.lieu,this.state.nature,this.state.cause)}} >Mettre à jour</button>
-                            <button type="button" className="btn btn-outline-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
+                              <button type="submit" className="btn btn-info" onClick={() => {handleUpdate(this.props.match.params.id,this.state.desc,this.state.localisation,this.state.lieu,this.state.nature,this.state.cause)}} >Mettre à jour</button>
+                            <button type="button" className="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
                             </div>
                             
                         
@@ -364,8 +404,8 @@ return (<div className="container mt-5">
       Êtes-vous sûr ? Cette signalisation sera supprimée et vous ne pourrez plus la voir!
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_signalisation}>Supprimer</button>
-        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
+        <button type="button" className="btn btn-danger" onClick={delete_signalisation}>Supprimer</button>
+        <button type="button" className="btn btn-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -398,7 +438,7 @@ return (<div className="container mt-5">
 
                         <div className="form-group row mb-0">
                             <div className="col-md-12 ml-3">
-                              <button type="submit" className="btn btn-outline-info" onClick={() => {handleInformer(this.props.match.params.id,localStorage.getItem('id'),this.state.chef_id)}}>Informer</button>
+                              <button type="submit" className="btn btn-info" onClick={() => {handleInformer(this.props.match.params.id,localStorage.getItem('id'),this.state.chef_id)}}>Informer</button>
                             </div>
                         </div>
 
@@ -422,7 +462,7 @@ return (<div className="container mt-5">
 <table className="table shadow">
   <thead>
     <tr className="border-top-0">
-      <th scope="col">Name</th>
+      <th scope="col">Nom</th>
       <th scope="col">E-mail</th>
       <th scope="col">Téléphone</th>
       <th scope="col">Sexe</th>
@@ -431,9 +471,12 @@ return (<div className="container mt-5">
     </tr>
   </thead>
   <tbody>
-  {all_datas}
+  {all_datas != "" ? all_datas : null} 
   </tbody>
 </table>
+
+{all_datas != "" ? null : <img src="/user_group.png" className="w-50 h-50 p-2 m-5" alt=""/>} 
+
 
 </div>
         </div>
