@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Nav from './nav';
 import { Link } from "react-router-dom";
+import Moment from 'moment';
 
 // handle button click of login form
 async function signalisation(id) {
@@ -237,7 +238,7 @@ const all_datas = this.state.HasInformer.map((element,key) =>
 <td key={key}>{element.email}</td>
 <td key={key}>{element.telephone}</td>
 <td key={key}>{element.sexe}</td>
-<td key={key}>{element.created_at}</td>
+<td key={key}>{Moment(element.created_at).format('DD-MM-YYYY')}</td>
 <td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-outline-info">View</Link></td>
 </tr>
 );
@@ -281,36 +282,51 @@ return (<div className="container mt-5">
 </div>
 
 <div className="form-group row">
-    <label for="lieu" className="col-md-3 col-form-label text-md-right">Lieu</label>
-    <div className="col-md-9">
-        <input id="lieu" type="text" value={this.state.lieu} onChange={this.handleChangeLieu} className={ this.state.lieu == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="lieu" required/>
-        { this.state.lieu == '' && this.state.vd
-          ? <div className="invalid-feedback"> This field is empty.</div>
-          : null
-        }
-    </div>
+        <label for="lieu" className="col-md-3 col-form-label text-md-right">Lieu</label>
+        <div className="col-md-9">
+        <select name="lieu" class="form-control" value={this.state.lieu} onChange={this.handleChangeLieu}>
+          <option value="les 100">Les 100</option>
+          <option value="les 200">Les 200</option>
+          <option value="faculte electrounique et informatique">Faculte electrounique et informatique</option>
+          <option value="Faculte chimique">Faculte chimique</option>
+          <option value="Faculte biolougie">Faculte biolougie</option>
+          <option value="departement informatique">Departement informatique</option>
+          <option value="Faculte phisique">Faculte phisique</option>
+          <option value="les Nouveau Bloc">Les Nouveau Bloc</option>
+          <option value="Les 300">Les 300</option>
+          <option value="village">Village</option>
+          <option value="cyper espace">Cyper espace</option>
+          <option value="les 400">Les 400</option>
+          <option value="Bibliotheque centrale">Bibliotheque centrale</option>
+        </select>
+        </div>
 </div>
 
-<div className="form-group row">
-    <label for="nature" className="col-md-3 col-form-label text-md-right">Nature</label>
-    <div className="col-md-9">
-        <input id="nature" type="text" value={this.state.nature} onChange={this.handleChangeNature} className={ this.state.nature == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="nature" required/>
-        { this.state.nature == '' && this.state.vd
-          ? <div className="invalid-feedback"> This field is empty.</div>
-          : null
-        }
-    </div>
-</div>
+
 
 <div className="form-group row">
-    <label for="cause" className="col-md-3 col-form-label text-md-right">Cause</label>
-    <div className="col-md-9">
-        <input id="cause" type="text" value={this.state.cause} onChange={this.handleChangeCause} className={ this.state.cause == '' && this.state.vd ? 'form-control is-invalid' : "form-control is-valid" } name="cause" required/>
-        { this.state.cause == '' && this.state.vd
-          ? <div className="invalid-feedback"> This field is empty.</div>
-          : null
-        }
-    </div>
+        <label for="nature" className="col-md-3 col-form-label text-md-right">Nature</label>
+        <div className="col-md-9">
+        <select name="nature" class="form-control" value={this.state.nature} onChange={this.handleChangeNature}>
+          <option value="l'eaux">L'eaux</option>
+          <option value="décheat">Décheat</option>
+          <option value="electricité">Electricité</option>
+          <option value="clairage">Clairage</option>
+        </select>
+        </div>
+</div>
+
+
+<div className="form-group row">
+        <label for="cause" className="col-md-3 col-form-label text-md-right">Cause</label>
+        <div className="col-md-9">
+        <select name="cause" class="form-control" value={this.state.cause} onChange={this.handleChangeCause}>
+          <option value="travaille arretes">Travaille arretes</option>
+          <option value="aucune travaille">Aucune travaille</option>
+          <option value="besoin d'aide">Besoin d'aide</option>
+          <option value="déja signales et aucune travaille">Déja signales et aucune travaille</option>
+        </select>
+        </div>
 </div>
 
                         <div className="form-group row mb-0">
