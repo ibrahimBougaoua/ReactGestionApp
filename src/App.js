@@ -17,6 +17,7 @@ import Signalisations from "./components/signalisations";
 import SignalisationsTrash from "./components/trash";
 import Signale from "./components/signale";
 import View from "./components/view";
+import Autheur from "./components/author";
 import Interventions from "./components/interventions";
 import Intervention from "./components/intervention";
 import InterChef from "./components/interchef";
@@ -261,6 +262,7 @@ const Logout = () => {
         <Route path="/view/single/:id" exact component={View} />
         <Route path="/interventions" exact component={Interventions} />
         <Route path="/interventions/:id" exact component={Interventions} />
+        <Route path="/autheur/:id" exact component={Autheur} />
         <Route path="/intervention/single/:id" exact component={Intervention} />
         <Route path="/chef-intervention" exact component={InterChef} />
         <Route path="/chef-intervention/single/:id" exact component={InterSingle} />

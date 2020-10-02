@@ -135,7 +135,7 @@ return (
         </div>
 
         <div className="container-fluid">
-        <Post name="Les dernières Signalisations" link="/view/single/" elements={this.state.all}></Post>
+        <Post name="Les dernières Signalisations" link="/view/single/"  author={true} elements={this.state.all}></Post>
         </div>
 
     </div>
