@@ -252,9 +252,9 @@ const all_data = this.state.all.map((element) =>
 
 return (
 <div className="container-fluid mt-5">
-    <Nav name="Trash" />
+    <Nav name="Déchet" />
 
-    <Link to={'signalisations'} style={{top: "8em",position: "absolute",right: "90px"}} className="btn btn-sm btn-info">Signalisations</Link>
+    <Link to={'signalisations'} style={{top: "110px",position: "absolute",right: "90px"}} className="btn btn-sm btn-info">Signalisations</Link>
     
     <div className="row">
         <div className="col-md-12">

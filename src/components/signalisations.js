@@ -203,7 +203,7 @@ return (
 <div className="container-fluid mt-5">
     <Nav name="Signalisation" />
 
-    <Link to={'trash'} style={{top: "8em",position: "absolute",right: "90px"}} className="btn btn-sm btn-danger">Déchet</Link>
+    <Link to={'trash'} style={{top: "110px",position: "absolute",right: "90px"}} className="btn btn-sm btn-danger">Déchet</Link>
     
     <div className="row">
         <div className="col-md-12">
