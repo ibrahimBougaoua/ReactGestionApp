@@ -35,11 +35,18 @@ render() {
 
 return (
     <div className="container mt-5">
+        
     <Nav name="Author" />
+        <div className="card border-0 shadow">
+                <div className="card-header border-0 bg-info text-white">Les dernières Signalisations par : {this.state.user.name}</div>
+
+                <div className="card-body">
     <div className="container">
         <div className="row">
-            <Post name={'Les dernières Signalisations par : ' + this.state.user.name} link="/view/single/" author={false} elements={this.state.all}></Post>
+            <Post link="/view/single/" author={false} elements={this.state.all}></Post>
         </div>
+    </div>
+    </div>
     </div>
     </div>
 );

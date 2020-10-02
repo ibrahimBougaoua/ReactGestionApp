@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Post from "./post";
-import { Link } from "react-router-dom";
 
 async function all_signalisations() {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation')
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+async function allSignalisationHasEnding() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation')
+      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisationHasEnding')
       console.log(response);
       return response;
     } catch (error) {
@@ -17,7 +25,7 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {all: [],value: '',cate: 'desc'};
+        this.state = {all: [],allEnding:[],value: '',cate: 'desc'};
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.handleChangeCate = this.handleChangeCate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +51,12 @@ export default class Home extends Component {
                 all: response.data.data
             });
         });
+        allSignalisationHasEnding().then(response => {
+            this.setState({
+                allEnding: response.data.data
+            });
+        });
+        
       }
 
 render() {
@@ -84,10 +98,11 @@ elements.map((element) =>
 */
 
 return (
-    <div className="row justify-content-center">
+    <div className="container-fluid">
         <div className="col-md-12">    
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
+
                   <div className="row">
                     <div className="col-md-6">
                     <h2 className="font-weight-bold text-info">Signalisation des problems.</h2>
@@ -121,21 +136,38 @@ return (
                     <img src="background.png" className="w-100 h-100 mt-2 rounded" alt=""/>
                     </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div className="col-md-12 bg-info rounded">   
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container">
+
+                    <div className="col-md-12 mt-5 bg-info rounded">   
+            <div className="jumbotron jumbotron-fluid m-0 p-5">
                     <h1 className="display-5 text-center text-white font-weight-bold">Trouvez des Problemes et Support les Signalisation !</h1>
-{ true  ? null : <p className="lead text-center text-white">follow thousands of problemes for free with limited ads.</p> }
-                </div>
             </div>
         </div>
 
-        <div className="container-fluid">
-        <Post name="Les dernières Signalisations" link="/view/single/"  author={true} elements={this.state.all}></Post>
+
+                </div>
+            </div>
+        </div>
+        
+        
+        <div className="col-md-12 mt-0">   
+        <div className="card border-0 shadow">
+                <div className="card-header border-0 bg-light">Les dernières Signalisations</div>
+
+                <div className="card-body">
+        <Post link="/view/single/"  author={true} elements={this.state.all}></Post>
+        </div>
+        </div>
+        </div>
+
+        <div className="col-md-12 mt-0">  
+        <div className="card border-0 shadow">
+                <div className="card-header border-0 bg-light">Les travaux qui terminé</div>
+
+                <div className="card-body">
+        <Post link="/view/single/"  author={true} elements={this.state.allEnding}></Post>
+        </div>
+        </div>
         </div>
 
     </div>

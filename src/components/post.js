@@ -21,9 +21,9 @@ const listItems = (elements) => {
 
 return <div>
 
-<p className="lead text-info mt-5">{props.name}</p>
+{props.name != null ? <p className="lead text-info mt-5">{props.name}</p> : null}
 
-<div className="col-md-12 mt-5 mb-0 p-0">
+<div className="col-md-12 mb-0 p-0">
 
 <div className="card-deck mb-5">
     {listItems(props.elements.slice(0,5))}
