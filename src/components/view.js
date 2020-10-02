@@ -174,7 +174,7 @@ const all_comments = this.state.allComment.map((element) =>
 );
 
 return (<div className="container-fluid mt-5">
-    <Nav name="View more" />
+    <Nav name="Voire plus" />
     <div className="row">
         
     <div className="col-md-12">

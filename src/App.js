@@ -281,7 +281,7 @@ const Logout = () => {
       <div className="col-md-12 bg-info rounded">   
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
-                    <h1 className="display-5 text-center text-white font-weight-bold">You can easly contact us using Mail or Fix telephone</h1>
+                    <h1 className="display-5 text-center text-white font-weight-bold">Vous pouvez facilement nous contacter via Mail ou Fix phone</h1>
                     <p className="lead text-sm text-center text-white font-weight-bold">Mail : services@usthb.dz</p>
                     <p className="lead text-sm text-center text-white font-weight-bold">Fix : 0612454545455</p>
                 </div>
@@ -292,14 +292,14 @@ const Logout = () => {
 
    <div className="row">
     <div className="col-md-4 p-3"> 
-      <p className="text-sm-left font-weight-bold text-info">About us</p>
-      <p className="text-sm-left">Harry Potter's life is miserable. His parents are dead and he's stuck with his heartless relatives, who force him to live in a tiny closet under the stairs. But his fortune changes.</p>
+      <p className="text-sm-left font-weight-bold text-info">À propos de nous</p>
+      <p className="text-sm-left">Qui nous sommes, c'est un ensemble de différents services permettant de suivre tous les problèmes et pannes en adressant une réclamation aux responsables via l'application téléphonique ou le site internet.</p>
     </div>
     <div className="col-md-8"> 
         <div className="jumbotron jumbotron-fluid p-0">
             <div className="container">
-                <h1 className="display-5 text-center font-weight-bold text-info">Signalisation of problemes.</h1>
-                <p className="lead text-center">follow thousands of problemes for free with limited ads.
+                <h1 className="display-5 text-center font-weight-bold text-info">Signalisation des problèmes.</h1>
+                <p className="lead text-center">
                     <img src="background.png" className="mt-2 rounded w-75 h-100 text-center" alt=""/>
                 </p>
                 
