@@ -25,7 +25,7 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {all: [],allEnding:[],value: '',cate: 'desc'};
+        this.state = {all: [],allEnding:[],searchData: [],value: '',cate: 'desc'};
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.handleChangeCate = this.handleChangeCate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,30 +59,40 @@ export default class Home extends Component {
         
       }
 
+// handle button click of signin form
+handleSearch()
+{
+  if(this.state.cate == 'desc') {
+      axios.get('http://127.0.0.1:8000/api/auth/search/?desc=' + this.state.value).then(function (response) {
+      console.log(response)
+      this.setState({
+         searchData: response.data
+      });
+      }).catch(function (error) {
+      console.log(error);
+      });
+  } else if(this.state.cate == 'nature') {
+      axios.get('http://127.0.0.1:8000/api/auth/search/?nature=' + this.state.value).then(function (response) {
+      console.log(response)
+      this.setState({
+         searchData: response.data
+      });
+      }).catch(function (error) {
+      console.log(error);
+      });
+  } else if(this.state.cate == 'cause') {
+      axios.get('http://127.0.0.1:8000/api/auth/search/?cause=' + this.state.value).then(function (response) {
+      console.log(response)
+      this.setState({
+          searchData: response.data
+      });
+      }).catch(function (error) {
+      console.log(error);
+  });
+  }
+}
 render() {
 
-// handle button click of signin form
-const handleSearch = () => {
-    if(this.state.cate == 'desc') {
-        axios.get('http://127.0.0.1:8000/api/auth/search/?desc=' + this.state.value).then(function (response) {
-        console.log(response)
-        }).catch(function (error) {
-        console.log(error);
-        });
-    } else if(this.state.cate == 'nature') {
-        axios.get('http://127.0.0.1:8000/api/auth/search/?nature=' + this.state.value).then(function (response) {
-        console.log(response)
-        }).catch(function (error) {
-        console.log(error);
-        });
-    } else if(this.state.cate == 'cause') {
-        axios.get('http://127.0.0.1:8000/api/auth/search/?cause=' + this.state.value).then(function (response) {
-        console.log(response)
-        }).catch(function (error) {
-        console.log(error);
-    });
-    }
-}
 
 /*
 const all_data = (elements) => elements.map((elements) =>
@@ -127,10 +137,31 @@ return (
           </div>
 
           <div className="form-group col-md-6 ml-0">
-              <button className="btn btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Chercher</button>
+              <button className="btn btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModalCenter" type="submit" onClick={() => {this.handleSearch()}}>Chercher</button>
           </div>
-    
           </form>
+
+<div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalCenterTitle">Résultats de recherche</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
           </div>
 
 
@@ -141,10 +172,12 @@ return (
                     </div>
 
 
+                    <div className="container-fluid">
                     <div className="col-md-12 mt-5 bg-info rounded">   
             <div className="jumbotron jumbotron-fluid m-0 p-5">
-                    <h1 className="display-5 text-center text-white font-weight-bold">Trouvez des Problemes et Support les Signalisation !</h1>
+                    <h2 className="display-5 text-center text-white font-weight-bold">Nous vous proposons le moyen le plus simple de suivre et d'envoyer des signaux !</h2>
             </div>
+        </div>
         </div>
 
 
