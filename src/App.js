@@ -14,6 +14,7 @@ import Equipe from "./components/equipe";
 import Contact from "./components/contact";
 import Membre from "./components/membre";
 import Signalisations from "./components/signalisations";
+import SignalisationsTrash from "./components/trash";
 import Signale from "./components/signale";
 import View from "./components/view";
 import Interventions from "./components/interventions";
@@ -255,6 +256,7 @@ const Logout = () => {
         <Route path="/membre" exact component={Membre} />
         <Route path="/equipe/single/:id" exact component={Equipe} />
         <Route path="/signalisations" exact component={Signalisations} />
+        <Route path="/trash" exact component={SignalisationsTrash} />
         <Route path="/signale/single/:id" exact component={Signale} />
         <Route path="/view/single/:id" exact component={View} />
         <Route path="/interventions" exact component={Interventions} />
