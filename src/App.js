@@ -293,7 +293,7 @@ const Logout = () => {
    <div className="row">
     <div className="col-md-4 p-3"> 
       <p className="text-sm-left font-weight-bold text-info">À propos de nous</p>
-      <p className="text-sm-left">Qui nous sommes, c'est un ensemble de différents services permettant de suivre tous les problèmes et pannes en adressant une réclamation aux responsables via l'application téléphonique ou le site internet.</p>
+      <p className="text-sm-left text-muted">Qui nous sommes, c'est un ensemble de différents services permettant de suivre tous les problèmes et pannes en adressant une réclamation aux responsables via l'application téléphonique ou le site internet.</p>
     </div>
     <div className="col-md-8"> 
         <div className="jumbotron jumbotron-fluid p-0">
