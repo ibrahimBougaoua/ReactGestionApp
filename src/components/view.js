@@ -152,7 +152,7 @@ constructor(props) {
         });
         hasSignaler(localStorage.getItem('id')).then(response => {
             console.log(response.data);
-            if(response.data != null)
+            if(response.data != "")
             {
                 this.setState({
                     hasSn: true
