@@ -105,18 +105,21 @@ return (
 
                   <div className="row">
                     <div className="col-md-6">
+                      
+                    <div className="ml-3">
                     <h2 className="font-weight-bold text-info">Signalisation des problems.</h2>
                     <h2 className="lead font-weight-bold text-info">Informer.</h2>
+                    </div>
 
                     <div className="mt-5">
                     <form method="POST" onSubmit={this.handleSubmit}>
           
           <div className="form-group col-md-12">
-              <input className="form-control form-control-lg" name="search" type="text" onChange={this.handleChangeValue} value={this.state.value} placeholder="Rechercher des problemes par sa nature" aria-label="Rechercher" />          
+              <input className="form-control form-control-lg w-100 text-sm text-muted" name="search" type="text" onChange={this.handleChangeValue} value={this.state.value} placeholder="Rechercher par description,nature,cause" aria-label="Rechercher" />          
           </div>    
           
           <div className="form-group col-md-12">
-        <select name="cate" class="form-control" value={this.state.cate} onChange={this.handleChangeCate}>
+        <select name="cate" class="form-control text-muted" value={this.state.cate} onChange={this.handleChangeCate}>
   <option value="desc">Description</option>
   <option value="nature">Nature</option>
   <option value="cause">Cause</option>
@@ -124,7 +127,7 @@ return (
           </div>
 
           <div className="form-group col-md-6 ml-0">
-              <button className="btn btn-lg btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Chercher</button>
+              <button className="btn btn-outline-info my-lg-0" data-toggle="modal" data-target="#exampleModal" type="submit" onClick={handleSearch}>Chercher</button>
           </div>
     
           </form>
@@ -152,7 +155,7 @@ return (
         
         <div className="col-md-12 mt-0">   
         <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-light">Les dernières Signalisations</div>
+                <div className="card-header border-0 bg-light text-muted"><h4>Les dernières Signalisations</h4></div>
 
                 <div className="card-body">
         <Post link="/view/single/"  author={true} elements={this.state.all}></Post>
@@ -160,9 +163,9 @@ return (
         </div>
         </div>
 
-        <div className="col-md-12 mt-0">  
+        <div className="col-md-12 mt-5">  
         <div className="card border-0 shadow">
-                <div className="card-header border-0 bg-light">Les travaux qui terminé</div>
+                <div className="card-header border-0 bg-light text-muted"><h4>Les travaux qui terminé</h4></div>
 
                 <div className="card-body">
         <Post link="/view/single/"  author={true} elements={this.state.allEnding}></Post>
