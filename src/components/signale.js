@@ -195,7 +195,7 @@ constructor(props) {
             dataSignale: response.data
           });
           this.setState({
-            desc: this.state.dataSignale['desc']
+            desc: response.data.desc
           });
           this.setState({
             localisation: this.state.dataSignale['localisation']

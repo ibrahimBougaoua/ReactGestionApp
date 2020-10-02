@@ -68,14 +68,20 @@ export default class Interventions extends Component {
 
       componentDidMount = () => {
         all_signalisations().then(response => {
+          if(response.data.data != null)
+          {
             this.setState({
-                select_signalisation: response.data.data
+              select_signalisation: response.data.data
             });
+          }
         });
         all_interventions().then(response => {
+          if(response.data.data != null)
+          {
             this.setState({
                 all: response.data
             });
+          }
         });
       }
 
