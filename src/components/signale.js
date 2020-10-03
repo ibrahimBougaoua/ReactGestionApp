@@ -126,12 +126,10 @@ function deleteMembre(chef_id,signalisation_id)
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
-
+    window.location.reload();
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
-
-  window.location.reload();
 }
 
 
@@ -252,12 +250,12 @@ const delete_signalisation = () => {
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
-
+    window.location.replace("/signalisations");
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
 
-  window.location.replace("/signalisations");
+  
 }
 
 

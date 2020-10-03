@@ -23,14 +23,14 @@ async function all_signalisations() {
     }
 }
 
-async function getSignalisation(id) {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation/' + id)
-      //console.log(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+async function signalisation(id) {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/auth/signalisation/' + id);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function all_chef() {
@@ -58,11 +58,57 @@ async function evaluer(intervention_id) {
     }
 }
 
+function delete_intervention(id,signalisation_id)
+{
+  axios.delete('http://127.0.0.1:8000/api/auth/intervention/' + id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+
+  axios.delete('http://127.0.0.1:8000/api/auth/evaluer/' + id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+  
+
+  axios.put('http://127.0.0.1:8000/api/auth/signalisation/' + signalisation_id, {
+    edit    : 0
+  }).then(function (response) {
+    // setter
+    //localStorage.setItem('token', response.data.access_token)
+    //localStorage.setItem('id', response.data.user.id)
+    //localStorage.setItem('name', response.data.user.name)
+    //localStorage.setItem('email', response.data.user.email)
+    //localStorage.setItem('role', response.data.user.role)
+    // route for profile
+    console.log(response)
+  }).catch(function (error) {
+      console.log(error);
+  });
+
+
+  window.location.replace("/interventions");
+}
+
 export default class Intervention extends Component {
 
 constructor(props) {
     super(props);    
-    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',name: '',chef_id: '',nature: '',dataIntervention: [],select_signalisation: [],all: [],evaluers: [],chefs_ids: [],allChef: [],hasEvaluer: false};
+    this.state = {signalisation_id: '',price: '',etat_avancement: '',date_debut: '',date_fin: '',name: '',chef_id: '',nature: '',dataIntervention: [],select_signalisation: [],all: [],signalisation: [],evaluers: [],chefs_ids: [],allChef: [],hasEvaluer: false};
     
     this.handleChangeSignalisation_id = this.handleChangeSignalisation_id.bind(this);
     this.handleChangePrice = this.handleChangePrice.bind(this);
@@ -125,10 +171,13 @@ constructor(props) {
             this.setState({
               date_fin: this.state.dataIntervention['date_fin']
             });
-            getSignalisation(this.state.dataIntervention['signalisation_id']).then(response => {
+            signalisation(this.state.dataIntervention['signalisation_id']).then(response => {
               this.setState({
-                nature: response.data['nature']
-              })
+                signalisation: response.data.data
+              });
+              this.setState({
+                nature: this.state.signalisation['nature']
+              });
             });
           }
             
@@ -200,51 +249,6 @@ const handleEvaluer  = () => {
     }).catch(function (error) {
         console.log(error);
     });
-}
-
-const delete_intervention = () => {
-  axios.delete('http://127.0.0.1:8000/api/auth/intervention/' + this.props.match.params.id)
-  .then(function (response) {
-    // setter
-    //const token = localStorage.setItem('token', response.data.access_token)
-    //const user = localStorage.setItem('user', response.data.user)
-    // route for profile
-    console.log(response)
-
-  }).catch(function (error) {
-    console.log('ibrahim => ' + error);
-  });
-
-  axios.delete('http://127.0.0.1:8000/api/auth/evaluer/' + this.props.match.params.id)
-  .then(function (response) {
-    // setter
-    //const token = localStorage.setItem('token', response.data.access_token)
-    //const user = localStorage.setItem('user', response.data.user)
-    // route for profile
-    console.log(response)
-
-  }).catch(function (error) {
-    console.log('ibrahim => ' + error);
-  });
-  
-
-  axios.put('http://127.0.0.1:8000/api/auth/signalisation/' +  this.state.signalisation_id, {
-    edit    : 0
-  }).then(function (response) {
-    // setter
-    //localStorage.setItem('token', response.data.access_token)
-    //localStorage.setItem('id', response.data.user.id)
-    //localStorage.setItem('name', response.data.user.name)
-    //localStorage.setItem('email', response.data.user.email)
-    //localStorage.setItem('role', response.data.user.role)
-    // route for profile
-    console.log(response)
-  }).catch(function (error) {
-      console.log(error);
-  });
-
-
-  window.location.replace("/interventions");
 }
 
 const fetch_signalisation = this.state.select_signalisation.map((element) =>
@@ -332,7 +336,7 @@ return (<div className="container mt-5">
       Êtes-vous sûr ? votre intervention sera supprimé !
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-outline-danger" onClick={delete_intervention}>Supprimer</button>
+        <button type="button" className="btn btn-outline-danger" onClick={() => {delete_intervention(this.props.match.params.id,this.state.signalisation_id)}}>Supprimer</button>
         <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>

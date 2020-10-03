@@ -87,12 +87,27 @@ function handleAddMembre(member_id,id)
   });
 }
 
+function deleteMembre(user_id)
+{
+  axios.delete('http://127.0.0.1:8000/api/auth/membre/' + user_id)
+  .then(function (response) {
+    // setter
+    //const token = localStorage.setItem('token', response.data.access_token)
+    //const user = localStorage.setItem('user', response.data.user)
+    // route for profile
+    console.log(response)
+    window.location.reload();
+  }).catch(function (error) {
+    console.log('ibrahim => ' + error);
+  });
+}
+
 export default class Single extends Component {
 
 constructor(props) {
 
     super(props);
-    this.state = {d_f_equipe: '',mail: '',telephone: '',dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],getUserMembreByIds: [],dataUser: [],chef: '',allEquipeMembreById: [],loadingUpdate: false,loadingAddMembre: false,vd: false};
+    this.state = {d_f_equipe: '',mail: '',telephone: '',chef_id: 0,dataEquipe: [],all: [],membresIds: [],membres: [],member_id: 0,allUsers: [],getUserMembreByIds: [],dataUser: [],chef: '',allEquipeMembreById: [],loadingUpdate: false,loadingAddMembre: false,vd: false};
 
     this.handleChanged_f_equipe = this.handleChanged_f_equipe.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -128,11 +143,6 @@ constructor(props) {
 
       componentDidMount =()=>{
         
-        equipeMembreById(this.props.match.params.id).then(response => {
-          this.setState({
-            allEquipeMembreById: response.data
-          });
-        });
         equipe(this.props.match.params.id).then(response => {
           this.setState({
             dataEquipe: response.data
@@ -148,6 +158,14 @@ constructor(props) {
           });
           this.setState({
             name: this.state.dataEquipe.name
+          });
+          this.setState({
+            chef_id: this.state.dataEquipe.chef_id
+          });
+        });
+        equipeMembreById(this.props.match.params.id).then(response => {
+          this.setState({
+            allEquipeMembreById: response.data
           });
         });
         all_equipes().then(response => {
@@ -185,11 +203,12 @@ const delete_equipe = () => {
     //const user = localStorage.setItem('user', response.data.user)
     // route for profile
     console.log(response)
+    window.location.replace("/equipes");
   }).catch(function (error) {
     console.log('ibrahim => ' + error);
   });
   
-  window.location.replace("/equipes");
+  
 }
 
 const all_datas = this.state.allEquipeMembreById.map((element,key) =>
@@ -199,7 +218,29 @@ const all_datas = this.state.allEquipeMembreById.map((element,key) =>
 <td key={key}>{element.telephone}</td>
 <td key={key}>{element.sexe}</td>
 <td key={key}>{element.created_at}</td>
-<td key={key}><Link to={'/user/single/' + element.id} className="btn btn-sm btn-info">Voire plus</Link></td>
+<td key={element['id']}>{<button type="button" className="btn btn-sm btn-danger" data-toggle="modal" data-target={'#' + element['id']}>Supprimer</button>}
+
+<div className="modal fade" id={element['id']} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalCenterTitle">Supprimer cette membre</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+          Êtes-vous sûr ? votre membre sera supprimé !          
+          </div>
+          <div className="modal-footer">
+        <button type="button" className="btn btn-danger" onClick={() => {deleteMembre(element['id'])}}>Supprimer</button>
+            <button type="button" className="btn btn-outline-info" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+  </td>
 </tr>
 );
 
@@ -338,10 +379,10 @@ return (<div className="container mt-5">
     <tr className="border-top-0">
       <th scope="col">Nom</th>
       <th scope="col">E-mail</th>
-      <th scope="col">Teéléphone</th>
+      <th scope="col">Téléphone</th>
       <th scope="col">Sexe</th>
-      <th scope="col">Créé à</th>
-      <th scope="col">Voire plus</th>
+      <th scope="col">Créé le</th>
+      <th scope="col">Supprimer</th>
     </tr>
   </thead>
   <tbody>

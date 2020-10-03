@@ -77,11 +77,11 @@ function delete_signalisation(id)
       // route for profile
       console.log(response)
   
+      window.location.replace("/trash");
     }).catch(function (error) {
       console.log('ibrahim => ' + error);
     });
   
-    window.location.replace("/trash");
   }
   
 
@@ -228,7 +228,7 @@ const all_data = this.state.all.map((element) =>
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalCenterTitle">Cette sinialisation sera supprimée {element['id']}</h5>
+            <h5 className="modal-title" id="exampleModalCenterTitle">Cette sinialisation sera supprimée</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

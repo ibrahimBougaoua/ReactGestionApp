@@ -79,7 +79,7 @@ export default class Interventions extends Component {
           if(response.data.data != null)
           {
             this.setState({
-                all: response.data
+                all: response.data.data
             });
           }
         });
